@@ -1,0 +1,8 @@
+# node
+/package-lock.json
+/node_modules/
+/build/
+
+# IDE files
+/.dir-locals.el
+/manifest.scm
