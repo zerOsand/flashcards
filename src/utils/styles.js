@@ -1,19 +1,25 @@
-export const goldenContainerStyle = {
-    background: '#B7B78A',
-    margin: '0.2vw',
-    padding: '0.5vw',
-}
-
-export const grayContainerStyle = {
-    background: '#DDDDDD',
-    margin: '0.2vw',
-    padding: '0.2vw',
-}
-
-export const darkGrayContainerStyle = {
-    background: '#CCCCCC',
-}
-
 export const pageStyle = {
     padding: '1vw',
 }
+
+export const contentArea = {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '20px',
+    border: '2px solid #333',
+    minHeight: '100vh',
+    overflowY: 'auto',
+}
+
+export const searchBarStyle = {
+    display: 'flex',
+    borderColor: '#333',
+};
+
+export const buttonStyle = {
+    borderRadius: '0',
+    borderColor: '#333',
+    color: '#000',
+    backgroundColor: '#33cc33',
+    font: 'bold 10pt Arial, Helvetica, sans-serif',
+};
