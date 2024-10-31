@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { contentArea, searchBarStyle, buttonStyle } from '../utils/styles'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
+import CreatePopup from '../components/Popup'
 
 const Flashcard = (flashcard, active) => {
     /* TODO */
@@ -27,10 +28,14 @@ const flashcards = [
 
 const Home = () => {
     const [activeIndex, setActiveIndex] = useState(null)
+    const [showPopup, setShowPopup] = useState(false);
 
     const handleCreateClick = () => {
-        /* TODO 13 */
-        console.log("Create!");
+        setShowPopup(true); // Show the popup when the button is clicked
+    };
+
+    const handleClosePopup = () => {
+        setShowPopup(false); // Hide the popup when the close button is clicked
     };
 
     const handleCardClick = (index) => {
@@ -53,6 +58,7 @@ const Home = () => {
           </h2>
         </div>
           </div>
+			{showPopup && <CreatePopup onClose={handleClosePopup} />}
       </div>
     )
 }
