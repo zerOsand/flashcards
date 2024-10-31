@@ -37,17 +37,3 @@
     transform: rotate(360deg);
   }
 }
-
-.container {
-    display: flex;
-    height: 100vh;
-}
-
-.left {
-    flex: 0 0 40%;
-    overflow-y: auto;
-}
-
-.right {
-    flex: 0 0 60%;
-}

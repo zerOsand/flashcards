@@ -6,7 +6,7 @@ export const contentArea = {
     display: 'flex',
     flexDirection: 'column',
     margin: '20px',
-    marginTop: '80px',
+    marginTop: '20px',
     borderStyle: 'solid',
     borderRadius: '1px',
     borderColor: '#333',

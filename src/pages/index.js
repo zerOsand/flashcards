@@ -1,4 +1,4 @@
-import { useState } from 'react' // Removed useEffect bc it's not used
+import { useState } from 'react'
 import { contentContainer, contentArea, searchBarStyle, buttonStyle, container, leftContainer, rightContainer } from '../utils/styles'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
