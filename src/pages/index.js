@@ -19,6 +19,10 @@ const flashcards = [
     { value: 'thingol', text: 'king of doriath', tags: ['elf']},
     { value: 'luthien', text: 'princess of doriath', tags: ['elf']},
     { value: 'huan', text: 'hound of valinor', tags: ['dog']},
+    { value: '1', text: 'empty-handed', tags: ['human', 'outlaw', 'mortal']},
+    { value: '2', text: 'king of doriath', tags: ['elf']},
+    { value: '3', text: 'princess of doriath', tags: ['elf']},
+    { value: '4', text: 'hound of valinor', tags: ['dog']},
 ];
 
 const Home = () => {
