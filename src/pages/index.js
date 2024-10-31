@@ -3,11 +3,6 @@ import { contentArea, searchBarStyle, buttonStyle } from '../utils/styles'
 import Searchbar from '../components/Searchbar'
 import CreatePopup from '../components/Popup'
 
-// const handleCreateClick = () => {
-//     /* TODO 13 */
-//     console.log("Create!");
-// };
-
 const Home = () => {
 
     const [showPopup, setShowPopup] = useState(false);
