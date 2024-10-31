@@ -6,14 +6,20 @@ export const contentArea = {
     display: 'flex',
     flexDirection: 'column',
     margin: '20px',
+    marginTop: '80px',
     borderStyle: 'solid',
     borderRadius: '1px',
     borderColor: '#333',
-	// this number is not quite right (it always seems to be different depending on the size of my browser window
-	// worse, it prevents the scrollbar from allowing scrolling all the way to the bottom
-    // height: '89vh', 
     overflow: 'hidden'
-}
+};
+
+export const contentContainer = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 'calc(100vh - 60px)',
+    padding: 0,
+    overflow: 'hidden',
+};
 
 export const searchBarStyle = {
     display: 'flex',
@@ -35,4 +41,22 @@ export const cardPreviewStyle = {
     padding: '6vw',
     margin: '4vw',
     textAlign: 'center'
-}
+};
+
+export const container = {
+    display: 'flex',
+    flex: '1',
+    overflow: 'hidden',
+};
+
+export const leftContainer = {
+    flex: '1',
+    overflow: 'auto',
+    padding: '10px',
+};
+
+export const rightContainer = {
+    flex: '1',
+    backgroundColor: '#f8f8f8',
+    padding: '10px',
+};

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { contentArea, searchBarStyle, buttonStyle } from '../utils/styles'
+import { useState } from 'react' // Removed useEffect bc it's not used
+import { contentContainer, contentArea, searchBarStyle, buttonStyle, container, leftContainer, rightContainer } from '../utils/styles'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
 import CreatePopup from '../components/Popup'
@@ -43,23 +43,23 @@ const Home = () => {
     }
 
     return (
-        <div style={contentArea}>
-        <div style={searchBarStyle}>
-          <Searchbar />
-          <button onClick={handleCreateClick} style={buttonStyle}>Create
-          </button>
-        </div>
-          <div className="container">
-        <div className="left">
-          <ClickList active={activeIndex} list={flashcards} item={Flashcard} event={handleCardClick} />
-        </div>
-        <div className="right">
-          <h2>This displays a close-up view of a single flashcard.
-          </h2>
-        </div>
-          </div>
-			{showPopup && <CreatePopup onClose={handleClosePopup} />}
-      </div>
+		<div style={contentContainer}>
+			<div style={contentArea}>
+				<div style={searchBarStyle}>
+					<Searchbar />
+					<button onClick={handleCreateClick} style={buttonStyle}>Create</button>
+				</div>
+				<div style={container}>
+					<div style={leftContainer}>
+						<ClickList active={activeIndex} list={flashcards} item={Flashcard} event={handleCardClick} />
+					</div>
+					<div style={rightContainer}>
+						<h2>This displays a close-up view of a single flashcard.</h2>
+					</div>
+				</div>
+				{showPopup && <CreatePopup onClose={handleClosePopup} />}
+			</div>
+		</div>
     )
 }
 

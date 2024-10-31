@@ -6,15 +6,15 @@ import Home from './pages'
 import Tags from './pages/tags'
 
 function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/tags/*' element={<Tags />} />
-      </Routes>
-    </Router>
-  )
+	return (
+		<Router>
+			<Navbar />
+			<Routes>
+				<Route path='/' element={<Home />} />
+				<Route path='/tags/*' element={<Tags />} />
+			</Routes>
+		</Router>
+	)
 }
 
 export default App

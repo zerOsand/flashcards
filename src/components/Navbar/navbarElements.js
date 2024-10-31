@@ -2,13 +2,13 @@ import { NavLink as Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Nav = styled.nav`
-  height: 2vw;
-  font-size: 2vw;
+  height: 60px;
+  font-size: 2vw; 
   font-family: sans-serif;
   background: #990606;
   display: flex;
   justify-content: space-between;
-  padding: 2vw;
+  padding: 0 20px;
 `
 
 export const NavMenu = styled.div`
