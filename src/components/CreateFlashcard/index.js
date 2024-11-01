@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { styles } from './popupElements'
+import { styles } from './createFlashcardElements'
+import ConfirmationPopup from '../Confirmation';
+import { handleOpenPopup, handleClosePopup } from '../HandlePopups'
 
-function CreatePopup({ onClose, addFlashcard }) {
+function CreateFlashcard({ onClose, addFlashcard }) {
 
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
+
+    const [showCancel, setShowCancel] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const handleSave = () => {
         if (front.trim() && back.trim()) {
@@ -39,12 +44,14 @@ function CreatePopup({ onClose, addFlashcard }) {
                 </div>
 
                 <div style={styles.buttonContainer}> 
-                    <button onClick={onClose} /* TODO #15; confirm cancel */ style={styles.cancelButton}>Cancel</button>
-                    <button onClick={handleSave} style={styles.saveButton}>Save</button>
+                    <button onClick={() => handleOpenPopup(setShowCancel)} style={styles.cancelButton}>Cancel</button>
+                    <button onClick={() => handleOpenPopup(setShowConfirm)} style={styles.saveButton}>Save</button>
                 </div>
+                {showCancel && <ConfirmationPopup message="Do you want to cancel?" onConfirm={() => onClose()} onClose={() => handleClosePopup(setShowCancel)}/>}
+                {showConfirm && <ConfirmationPopup message="Would you like to save your changes?" onConfirm={() => handleSave()} onClose={() => handleClosePopup(setShowConfirm)}/>}
             </div>
         </div>
     );
 };
 
-export default CreatePopup;
+export default CreateFlashcard;

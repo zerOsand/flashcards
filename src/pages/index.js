@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { cardPaneStyle, previewStyles, cardTextStyle, cardDimmedTextStyle, contentContainer, contentArea, searchBarStyle, buttonStyle, container, leftContainer, rightContainer } from '../utils/styles'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
-import CreatePopup from '../components/Popup'
+import CreateFlashcardPopup from '../components/CreateFlashcard'
+import { handleOpenPopup, handleClosePopup } from '../components/HandlePopups'
 
 const Flashcard = (flashcard, active) => {
 	return (
@@ -53,14 +54,6 @@ const Home = () => {
 		setFlashcards((prevFlashcards) => [...prevFlashcards, newFlashcard]);
 	};
 
-	const handleCreateClick = () => {
-		setShowPopup(true);
-	};
-
-	const handleClosePopup = () => {
-		setShowPopup(false);
-	};
-
 	const handleCardClick = (index) => {
 		setFlipped(false)
 		setActiveIndex(index)
@@ -87,7 +80,7 @@ const Home = () => {
 			<div style={contentArea}>
 				<div style={searchBarStyle}>
 					<Searchbar />
-					<button onClick={handleCreateClick} style={buttonStyle}>Create</button>
+					<button onClick={() => handleOpenPopup(setShowPopup)} style={buttonStyle}>Create</button>
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>
@@ -97,7 +90,7 @@ const Home = () => {
 						{previewPane()}
 					</div>
 				</div>
-				{showPopup && <CreatePopup onClose={handleClosePopup} addFlashcard={addFlashcard}/>}
+				{showPopup && <CreateFlashcardPopup onClose={() => handleClosePopup(setShowPopup)} addFlashcard={addFlashcard}/>}
 			</div>
 		</div>
 	)
