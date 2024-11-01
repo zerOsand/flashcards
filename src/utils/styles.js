@@ -10,7 +10,7 @@ export const contentArea = {
 	borderStyle: 'solid',
 	borderRadius: '1px',
 	borderColor: '#333',
-	overflow: 'hidden'
+	overflow: 'hidden',
 };
 
 export const contentContainer = {
@@ -33,28 +33,6 @@ export const buttonStyle = {
 	backgroundColor: '#33cc33',
 	font: 'bold 10pt Arial, Helvetica, sans-serif',
 };
-
-export const cardPreviewStyle = {
-	borderStyle: 'solid',
-	borderRadius: '6px',
-	borderColor: '#000',
-	padding: '6vw',
-	margin: '4vw',
-	textAlign: 'center',
-};
-
-export const cardPaneStyle = {
-	borderStyle: 'solid',
-	borderRadius: '6px',
-	borderColor: '#000',
-	height: '60%',
-	width: '80%',
-	display: 'flex',
-	textAlign: 'center',
-	alignItems: 'center',
-	justifyContent: 'center',
-	overflowY: 'auto',
-}
 
 export const cardTextStyle = {
 	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
@@ -87,4 +65,45 @@ export const rightContainer = {
 	backgroundColor: '#f8f8f8',
 	justifyContent: 'center',
 	alignItems: 'center',
+	overflow: 'auto',
+};
+
+export const previewStyles = {
+	container: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-between',
+	},
+	item: {
+		flex: '0 0 calc(100% / 2 - 15px)', // items/spacing per row
+		marginBottom: '15px',
+		borderStyle: 'solid',
+		borderRadius: '6px',
+		borderColor: '#000',
+		textAlign: 'center',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: '100px',
+		overflow: 'hidden',
+		whiteSpace: 'nowrap',
+		textOverflow: 'ellipsis',
+	},
+};
+
+export const cardPaneStyle = {
+	borderStyle: 'solid',
+	borderRadius: '6px',
+	borderColor: '#000',
+	height: '60%',
+	width: '80%',
+	display: 'flex',
+	textAlign: 'center',
+	alignItems: 'center',
+	justifyContent: 'center',
+	cursor: 'pointer',
+	overflow: 'hidden',
+	wordWrap: 'break-word',
+	overflowWrap: 'break-word',
+	hyphens: 'auto',
 };
