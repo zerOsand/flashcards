@@ -76,43 +76,6 @@ const Home = () => {
 		)
 	};
 
-	const previewStyles = {
-		container: {
-			display: 'flex',
-			flexWrap: 'wrap',
-			justifyContent: 'space-between',
-		},
-		item: {
-			flex: '0 0 calc(100% / 2 - 15px)', // items/spacing per row
-			marginBottom: '15px',
-			borderStyle: 'solid',
-			borderRadius: '6px',
-			borderColor: '#000',
-			textAlign: 'center',
-			display: 'flex',
-			justifyContent: 'center',
-			alignItems: 'center',
-			height: '100px',
-			overflow: 'hidden',
-			whiteSpace: 'nowrap',
-			textOverflow: 'ellipsis',
-		},
-	}
-
-	const cardPaneStyle = {
-		borderStyle: 'solid',
-		borderRadius: '6px',
-		borderColor: '#000',
-		height: '60%',
-		width: '80%',
-		display: 'flex',
-		textAlign: 'center',
-		alignItems: 'center',
-		justifyContent: 'center',
-		overflow: 'auto',
-		cursor: 'pointer'
-	}
-
 	return (
 		<div style={contentContainer}>
 			<div style={contentArea}>
@@ -133,6 +96,46 @@ const Home = () => {
 		</div>
 	)
 }
+
+const previewStyles = {
+	container: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-between',
+	},
+	item: {
+		flex: '0 0 calc(100% / 2 - 15px)', // items/spacing per row
+		marginBottom: '15px',
+		borderStyle: 'solid',
+		borderRadius: '6px',
+		borderColor: '#000',
+		textAlign: 'center',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: '100px',
+		overflow: 'hidden',
+		whiteSpace: 'nowrap',
+		textOverflow: 'ellipsis',
+	},
+};
+
+const cardPaneStyle = {
+	borderStyle: 'solid',
+	borderRadius: '6px',
+	borderColor: '#000',
+	height: '60%',
+	width: '80%',
+	display: 'flex',
+	textAlign: 'center',
+	alignItems: 'center',
+	justifyContent: 'center',
+	cursor: 'pointer',
+	overflow: 'hidden',
+	wordWrap: 'break-word',
+	overflowWrap: 'break-word',
+	hyphens: 'auto',
+};
 
 
 export default Home

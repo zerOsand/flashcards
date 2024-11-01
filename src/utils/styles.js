@@ -65,4 +65,5 @@ export const rightContainer = {
 	backgroundColor: '#f8f8f8',
 	justifyContent: 'center',
 	alignItems: 'center',
+	overflow: 'auto',
 };
