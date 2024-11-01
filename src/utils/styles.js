@@ -30,22 +30,9 @@ export const buttonStyle = {
 	borderRadius: '0',
 	borderColor: '#333',
 	color: '#000',
-	backgroundColor: '#33cc33',
+	backgroundColor: '#b71c1c',
 	font: 'bold 10pt Arial, Helvetica, sans-serif',
 };
-
-export const cardTextStyle = {
-	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
-	lineHeight: '1.2',
-	margin: 'auto',
-}
-
-export const cardDimmedTextStyle = {
-	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
-	lineHeight: '1.2',
-	color: 'lightgrey',
-	margin: 'auto',
-}
 
 export const container = {
 	display: 'flex',
@@ -54,13 +41,13 @@ export const container = {
 };
 
 export const leftContainer = {
-	flex: '1',
+	flex: '1 0 40%',
 	overflow: 'auto',
 	padding: '10px',
 };
 
 export const rightContainer = {
-	flex: '1',
+	flex: '1 0 60%',
 	display: 'flex',
 	backgroundColor: '#f8f8f8',
 	justifyContent: 'center',
@@ -75,36 +62,63 @@ export const previewStyles = {
 		justifyContent: 'space-between',
 	},
 	item: {
-		flex: '0 0 calc(100% / 2 - 15px)', // items/spacing per row
+		flex: '0 0 calc(100% / 2 - 10px)', // items/spacing per row
 		marginBottom: '15px',
 		borderStyle: 'solid',
 		borderRadius: '6px',
 		borderColor: '#000',
+		background: '#e0e0e0',
+		color: '#424242',
 		textAlign: 'center',
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: '100px',
+		height: '75px',
 		overflow: 'hidden',
 		whiteSpace: 'nowrap',
 		textOverflow: 'ellipsis',
 	},
+	active_item: {
+		borderColor: '#b71c1c',
+		background: '#ef9a9a',
+		color: '#000',
+	},
 };
 
 export const cardPaneStyle = {
-	borderStyle: 'solid',
-	borderRadius: '6px',
-	borderColor: '#000',
-	height: '60%',
-	width: '80%',
-	display: 'flex',
-	textAlign: 'center',
-	alignItems: 'center',
-	justifyContent: 'center',
-	cursor: 'pointer',
-	overflowY: 'auto',
-	overflowX: 'hidden',
-	wordWrap: 'break-word',
-	overflowWrap: 'break-word',
-	hyphens: 'auto',
+	front: {
+		borderStyle: 'solid',
+		borderRadius: '6px',
+		borderColor: '#000',
+		background: '#fff',
+		color: '#000',
+		height: '60%',
+		width: '80%',
+		display: 'flex',
+		textAlign: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
+		cursor: 'pointer',
+		overflowY: 'auto',
+		overflowX: 'hidden',
+		wordWrap: 'break-word',
+		overflowWrap: 'break-word',
+		hyphens: 'auto',
+	},
+	back: {
+		borderColor: '#754242',
+		background: '#eeeeee',
+	}
 };
+
+export const textListStyle = {
+	fontSize: 'clamp(1rem, 5vw, 1.2rem)',
+	lineHeight: '1.2',
+}
+
+export const textPreviewStyle = {
+	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
+	lineHeight: '1.2',
+	margin: 'auto',
+
+}
