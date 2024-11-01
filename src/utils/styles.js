@@ -65,7 +65,8 @@ export const previewStyles = {
 		flex: '0 0 calc(100% / 2 - 10px)', // items/spacing per row
 		marginBottom: '15px',
 		borderStyle: 'solid',
-		borderRadius: '6px',
+		borderRadius: '4px',
+		borderWidth: 'thin',
 		borderColor: '#000',
 		background: '#e0e0e0',
 		color: '#424242',
@@ -90,6 +91,7 @@ export const cardPaneStyle = {
 		borderStyle: 'solid',
 		borderRadius: '6px',
 		borderColor: '#000',
+		borderWidth: 'medium',
 		background: '#fff',
 		color: '#000',
 		height: '60%',
@@ -106,8 +108,7 @@ export const cardPaneStyle = {
 		hyphens: 'auto',
 	},
 	back: {
-		borderColor: '#754242',
-		background: '#eeeeee',
+		background: '#ffdcdc',
 	}
 };
 
