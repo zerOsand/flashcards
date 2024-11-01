@@ -10,7 +10,7 @@ export const contentArea = {
 	borderStyle: 'solid',
 	borderRadius: '1px',
 	borderColor: '#333',
-	overflow: 'hidden'
+	overflow: 'hidden',
 };
 
 export const contentContainer = {
@@ -33,28 +33,6 @@ export const buttonStyle = {
 	backgroundColor: '#33cc33',
 	font: 'bold 10pt Arial, Helvetica, sans-serif',
 };
-
-export const cardPreviewStyle = {
-	borderStyle: 'solid',
-	borderRadius: '6px',
-	borderColor: '#000',
-	padding: '6vw',
-	margin: '4vw',
-	textAlign: 'center',
-};
-
-export const cardPaneStyle = {
-	borderStyle: 'solid',
-	borderRadius: '6px',
-	borderColor: '#000',
-	height: '60%',
-	width: '80%',
-	display: 'flex',
-	textAlign: 'center',
-	alignItems: 'center',
-	justifyContent: 'center',
-	overflowY: 'auto',
-}
 
 export const cardTextStyle = {
 	fontSize: 'clamp(1rem, 5vw, 1.5rem)',

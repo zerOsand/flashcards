@@ -1,23 +1,32 @@
-import { cardPreviewStyle } from '../../utils/styles'
-
 const Box = (value) => {
-    return <div>{value}</div>
+	return <div>{value}</div>
+}
+
+const defaultStyle = {
+	container: {
+	},
+	item: {
+	},
 }
 
 const ClickList = ({ active, list, item, event, styles }) => {
-    return list.map((value, index) => {
-        let style = styles ? (Array.isArray(styles) ? styles[index] : styles) : cardPreviewStyle
-        style = JSON.parse(JSON.stringify(style));
-        style.cursor = 'pointer'
-        return (
-            <div key={index} style={style} onClick={(e) => {
-                e.stopPropagation()
-                event(index);
-            }}>
-                {item ? item(value, active === index) : Box(value)}
-            </div>
-        )
-    })
+	styles = styles || defaultStyle
+	return (
+			<div style={styles.container}>
+				{list.map((value, index) => {
+					styles = JSON.parse(JSON.stringify(styles));
+					styles.item.cursor = 'pointer'
+					return (
+						<div key={index} style={styles.item} onClick={(e) => {
+							e.stopPropagation()
+							event(index);
+						}}>
+							{item ? item(value, active === index) : Box(value)}
+						</div>
+					);
+				})}
+		</div>
+	);
 }
 
 export default ClickList
