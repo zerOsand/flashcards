@@ -14,7 +14,7 @@ const Flashcard = (flashcard, active) => {
 };
 
 /* TODO */
-const flashcards = [
+const initialFlashcards = [
 	{ value: 'beren', text: 'empty-handed', tags: ['human', 'outlaw', 'mortal']},
 	{ value: 'thingol', text: 'king of doriath', tags: ['elf']},
 	{ value: 'luthien', text: 'princess of doriath', tags: ['elf']},
@@ -49,6 +49,12 @@ const Home = () => {
 	const [activeIndex, setActiveIndex] = useState(undefined)
 	const [flipped, setFlipped] = useState(false)
 	const [showPopup, setShowPopup] = useState(false);
+
+	const [flashcards, setFlashcards] = useState(initialFlashcards);
+
+	const addFlashcard = (newFlashcard) => {
+		setFlashcards((prevFlashcards) => [...prevFlashcards, newFlashcard]);
+	};
 
 	const handleCreateClick = () => {
 		setShowPopup(true);
@@ -95,7 +101,7 @@ const Home = () => {
 						{previewPane()}
 					</div>
 				</div>
-				{showPopup && <CreatePopup onClose={handleClosePopup} />}
+				{showPopup && <CreatePopup onClose={handleClosePopup} addFlashcard={addFlashcard}/>}
 			</div>
 		</div>
 	)
