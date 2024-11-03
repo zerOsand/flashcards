@@ -76,13 +76,12 @@ export const previewStyles = {
 		alignItems: 'center',
 		height: '75px',
 		overflow: 'hidden',
-		whiteSpace: 'nowrap',
-		textOverflow: 'ellipsis',
+		boxSizing: 'border-box',
 	},
 	active_item: {
-		borderColor: '#b71c1c',
 		background: '#ef9a9a',
 		color: '#000',
+		borderWidth: 'medium',
 	},
 };
 
@@ -108,18 +107,19 @@ export const cardPaneStyle = {
 		hyphens: 'auto',
 	},
 	back: {
-		background: '#ffdcdc',
+		background: '#f0f0f0',
 	}
 };
 
 export const textListStyle = {
 	fontSize: 'clamp(1rem, 5vw, 1.2rem)',
 	lineHeight: '1.2',
+	overflow: 'hidden',
 }
 
 export const textPreviewStyle = {
 	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
 	lineHeight: '1.2',
 	margin: 'auto',
-
+	whiteSpace: 'pre-wrap',
 }
