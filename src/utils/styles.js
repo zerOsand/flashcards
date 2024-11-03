@@ -22,16 +22,9 @@ export const contentContainer = {
 };
 
 export const searchBarStyle = {
+	margin: '3px',
 	display: 'flex',
 	borderColor: '#333',
-};
-
-export const buttonStyle = {
-	borderRadius: '0',
-	borderColor: '#333',
-	color: '#000',
-	backgroundColor: '#b71c1c',
-	font: 'bold 10pt Arial, Helvetica, sans-serif',
 };
 
 export const container = {

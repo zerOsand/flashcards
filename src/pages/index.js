@@ -3,6 +3,7 @@ import { cardPaneStyle, previewStyles, textListStyle, textPreviewStyle, contentC
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
 import CreatePopup from '../components/Popup'
+import CustomButton from '../components/CustomButton'
 
 const Flashcard = (flashcard, active) => {
 	return (
@@ -82,8 +83,9 @@ const Home = () => {
 		<div style={contentContainer}>
 			<div style={contentArea}>
 				<div style={searchBarStyle}>
-					<Searchbar />
-					<button onClick={handleCreateClick} style={buttonStyle}>Create</button>
+				<Searchbar />
+			<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
+					<CustomButton text="Create" event={handleCreateClick} stylesOverride={{backgroundColor: '#49a658', marginLeft: '3px'}} />
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>
