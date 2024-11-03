@@ -30,7 +30,9 @@ Yield up from the mound
 the sharp sword
 that which dwarves forged
 for Svafrlami.`, tags: ['poetry']},
-	{ value: `True or false:
+	{ value: `True
+or
+false:
 blah blah blah blah?
 blah blah?`, text: 'multiline false', tags: ['elf']},
 	{ value: '4', text: 'hound of valinor', tags: ['dog']},
