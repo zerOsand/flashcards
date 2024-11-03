@@ -90,7 +90,7 @@ const Home = () => {
 			<div style={contentArea}>
 				<div style={searchBarStyle}>
 				<Searchbar />
-			<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
+					<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
 					<CustomButton text="Create" event={handleCreateClick} stylesOverride={{backgroundColor: '#49a658', marginLeft: '3px'}} />
 				</div>
 				<div style={container}>

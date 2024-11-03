@@ -8,8 +8,7 @@ export const contentArea = {
 	margin: '20px',
 	marginTop: '20px',
 	borderStyle: 'solid',
-	borderRadius: '1px',
-	borderColor: '#333',
+	borderRadius: '4px',
 	overflow: 'hidden',
 };
 
@@ -24,13 +23,10 @@ export const contentContainer = {
 export const searchBarStyle = {
 	margin: '3px',
 	display: 'flex',
-	borderColor: '#333',
 };
 
 export const container = {
 	display: 'flex',
-	flex: '1',
-	overflow: 'hidden',
 };
 
 export const leftContainer = {
@@ -45,7 +41,6 @@ export const rightContainer = {
 	backgroundColor: '#f8f8f8',
 	justifyContent: 'center',
 	alignItems: 'center',
-	overflow: 'auto',
 };
 
 export const previewStyles = {
@@ -55,14 +50,12 @@ export const previewStyles = {
 		justifyContent: 'space-between',
 	},
 	item: {
-		flex: '0 0 calc(100% / 2 - 10px)', // items/spacing per row
+		flex: '0 0 calc(100% / 2 - 5px)', // items/spacing per row
 		marginBottom: '15px',
 		borderStyle: 'solid',
 		borderRadius: '4px',
 		borderWidth: 'thin',
-		borderColor: '#000',
 		background: '#e0e0e0',
-		color: '#424242',
 		textAlign: 'center',
 		display: 'flex',
 		justifyContent: 'center',
@@ -82,10 +75,7 @@ export const cardPaneStyle = {
 	front: {
 		borderStyle: 'solid',
 		borderRadius: '6px',
-		borderColor: '#000',
-		borderWidth: 'medium',
 		background: '#fff',
-		color: '#000',
 		height: '60%',
 		width: '80%',
 		display: 'flex',
