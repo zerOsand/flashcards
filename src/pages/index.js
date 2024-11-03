@@ -1,13 +1,14 @@
 import { useState } from 'react'
-import { cardPaneStyle, previewStyles, cardTextStyle, cardDimmedTextStyle, contentContainer, contentArea, searchBarStyle, buttonStyle, container, leftContainer, rightContainer } from '../utils/styles'
+import { cardPaneStyle, previewStyles, textListStyle, textPreviewStyle, contentContainer, contentArea, searchBarStyle, buttonStyle, container, leftContainer, rightContainer } from '../utils/styles'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
 import CreatePopup from '../components/Popup'
+import CustomButton from '../components/CustomButton'
 
 const Flashcard = (flashcard, active) => {
 	return (
 		<div>
-			<div style={cardTextStyle}>{flashcard.value}</div>
+			<div style={textListStyle}>{flashcard.value}</div>
 		</div>
 	)
 };
@@ -30,7 +31,9 @@ Yield up from the mound
 the sharp sword
 that which dwarves forged
 for Svafrlami.`, tags: ['poetry']},
-	{ value: `True or false:
+	{ value: `True
+or
+false:
 blah blah blah blah?
 blah blah?`, text: 'multiline false', tags: ['elf']},
 	{ value: '4', text: 'hound of valinor', tags: ['dog']},
@@ -68,14 +71,14 @@ const Home = () => {
 
 	const previewPane = () => {
 		return (
-				<div style={cardPaneStyle} onClick={(e) => {
+				<div style={{ ...cardPaneStyle.front, ...(flipped ? cardPaneStyle.back : {}) }} onClick={(e) => {
 					e.stopPropagation()
 					setFlipped(!flipped)
 				}}>
 					{(activeIndex === undefined) ?
-					<div style={cardDimmedTextStyle}>
+					 <div style={{ ...textPreviewStyle, ...{color: 'lightgrey'}}}>
 							Select a card for preview...
-					</div> : <div style={cardTextStyle}>
+					 </div> : <div style={textPreviewStyle}>
 					 {flipped ? flashcards[activeIndex].text : flashcards[activeIndex].value}
 					</div>}
 				</div>
@@ -86,8 +89,9 @@ const Home = () => {
 		<div style={contentContainer}>
 			<div style={contentArea}>
 				<div style={searchBarStyle}>
-					<Searchbar />
-					<button onClick={handleCreateClick} style={buttonStyle}>Create</button>
+				<Searchbar />
+					<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
+					<CustomButton text="Create" event={handleCreateClick} stylesOverride={{backgroundColor: '#49a658', marginLeft: '3px'}} />
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>

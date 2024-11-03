@@ -55,27 +55,5 @@ export const styles = {
             justifyContent: 'flex-end',
             padding: '10px',
         },
-    
-        // design for save button
-        saveButton: {
-            backgroundColor: '#49a658', // green
-            color: 'white',
-            padding: '10px 20px',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            marginLeft: '10px',
-        },
-    
-        // design for cancel button (maybe make it a lighter red? idk up2u guys)
-        cancelButton: {
-            backgroundColor: '#b53550', // red
-            color: 'white',
-            padding: '10px 20px',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            marginLeft: '10px',
-        },
     };
     

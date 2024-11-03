@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styles } from './popupElements'
+import CustomButton from '../CustomButton'
 
 function CreatePopup({ onClose, addFlashcard }) {
 
@@ -38,10 +39,11 @@ function CreatePopup({ onClose, addFlashcard }) {
                         onChange={(e) => setBack(e.target.value)}/>
                 </div>
 
-                <div style={styles.buttonContainer}> 
-                    <button onClick={onClose} /* TODO #15; confirm cancel */ style={styles.cancelButton}>Cancel</button>
-                    <button onClick={handleSave} style={styles.saveButton}>Save</button>
-                </div>
+				<div style={styles.buttonContainer}>
+					<CustomButton text="Cancel" event={onClose} /* TODO #15; confirm cancel */ stylesOverride={{backgroundColor: '#b53550'}}/>
+					<CustomButton text="Save" event={handleSave} stylesOverride={{backgroundColor: '#49a658'}}/>
+				</div>
+
             </div>
         </div>
     );

@@ -8,8 +8,7 @@ export const contentArea = {
 	margin: '20px',
 	marginTop: '20px',
 	borderStyle: 'solid',
-	borderRadius: '1px',
-	borderColor: '#333',
+	borderRadius: '4px',
 	overflow: 'hidden',
 };
 
@@ -22,50 +21,26 @@ export const contentContainer = {
 };
 
 export const searchBarStyle = {
+	margin: '3px',
 	display: 'flex',
-	borderColor: '#333',
 };
-
-export const buttonStyle = {
-	borderRadius: '0',
-	borderColor: '#333',
-	color: '#000',
-	backgroundColor: '#33cc33',
-	font: 'bold 10pt Arial, Helvetica, sans-serif',
-};
-
-export const cardTextStyle = {
-	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
-	lineHeight: '1.2',
-	margin: 'auto',
-}
-
-export const cardDimmedTextStyle = {
-	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
-	lineHeight: '1.2',
-	color: 'lightgrey',
-	margin: 'auto',
-}
 
 export const container = {
 	display: 'flex',
-	flex: '1',
-	overflow: 'hidden',
 };
 
 export const leftContainer = {
-	flex: '1',
+	flex: '1 0 40%',
 	overflow: 'auto',
 	padding: '10px',
 };
 
 export const rightContainer = {
-	flex: '1',
+	flex: '1 0 60%',
 	display: 'flex',
 	backgroundColor: '#f8f8f8',
 	justifyContent: 'center',
 	alignItems: 'center',
-	overflow: 'auto',
 };
 
 export const previewStyles = {
@@ -75,36 +50,59 @@ export const previewStyles = {
 		justifyContent: 'space-between',
 	},
 	item: {
-		flex: '0 0 calc(100% / 2 - 15px)', // items/spacing per row
+		flex: '0 0 calc(100% / 2 - 5px)', // items/spacing per row
 		marginBottom: '15px',
 		borderStyle: 'solid',
-		borderRadius: '6px',
-		borderColor: '#000',
+		borderRadius: '4px',
+		borderWidth: 'thin',
+		background: '#e0e0e0',
 		textAlign: 'center',
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: '100px',
+		height: '75px',
 		overflow: 'hidden',
-		whiteSpace: 'nowrap',
-		textOverflow: 'ellipsis',
+		boxSizing: 'border-box',
+	},
+	active_item: {
+		background: '#ef9a9a',
+		color: '#000',
+		borderWidth: 'medium',
 	},
 };
 
 export const cardPaneStyle = {
-	borderStyle: 'solid',
-	borderRadius: '6px',
-	borderColor: '#000',
-	height: '60%',
-	width: '80%',
-	display: 'flex',
-	textAlign: 'center',
-	alignItems: 'center',
-	justifyContent: 'center',
-	cursor: 'pointer',
-	overflowY: 'auto',
-	overflowX: 'hidden',
-	wordWrap: 'break-word',
-	overflowWrap: 'break-word',
-	hyphens: 'auto',
+	front: {
+		borderStyle: 'solid',
+		borderRadius: '6px',
+		background: '#fff',
+		height: '60%',
+		width: '80%',
+		display: 'flex',
+		textAlign: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
+		cursor: 'pointer',
+		overflowY: 'auto',
+		overflowX: 'hidden',
+		wordWrap: 'break-word',
+		overflowWrap: 'break-word',
+		hyphens: 'auto',
+	},
+	back: {
+		background: '#f0f0f0',
+	}
 };
+
+export const textListStyle = {
+	fontSize: 'clamp(1rem, 5vw, 1.2rem)',
+	lineHeight: '1.2',
+	overflow: 'hidden',
+}
+
+export const textPreviewStyle = {
+	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
+	lineHeight: '1.2',
+	margin: 'auto',
+	whiteSpace: 'pre-wrap',
+}
