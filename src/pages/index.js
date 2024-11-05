@@ -69,8 +69,12 @@ const Home = () => {
 		setActiveIndex(index)
 	};
 
+	// const printActiveTags = () {
+	// }
+
 	const previewPane = () => {
 		return (
+			<>
 				<div style={{ ...cardPaneStyle.front, ...(flipped ? cardPaneStyle.back : {}) }} onClick={(e) => {
 					e.stopPropagation()
 					setFlipped(!flipped)
@@ -80,8 +84,12 @@ const Home = () => {
 							Select a card for preview...
 					 </div> : <div style={textPreviewStyle}>
 					 {flipped ? flashcards[activeIndex].text : flashcards[activeIndex].value}
-					</div>}
-				</div>
+					 </div>}
+					</div>
+					<div>
+						
+					</div>
+			</>
 		)
 	};
 

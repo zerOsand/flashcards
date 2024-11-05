@@ -27,6 +27,7 @@ export const searchBarStyle = {
 
 export const container = {
 	display: 'flex',
+	overflow: 'hidden',
 };
 
 export const leftContainer = {
@@ -38,6 +39,7 @@ export const leftContainer = {
 export const rightContainer = {
 	flex: '1 0 60%',
 	display: 'flex',
+	flexDirection: 'column',
 	backgroundColor: '#f8f8f8',
 	justifyContent: 'center',
 	alignItems: 'center',
