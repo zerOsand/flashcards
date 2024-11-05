@@ -73,6 +73,23 @@ export const previewStyles = {
 	},
 };
 
+export const tagStyles = {
+	container: {
+		display: 'flex',
+		margin: '4px',
+	},
+	item: {
+		backgroundColor: '#3366ff',
+		padding: '3px 3px',
+		border: 'none',
+		borderRadius: '4px',
+		cursor: 'pointer',
+		marginRight: '2px',
+	},
+	active_item: {
+	},
+}
+
 export const cardPaneStyle = {
 	front: {
 		borderStyle: 'solid',
@@ -107,4 +124,11 @@ export const textPreviewStyle = {
 	lineHeight: '1.2',
 	margin: 'auto',
 	whiteSpace: 'pre-wrap',
+}
+
+export const textTagStyle = {
+	fontSize: 'clamp(0.8rem, 4vw, 0.3rem)',
+	lineHeight: '1.0',
+	color: 'white',
+	overflow: 'hidden',
 }

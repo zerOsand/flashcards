@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { cardPaneStyle, previewStyles, textListStyle, textPreviewStyle, contentContainer, contentArea, searchBarStyle, container, leftContainer, rightContainer } from '../utils/styles'
+import { cardPaneStyle, previewStyles, tagStyles, textListStyle, textPreviewStyle, textTagStyle, contentContainer, contentArea, searchBarStyle, container, leftContainer, rightContainer } from '../utils/styles'
 import { getCards } from '../state/cardList.js'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
@@ -14,6 +14,14 @@ const Flashcard = (flashcard, active) => {
 	)
 };
 
+const TagBox = (text) => {
+	return (
+			<div style={textTagStyle}>
+				{text}
+				<span>&times;</span>
+			</div>
+	);
+}
 
 const Home = () => {
 	const [activeIndex, setActiveIndex] = useState(undefined)
@@ -34,8 +42,9 @@ const Home = () => {
 		setActiveIndex(index)
 	};
 
-	// const printActiveTags = () {
-	// }
+	const handleTagClick = (index) => {
+		console.log("active card: %s, index: %d", flashcards[activeIndex], index)
+	};
 
 	const previewPane = () => {
 		return (
@@ -50,10 +59,8 @@ const Home = () => {
 					 </div> : <div style={textPreviewStyle}>
 					 {flipped ? flashcards[activeIndex].back : flashcards[activeIndex].front}
 					 </div>}
-					</div>
-					<div>
-						
-					</div>
+				</div>
+				{activeIndex !== undefined && <ClickList list={flashcards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={tagStyles} />}
 			</>
 		)
 	};
