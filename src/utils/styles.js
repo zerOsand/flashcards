@@ -27,6 +27,7 @@ export const searchBarStyle = {
 
 export const container = {
 	display: 'flex',
+	overflow: 'hidden',
 };
 
 export const leftContainer = {

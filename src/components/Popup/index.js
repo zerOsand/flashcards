@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { styles } from './popupElements'
+import { pushCard, removeCard } from '../../state/cardList.js'
 import CustomButton from '../CustomButton'
 
-function CreatePopup({ onClose, addFlashcard }) {
+function CreatePopup({ onClose }) {
 
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
 
     const handleSave = () => {
         if (front.trim() && back.trim()) {
-            const newFlashcard = {
-                value: front.trim(),
-                text: back.trim(),
-                tags: [],
-            };
-            addFlashcard(newFlashcard);
+            pushCard(front.trim(), back.trim(), []);
             onClose();
         }
     };
