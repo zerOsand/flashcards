@@ -4,15 +4,18 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Home from './pages'
 import Tags from './pages/tags'
+import { CardProvider } from './state/CardProvider.js'
 
 function App() {
 	return (
 		<Router>
 			<Navbar />
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/tags/*' element={<Tags />} />
-			</Routes>
+			<CardProvider>
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route path='/tags/*' element={<Tags />} />
+				</Routes>
+			</CardProvider>
 		</Router>
 	)
 }

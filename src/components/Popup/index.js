@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { styles } from './popupElements'
-import { pushCard, removeCard } from '../../state/cardList.js'
+import { useCards } from '../../state/CardProvider.js'
 import CustomButton from '../CustomButton'
 
 function CreatePopup({ onClose }) {
 
+	const { addCard } = useCards()
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
 
     const handleSave = () => {
         if (front.trim() && back.trim()) {
-            pushCard(front.trim(), back.trim(), []);
+            addCard(front.trim(), back.trim(), []);
             onClose();
         }
     };

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { cardPaneStyle, previewStyles, tagStyles, textListStyle, textPreviewStyle, textTagStyle, contentContainer, contentArea, searchBarStyle, container, leftContainer, rightContainer } from '../utils/styles'
-import { getCards } from '../state/cardList.js'
+import { useCards } from '../state/CardProvider.js'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
 import CreatePopup from '../components/Popup'
@@ -24,10 +24,10 @@ const TagBox = (text) => {
 }
 
 const Home = () => {
+	const { cards, removeTag } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined)
 	const [flipped, setFlipped] = useState(false)
 	const [showPopup, setShowPopup] = useState(false);
-	const flashcards = getCards()
 
 	const handleCreateClick = () => {
 		setShowPopup(true);
@@ -42,8 +42,8 @@ const Home = () => {
 		setActiveIndex(index)
 	};
 
-	const handleTagClick = (index) => {
-		console.log("active card: %s, index: %d", flashcards[activeIndex], index)
+	const handleTagClick = (tagIndex) => {
+		removeTag(activeIndex, tagIndex);
 	};
 
 	const previewPane = () => {
@@ -57,10 +57,10 @@ const Home = () => {
 					 <div style={{ ...textPreviewStyle, ...{color: 'lightgrey'}}}>
 							Select a card for preview...
 					 </div> : <div style={textPreviewStyle}>
-					 {flipped ? flashcards[activeIndex].back : flashcards[activeIndex].front}
+					 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
 					 </div>}
 				</div>
-				{activeIndex !== undefined && <ClickList list={flashcards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={tagStyles} />}
+				{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={tagStyles} />}
 			</>
 		)
 	};
@@ -75,7 +75,7 @@ const Home = () => {
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>
-						<ClickList active={activeIndex} list={flashcards} item={Flashcard} event={handleCardClick} styles={previewStyles} />
+						<ClickList active={activeIndex} list={cards} item={Flashcard} event={handleCardClick} styles={previewStyles} />
 					</div>
 					<div style={rightContainer}>
 						{previewPane()}
