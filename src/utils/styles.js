@@ -67,7 +67,7 @@ export const previewStyles = {
 		boxSizing: 'border-box',
 	},
 	active_item: {
-		background: '#ef9a9a',
+		background: '#3366ff',
 		color: '#000',
 		borderWidth: 'medium',
 	},

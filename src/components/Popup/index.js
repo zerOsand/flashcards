@@ -38,7 +38,7 @@ function CreatePopup({ onClose }) {
 
 				<div style={styles.buttonContainer}>
 					<CustomButton text="Cancel" event={onClose} /* TODO #15; confirm cancel */ stylesOverride={{backgroundColor: '#b53550'}}/>
-					<CustomButton text="Save" event={handleSave} stylesOverride={{backgroundColor: '#49a658'}}/>
+					<CustomButton text="Save" event={handleSave} stylesOverride={{backgroundColor: '#6bc879'}}/>
 				</div>
 
             </div>

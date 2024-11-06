@@ -9,7 +9,7 @@ import CustomButton from '../components/CustomButton'
 const Flashcard = (flashcard, active) => {
 	return (
 		<div>
-			<div style={textListStyle}>{flashcard.front}</div>
+			<div style={{ ...textListStyle, ...(active && { color: 'white' })}}>{flashcard.front}</div>
 		</div>
 	)
 };
@@ -46,6 +46,26 @@ const Home = () => {
 		removeTag(activeIndex, tagIndex);
 	};
 
+	const AddTag = () => {
+		return (
+				<div style={{ ...tagStyles.item, ...{backgroundColor: '#6bc879'}}}>
+					<div style={textTagStyle}>
+						{'+'}
+					</div>
+				</div>
+		);
+	}
+
+	const AddFlashcard = () => {
+		return (
+				<div style={{ ...previewStyles.item, ...{backgroundColor: '#6bc879', border: 'none'}}} onClick={handleCreateClick}>
+					<div style={{ ...textListStyle, ...{color: 'white'}}}>
+						{'+'}
+					</div>
+				</div>
+		);
+	}
+
 	const previewPane = () => {
 		return (
 			<>
@@ -60,7 +80,7 @@ const Home = () => {
 					 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
 					 </div>}
 				</div>
-				{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={tagStyles} />}
+				{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={tagStyles} appendItem={AddTag} />}
 			</>
 		)
 	};
@@ -71,11 +91,10 @@ const Home = () => {
 				<div style={searchBarStyle}>
 				<Searchbar />
 					<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
-					<CustomButton text="Create" event={handleCreateClick} stylesOverride={{backgroundColor: '#49a658', marginLeft: '3px'}} />
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>
-						<ClickList active={activeIndex} list={cards} item={Flashcard} event={handleCardClick} styles={previewStyles} />
+						<ClickList active={activeIndex} list={cards} item={Flashcard} event={handleCardClick} styles={previewStyles} appendItem={AddFlashcard} />
 					</div>
 					<div style={rightContainer}>
 						{previewPane()}
