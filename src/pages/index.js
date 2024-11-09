@@ -68,8 +68,7 @@ const Home = () => {
 
 	const previewPane = () => {
 		return (
-			<>
-				<div style={{ ...cardPaneStyle.front, ...(flipped ? cardPaneStyle.back : {}) }} onClick={(e) => {
+				<div style={{ ...cardPaneStyle.front, ...((flipped && activeIndex !== undefined) ? cardPaneStyle.back : {}) }} onClick={(e) => {
 					e.stopPropagation()
 					setFlipped(!flipped)
 				}}>
