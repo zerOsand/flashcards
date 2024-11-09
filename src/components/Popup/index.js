@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { styles } from './popupElements'
+import { useCards } from '../../state/CardProvider.js'
 import CustomButton from '../CustomButton'
 
-function CreatePopup({ onClose, addFlashcard }) {
+function CreatePopup({ onClose }) {
 
+	const { addCard } = useCards()
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
 
     const handleSave = () => {
         if (front.trim() && back.trim()) {
-            const newFlashcard = {
-                value: front.trim(),
-                text: back.trim(),
-                tags: [],
-            };
-            addFlashcard(newFlashcard);
+            addCard(front.trim(), back.trim(), []);
             onClose();
         }
     };
@@ -41,7 +38,7 @@ function CreatePopup({ onClose, addFlashcard }) {
 
 				<div style={styles.buttonContainer}>
 					<CustomButton text="Cancel" event={onClose} /* TODO #15; confirm cancel */ stylesOverride={{backgroundColor: '#b53550'}}/>
-					<CustomButton text="Save" event={handleSave} stylesOverride={{backgroundColor: '#49a658'}}/>
+					<CustomButton text="Save" event={handleSave} stylesOverride={{backgroundColor: '#6bc879'}}/>
 				</div>
 
             </div>

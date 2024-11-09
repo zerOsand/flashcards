@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import { useCards } from '../../state/CardProvider.js'
 
 const defaultStyle = {
 	container: {
@@ -10,23 +11,26 @@ const defaultStyle = {
 	},
 }
 
-const Searchbar = ({ cards, onFilteredCardsChange, styles }) => {
+const Searchbar = ({ onFilteredCardsChange, styles }) => {
+	const { cards } = useCards();
 	const [searchTerm, setSearchTerm] = useState([''])
 	styles = styles || defaultStyle
 
 	const handleSearchChange = (e) => {
 		setSearchTerm(e.target.value.toLowerCase().split(","))
 	}
-
-	useEffect(() => {
-		const sortedAndFilteredCards = cards
-			  .filter(card =>
+	
+	const sortedAndFilteredCards = useMemo(() => {
+			  return cards.filter(card =>
 				  card.tags.some(tag =>
 					  searchTerm.some(term =>
-						  tag.toLowerCase().includes(term))))
-
+						  tag.toLowerCase().includes(term)))
+			  )
+	}, [cards, searchTerm]);
+	
+	useEffect(() => {
 		onFilteredCardsChange(sortedAndFilteredCards);
-	}, [searchTerm, cards, onFilteredCardsChange]);
+	}, [sortedAndFilteredCards, onFilteredCardsChange]);
 
 	return (
 		<div style={styles.container}>
