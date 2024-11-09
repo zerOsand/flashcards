@@ -21,7 +21,7 @@ const Searchbar = ({ onFilteredCardsChange, styles }) => {
 	}
 	
 	const sortedAndFilteredCards = useMemo(() => {
-		return (searchTerm[0].length === 0) ?
+		return (searchTerm.length === 1 && searchTerm[0].length === 0) ?
 			cards :
 			cards.filter(card =>
 				card.tags.some(tag =>
