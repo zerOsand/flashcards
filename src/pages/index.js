@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { cardPaneStyle, previewStyles, textListStyle, textPreviewStyle, contentContainer, contentArea, searchBarStyle, buttonStyle, container, leftContainer, rightContainer } from '../utils/styles'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
@@ -46,11 +46,11 @@ blah blah?`, text: 'multiline false', tags: ['elf']},
 ];
 
 const Home = () => {
-	const [activeIndex, setActiveIndex] = useState(undefined)
 	const [flipped, setFlipped] = useState(false)
 	const [showPopup, setShowPopup] = useState(false);
-
 	const [flashcards, setFlashcards] = useState(initialFlashcards);
+	const [filteredCards, setFilteredCards] = useState(flashcards);
+	const [activeCard, setActiveCard] = useState({value: undefined})
 
 	const addFlashcard = (newFlashcard) => {
 		setFlashcards((prevFlashcards) => [...prevFlashcards, newFlashcard]);
@@ -66,8 +66,12 @@ const Home = () => {
 
 	const handleCardClick = (index) => {
 		setFlipped(false)
-		setActiveIndex(index)
+		setActiveCard(filteredCards[index])
 	};
+
+	const handleFilteredCardsChange = useCallback((newFilteredCards) => {
+		setFilteredCards(newFilteredCards);
+	}, []);
 
 	const previewPane = () => {
 		return (
@@ -75,11 +79,11 @@ const Home = () => {
 					e.stopPropagation()
 					setFlipped(!flipped)
 				}}>
-					{(activeIndex === undefined) ?
+					{(activeCard.value === undefined) ?
 					 <div style={{ ...textPreviewStyle, ...{color: 'lightgrey'}}}>
 							Select a card for preview...
 					 </div> : <div style={textPreviewStyle}>
-					 {flipped ? flashcards[activeIndex].text : flashcards[activeIndex].value}
+					 {flipped ? activeCard.text : activeCard.value}
 					</div>}
 				</div>
 		)
@@ -89,13 +93,13 @@ const Home = () => {
 		<div style={contentContainer}>
 			<div style={contentArea}>
 				<div style={searchBarStyle}>
-				<Searchbar />
+					<Searchbar cards={flashcards} onFilteredCardsChange={handleFilteredCardsChange} />
 					<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
 					<CustomButton text="Create" event={handleCreateClick} stylesOverride={{backgroundColor: '#49a658', marginLeft: '3px'}} />
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>
-						<ClickList active={activeIndex} list={flashcards} item={Flashcard} event={handleCardClick} styles={previewStyles} />
+					<ClickList active={filteredCards.indexOf(activeCard)} list={filteredCards} item={Flashcard} event={handleCardClick} styles={previewStyles} />
 					</div>
 					<div style={rightContainer}>
 						{previewPane()}
