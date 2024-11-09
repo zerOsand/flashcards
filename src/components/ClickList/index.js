@@ -11,7 +11,7 @@ const defaultStyle = {
 	}
 }
 
-const ClickList = ({ active, list, item, event, styles }) => {
+const ClickList = ({ active, list, item, event, styles, appendItem }) => {
 	styles = styles || defaultStyle
 	return (
 			<div style={styles.container}>
@@ -27,6 +27,7 @@ const ClickList = ({ active, list, item, event, styles }) => {
 							</div>
 					);
 				})}
+			{appendItem && appendItem()}
 		</div>
 	);
 }

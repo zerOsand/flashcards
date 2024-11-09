@@ -27,6 +27,7 @@ export const searchBarStyle = {
 
 export const container = {
 	display: 'flex',
+	overflow: 'hidden',
 };
 
 export const leftContainer = {
@@ -38,6 +39,7 @@ export const leftContainer = {
 export const rightContainer = {
 	flex: '1 0 60%',
 	display: 'flex',
+	flexDirection: 'column',
 	backgroundColor: '#f8f8f8',
 	justifyContent: 'center',
 	alignItems: 'center',
@@ -65,11 +67,28 @@ export const previewStyles = {
 		boxSizing: 'border-box',
 	},
 	active_item: {
-		background: '#ef9a9a',
+		background: '#3366ff',
 		color: '#000',
 		borderWidth: 'medium',
 	},
 };
+
+export const tagStyles = {
+	container: {
+		display: 'flex',
+		margin: '4px',
+	},
+	item: {
+		backgroundColor: '#3366ff',
+		padding: '3px 3px',
+		border: 'none',
+		borderRadius: '4px',
+		cursor: 'pointer',
+		marginRight: '2px',
+	},
+	active_item: {
+	},
+}
 
 export const cardPaneStyle = {
 	front: {
@@ -105,4 +124,11 @@ export const textPreviewStyle = {
 	lineHeight: '1.2',
 	margin: 'auto',
 	whiteSpace: 'pre-wrap',
+}
+
+export const textTagStyle = {
+	fontSize: 'clamp(0.8rem, 4vw, 0.3rem)',
+	lineHeight: '1.0',
+	color: 'white',
+	overflow: 'hidden',
 }
