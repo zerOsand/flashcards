@@ -11,6 +11,7 @@ const initialCards = [
 	{ id: 5, front: 'mablung', back: 'captian of doriath', tags: ['elf', 'mortal'] },
 	{ id: 6, front: 'beleg', back: 'the archer', tags: ['elf', 'mortal'] },
 	{ id: 7, front: 'carcharoth', back: 'the red maw', tags: ['wolf', 'werewolf'] },
+
 	{ id: 8, front: 'awk', back: '1977', tags: ['interpreted', 'garbage collected', 'memory safe'] },
 	{ id: 9, front: 'c', back: '1972', tags: ['compiled', 'macros', 'functional', 'fast'] },
 	{ id: 10, front: 'c++', back: '1985', tags: ['compiled', 'macros', 'object-oriented', 'fast'] },
@@ -44,12 +45,12 @@ If of all the gods the favor I get.`, tags: ['poetry'] },
 
 export const CardProvider = ({children}) => {
 	const [cards, setCards] = useState(initialCards);
-	const [count, setCount] = useState(initialCards.length);
+	const [id, sid] = useState(initialCards.length);
 
 	const addCard = (front, back) => {
-		const newCard = { id: count + 1, front, back, tags: [] };
+		const newCard = { id: id + 1, front, back, tags: [] };
 		setCards(prevCards => [...prevCards, newCard]);
-		setCount(count + 1);
+		sid(id + 1);
 	};
 
 	// const removeCard = (index) => {
