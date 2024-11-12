@@ -23,7 +23,7 @@ const Home = () => {
 
 	const convertIndex = (array, target) => {
 		return array.findIndex(item => {
-			return Object.keys(target).every(key => item[key] === target[key]);
+			return item.id === target.id;
 		});
 	};
 
