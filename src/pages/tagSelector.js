@@ -25,7 +25,12 @@ const TagSelector = ({ isPopupOpen, togglePopup, index}) => {
             <div style={createFlashcardStyle.overlay}>
                 <div style={createFlashcardStyle.modal}>
                     <h2>Edit Tags</h2>
-					<Selector onSelect={handleAdd} entries={getMissingTags()} />
+						<Selector onSelect={handleAdd} entries={getMissingTags()} />
+
+		                <div style={createFlashcardStyle.buttonContainer}>
+                	        <CustomButton text="Done" event={togglePopup} />
+	        			</div>
+
                 </div>
             </div>
         </DefaultPopup>

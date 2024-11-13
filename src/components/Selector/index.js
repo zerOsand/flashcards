@@ -28,9 +28,9 @@ const Selector = ({onSelect, entries}) => {
 		setInputValue(event.target.value)
 	}
 
-	const handleEntryClick = (entry) => {
-		setSelection(entry)
-		onSelect(entry)
+	const handleEntryClick = (index) => {
+		setSelection(entries[index])
+		onSelect(entries[index])
 	}
 
 	const handleButtonClick = (entry) => {
@@ -47,7 +47,6 @@ const Selector = ({onSelect, entries}) => {
 				placeholder="Search..."
 			/>
 			<ClickList list={matchedEntries} item={Box} event={handleEntryClick} />
-			<p>Selected: {entries[selection]}</p>
 		</div>
 	);
 }
