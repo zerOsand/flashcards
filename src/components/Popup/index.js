@@ -1,7 +1,6 @@
 import React from 'react';
 
-function DefaultPopup({ isOpen, onClose, children }) {
-    if (!isOpen) return null; // Renders nothing if popup is closed
+function DefaultPopup({ onClose, children }) {
 
     return (
         <div className="popup-overlay" onClick={onClose}>

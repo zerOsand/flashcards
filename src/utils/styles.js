@@ -190,3 +190,43 @@ export const createFlashcardStyle = {
 		padding: '10px',
 	},
 }
+
+export const confirmPopupStyle = {
+	// --- blur the background
+		overlay: {
+			position: 'fixed',
+			top: 0,
+			left: 0,
+			width: '100%',
+			height: '100%',
+			backgroundColor: 'rgba(0, 0, 0, 0.5)',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			backdropFilter: 'blur(5px)', 
+		},
+	
+	// --- design the modal for the popup
+		modal: {
+			backgroundColor: 'white',
+			padding: '20px',
+			borderRadius: '8px',
+			maxWidth: '500px',
+			width: '100%',
+			textAlign: 'center',
+		},
+	
+	// --- styles for the content inside of the modal
+		
+		label: {
+			display: 'block',
+			marginBottom: '8px',
+			fontWeight: 'bold',
+		},
+
+		buttonContainer: {
+			display: 'flex',
+			justifyContent: 'flex-end',
+			padding: '10px',
+		},
+	}
