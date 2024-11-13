@@ -9,7 +9,7 @@ import { useCards } from '../state/CardProvider.js'
 const TagSelector = ({ isPopupOpen, togglePopup, index}) => {
 	const { cards, getTags, addTag } = useCards()
 
-	const getMissingTags = () => {
+	const getMissingTags = (index) => {
 		return getTags().filter((tag) =>
 			!cards[index].tags.includes(tag))
 	}

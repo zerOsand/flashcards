@@ -46,6 +46,7 @@ const Selector = ({onSelect, entries, item, styles}) => {
 			<div style={{ ...styles.searchItem, cursor: 'pointer'}} onClick={(e) => {
 					 e.stopPropagation()
 					 onSelect(inputValue)
+					 setInputValue('')
 				 }}>
 				{item('+ '.concat(inputValue))}
 			</div>

@@ -16,7 +16,7 @@ const Flashcard = (flashcard, active) => {
 };
 
 const Home = () => {
-	const { cards, addCard } = useCards();
+	const { cards } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined)
 	const [filteredCards, setFilteredCards] = useState(cards);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -76,7 +76,6 @@ const Home = () => {
 					<CreateCard
 						isPopupOpen={isPopupOpen}
 						togglePopup={togglePopup}
-						addCard={addCard}
 					/>
 				)}
 

@@ -47,8 +47,8 @@ export const CardProvider = ({children}) => {
 	const [cards, setCards] = useState(initialCards);
 	const [id, sid] = useState(initialCards.length);
 
-	const addCard = (front, back) => {
-		const newCard = { id: id + 1, front, back, tags: [] };
+	const addCard = (front, back, tags) => {
+		const newCard = { id: id + 1, front, back, tags: tags };
 		setCards(prevCards => [...prevCards, newCard]);
 		sid(id + 1);
 	};
