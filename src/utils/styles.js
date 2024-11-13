@@ -107,9 +107,11 @@ export const cardPaneStyle = {
 		wordWrap: 'break-word',
 		overflowWrap: 'break-word',
 		hyphens: 'auto',
+		userSelect: 'none'
 	},
 	back: {
 		background: '#f0f0f0',
+		userSelect: 'none'
 	}
 };
 
