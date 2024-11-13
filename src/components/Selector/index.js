@@ -1,17 +1,27 @@
 import { useState, useEffect } from 'react'
 import ClickList from '../ClickList'
+import { tagStyles, textTagStyle } from '../../utils/styles'
+
+const defaultStyles = {
+	searchItem: { ...tagStyles.item, ...{backgroundColor: '#6bc879'}
+	},
+	clickList: { ...tagStyles, item: {...tagStyles.item, ...{backgroundColor: '#3366ff'}}
+	},
+}
 
 const Box = (text) => {
 	return (
-			<div>
+			<div style={textTagStyle}>
 				{text}
 			</div>
 	);
 }
 
-const Selector = ({onSelect, entries}) => {
+const Selector = ({onSelect, entries, item, styles}) => {
 	const [inputValue, setInputValue] = useState('')
 	const [matchedEntries, setMatchedEntries] = useState(entries)
+	item = item || Box
+	styles = styles || defaultStyles
 
 	useEffect(() => {
 		const matchEntries = () => {
@@ -28,16 +38,16 @@ const Selector = ({onSelect, entries}) => {
 	}
 
 	const handleEntryClick = (index) => {
-		onSelect(entries[index])
+		onSelect(matchedEntries[index])
 	}
 
 	const AddNew = () => {
 		return (
-			<div style={{cursor: 'pointer'}} onClick={(e) => {
+			<div style={{ ...styles.searchItem, cursor: 'pointer'}} onClick={(e) => {
 					 e.stopPropagation()
 					 onSelect(inputValue)
 				 }}>
-				{Box(inputValue)}
+				{item('+ '.concat(inputValue))}
 			</div>
 		)
 	}
@@ -50,7 +60,7 @@ const Selector = ({onSelect, entries}) => {
 				onChange={handleInputChange}
 				placeholder="Search..."
 			/>
-			<ClickList list={matchedEntries} item={Box} event={handleEntryClick} prependItem={inputValue !== '' ? AddNew : undefined} />
+			<ClickList list={matchedEntries} item={item} event={handleEntryClick} styles={styles.clickList} prependItem={inputValue !== '' ? AddNew : undefined} />
 		</div>
 	);
 }
