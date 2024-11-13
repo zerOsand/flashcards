@@ -11,7 +11,7 @@ const defaultStyles = {
 
 const Box = (text) => {
 	return (
-			<div style={textTagStyle}>
+		<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
 				{text}
 			</div>
 	);
@@ -60,7 +60,9 @@ const Selector = ({onSelect, entries, item, styles}) => {
 				onChange={handleInputChange}
 				placeholder="Search..."
 			/>
-			<ClickList list={matchedEntries} item={item} event={handleEntryClick} styles={styles.clickList} prependItem={(inputValue !== '' && matchedEntries.length === 0) ? AddNew : undefined} />
+			<div style={{marginTop: '5px', display: 'flex', justifyContent: 'center', overflowY: 'auto', height: '200px'}} >
+				<ClickList list={matchedEntries} item={item} event={handleEntryClick} styles={styles.clickList} prependItem={(inputValue !== '' && matchedEntries.length === 0) ? AddNew : undefined} />
+			</div>
 		</div>
 	);
 }
