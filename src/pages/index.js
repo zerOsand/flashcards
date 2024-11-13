@@ -4,8 +4,8 @@ import { useCards } from '../state/CardProvider.js'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
 import PreviewPane from './preview'
-import CreatePopup from '../components/Popup'
 import CustomButton from '../components/CustomButton'
+import CreateCard from './createCard.js'
 
 const Flashcard = (flashcard, active) => {
 	return (
@@ -16,10 +16,10 @@ const Flashcard = (flashcard, active) => {
 };
 
 const Home = () => {
-	const { cards } = useCards();
+	const { cards, addCard } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined)
-	const [showPopup, setShowPopup] = useState(false);
 	const [filteredCards, setFilteredCards] = useState(cards);
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	const convertIndex = (array, target) => {
 		return array.findIndex(item => {
@@ -27,13 +27,7 @@ const Home = () => {
 		});
 	};
 
-	const handleCreateClick = () => {
-		setShowPopup(true);
-	};
-
-	const handleClosePopup = () => {
-		setShowPopup(false);
-	};
+	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
 	const handleCardClick = (index) => {
 		// use the 'true' index
@@ -42,7 +36,8 @@ const Home = () => {
 
 	const AddFlashcard = () => {
 		return (
-				<div style={{ ...previewStyles.item, ...{backgroundColor: '#6bc879', border: 'none'}}} onClick={handleCreateClick}>
+				<div style={{ ...previewStyles.item, ...{backgroundColor: '#6bc879', border: 'none', cursor: 'pointer'}}} 
+				onClick={togglePopup}>
 					<div style={{ ...textListStyle, ...{color: 'white'}}}>
 						{'+'}
 					</div>
@@ -63,13 +58,28 @@ const Home = () => {
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>
-			<ClickList active={(activeIndex === undefined) ? activeIndex : convertIndex(filteredCards, cards[activeIndex])} list={filteredCards} item={Flashcard} event={handleCardClick} styles={previewStyles} appendItem={AddFlashcard} />
+						<ClickList 
+							active={(activeIndex === undefined) ? activeIndex : convertIndex(filteredCards, cards[activeIndex])} 
+							list={filteredCards} 
+							item={Flashcard} 
+							event={handleCardClick} 
+							styles={previewStyles} 
+							appendItem={AddFlashcard} 
+						/>
 					</div>
 					<div style={rightContainer}>
 						<PreviewPane activeIndex={activeIndex} />
 					</div>
 				</div>
-				{showPopup && <CreatePopup onClose={handleClosePopup} />}
+				
+				{isPopupOpen && (
+					<CreateCard
+						isPopupOpen={isPopupOpen}
+						togglePopup={togglePopup}
+						addCard={addCard}
+					/>
+				)}
+
 			</div>
 		</div>
 	)
