@@ -64,7 +64,7 @@ const Home = () => {
 							item={Flashcard} 
 							event={handleCardClick} 
 							styles={previewStyles} 
-							appendItem={AddFlashcard} 
+							prependItem={AddFlashcard}
 						/>
 					</div>
 					<div style={rightContainer}>

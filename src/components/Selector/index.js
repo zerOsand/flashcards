@@ -3,7 +3,7 @@ import ClickList from '../ClickList'
 
 const Box = (text) => {
 	return (
-			<div styles>
+			<div>
 				{text}
 			</div>
 	);
@@ -12,7 +12,6 @@ const Box = (text) => {
 const Selector = ({onSelect, entries}) => {
 	const [inputValue, setInputValue] = useState('')
 	const [matchedEntries, setMatchedEntries] = useState(entries)
-	const [selection, setSelection] = useState(null)
 
 	useEffect(() => {
 		const matchEntries = () => {
@@ -29,13 +28,18 @@ const Selector = ({onSelect, entries}) => {
 	}
 
 	const handleEntryClick = (index) => {
-		setSelection(entries[index])
 		onSelect(entries[index])
 	}
 
-	const handleButtonClick = (entry) => {
-		setSelection(inputValue);
-		onSelect(inputValue);
+	const AddNew = () => {
+		return (
+			<div style={{cursor: 'pointer'}} onClick={(e) => {
+					 e.stopPropagation()
+					 onSelect(inputValue)
+				 }}>
+				{Box(inputValue)}
+			</div>
+		)
 	}
 
 	return (
@@ -46,7 +50,7 @@ const Selector = ({onSelect, entries}) => {
 				onChange={handleInputChange}
 				placeholder="Search..."
 			/>
-			<ClickList list={matchedEntries} item={Box} event={handleEntryClick} />
+			<ClickList list={matchedEntries} item={Box} event={handleEntryClick} prependItem={inputValue !== '' ? AddNew : undefined} />
 		</div>
 	);
 }

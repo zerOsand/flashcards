@@ -52,7 +52,7 @@ const PreviewPane = ({activeIndex}) => {
 						 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
 					</div>}
 				</div>
-				{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={tagStyles} appendItem={AddTag} />}
+				{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={tagStyles} prependItem={AddTag} />}
 				{isPopupOpen && (
 					<TagSelector
 						isPopupOpen={isPopupOpen}

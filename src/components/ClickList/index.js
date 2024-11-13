@@ -11,10 +11,11 @@ const defaultStyle = {
 	}
 }
 
-const ClickList = ({ active, list, item, event, styles, appendItem }) => {
+const ClickList = ({ active, list, item, event, styles, prependItem }) => {
 	styles = styles || defaultStyle
 	return (
 			<div style={styles.container}>
+				{prependItem && prependItem()}
 				{list.map((value, index) => {
 					styles = JSON.parse(JSON.stringify(styles));
 					styles.item.cursor = 'pointer'
@@ -27,7 +28,6 @@ const ClickList = ({ active, list, item, event, styles, appendItem }) => {
 							</div>
 					);
 				})}
-			{appendItem && appendItem()}
 		</div>
 	);
 }
