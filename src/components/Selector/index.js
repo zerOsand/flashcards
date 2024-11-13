@@ -60,7 +60,7 @@ const Selector = ({onSelect, entries, item, styles}) => {
 				onChange={handleInputChange}
 				placeholder="Search..."
 			/>
-			<ClickList list={matchedEntries} item={item} event={handleEntryClick} styles={styles.clickList} prependItem={inputValue !== '' ? AddNew : undefined} />
+			<ClickList list={matchedEntries} item={item} event={handleEntryClick} styles={styles.clickList} prependItem={(inputValue !== '' && matchedEntries.length === 0) ? AddNew : undefined} />
 		</div>
 	);
 }
