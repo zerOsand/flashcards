@@ -59,6 +59,16 @@ export const CardProvider = ({children}) => {
 	// const editCard = (index) => {		
 	// };
 
+	const getTags = () => {
+		const tags = new Set()
+		cards.forEach((card) => {
+			card.tags.forEach((tag) => {
+				tags.add(tag)
+			});
+		});
+		return Array.from(tags)
+	}
+
 	const addTag = (cardIndex, tag) => {
 		setCards(prevCards =>
 			prevCards.map((card, i) =>
@@ -77,7 +87,7 @@ export const CardProvider = ({children}) => {
 	};
 
 	return (
-			<CardContext.Provider value={{ cards, addCard, addTag, removeTag }}>
+			<CardContext.Provider value={{ cards, addCard, getTags, addTag, removeTag }}>
 				{children}
 			</CardContext.Provider>
 	);
