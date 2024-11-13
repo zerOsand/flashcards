@@ -75,16 +75,15 @@ export const previewStyles = {
 
 export const tagStyles = {
 	container: {
-		display: 'flex',
-		margin: '4px',
 	},
 	item: {
-		backgroundColor: '#3366ff',
+		backgroundColor: '#666666',
 		padding: '3px 3px',
 		border: 'none',
 		borderRadius: '4px',
 		cursor: 'pointer',
 		marginRight: '2px',
+		marginTop: '4px',
 	},
 	active_item: {
 	},
