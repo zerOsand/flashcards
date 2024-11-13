@@ -4,11 +4,8 @@ import { useCards } from '../state/CardProvider.js'
 import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
 import PreviewPane from './preview'
-import CreatePopup from '../components/Popup'
 import CustomButton from '../components/CustomButton'
-
-// Styles for the popup component
-import { styles } from '../components/Popup/popupElements'
+import CreateCard from './createCard.js'
 
 const Flashcard = (flashcard, active) => {
 	return (
@@ -19,20 +16,10 @@ const Flashcard = (flashcard, active) => {
 };
 
 const Home = () => {
-	const { cards } = useCards();
+	const { cards, addCard } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined)
 	const [filteredCards, setFilteredCards] = useState(cards);
-
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [front, setFront] = useState('');
-    const [back, setBack] = useState('');
-
-    const handleSave = () => {
-        if (front.trim() && back.trim()) {
-            cards(front.trim(), back.trim(), []);
-            togglePopup();
-        }
-    };
 
 	const convertIndex = (array, target) => {
 		return array.findIndex(item => {
@@ -40,7 +27,6 @@ const Home = () => {
 		});
 	};
 
-	// Turned popup into a toggle to save on code space
 	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
 	const handleCardClick = (index) => {
@@ -86,40 +72,13 @@ const Home = () => {
 					</div>
 				</div>
 				
-				{/** Start Createpopup for create flashcard*/}
-
-				{<CreatePopup 
-					isOpen={isPopupOpen} 
-					onClose={togglePopup}>
-					<div style={styles.overlay}>
-						<div style={styles.modal}>
-							<h2>Create Flashcard</h2>
-							<div style={styles.inputContainer}>
-								<label style={styles.label}>Front</label>
-								<textarea 
-									style={styles.textarea} 
-									value={front}
-									onChange={(e) => setFront(e.target.value)}/>
-							</div>
-
-							<div style={styles.inputContainer}>
-								<label style={styles.label}>Back</label>
-								<textarea 
-									style={styles.textarea} 
-									value={back}
-									onChange={(e) => setBack(e.target.value)}/>
-							</div>
-
-							<div style={styles.buttonContainer}>
-								<CustomButton text="Cancel" event={togglePopup} /* TODO #15; confirm cancel */ stylesOverride={{backgroundColor: '#b53550'}}/>
-								<CustomButton text="Save" event={handleSave} stylesOverride={{backgroundColor: '#6bc879'}}/>
-							</div>
-
-						</div>
-					</div>
-				</CreatePopup>}
-
-				{/** End Createpopup for create flashcard*/}
+				{isPopupOpen && (
+					<CreateCard
+						isPopupOpen={isPopupOpen}
+						togglePopup={togglePopup}
+						addCard={addCard}
+					/>
+				)}
 
 			</div>
 		</div>
