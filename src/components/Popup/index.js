@@ -1,7 +1,4 @@
 import React from 'react';
-// import { styles } from './popupElements'
-// import { useCards } from '../../state/CardProvider.js'
-// import CustomButton from '../CustomButton'
 
 function DefaultPopup({ isOpen, onClose, children }) {
     if (!isOpen) return null; // Renders nothing if popup is closed
@@ -19,3 +16,4 @@ function DefaultPopup({ isOpen, onClose, children }) {
 };
 
 export default DefaultPopup;
+
