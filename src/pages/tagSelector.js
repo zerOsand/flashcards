@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { createFlashcardStyle, textTagStyle, tagStyles } from '../utils/styles'
+import { defaultPopupStyle, textTagStyle, tagStyles } from '../utils/styles'
 import CustomButton from '../components/CustomButton'
 import DefaultPopup from '../components/Popup'
 import Selector from '../components/Selector'
@@ -22,12 +22,12 @@ const TagSelector = ({ isPopupOpen, togglePopup, index}) => {
 		<DefaultPopup
 			isOpen={isPopupOpen}
 			onClose={togglePopup}>
-			<div style={createFlashcardStyle.overlay}>
-				<div style={createFlashcardStyle.modal}>
+			<div style={defaultPopupStyle.overlay}>
+				<div style={defaultPopupStyle.modal}>
 					<h2>Edit Tags</h2>
 
 						<Selector onSelect={handleAdd} entries={getMissingTags()} />
-						<div style={createFlashcardStyle.buttonContainer}>
+						<div style={defaultPopupStyle.buttonContainer}>
 							<CustomButton text="Done" event={togglePopup} />
 						</div>
 
