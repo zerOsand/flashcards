@@ -2,16 +2,25 @@ import { useState } from 'react'
 import DefaultPopup from '../components/Popup'
 import CustomButton from '../components/CustomButton'
 import Selector from '../components/Selector'
-import { defaultPopupStyle } from '../utils/styles'
+import { defaultPopupStyle, textTagStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 
 const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
     styles = styles || defaultPopupStyle
 	
-	const { cards, addCard, getTags } = useCards();
+	const { addCard, getTags } = useCards();
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
 	const [tags, setTags] = useState([]);
+
+	// temporary --- bd 11/15
+	const TagBox = (text) => {
+		return (
+				<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
+					{text}
+				</div>
+		);
+	}
 
 	const getMissingTags = () => {
 		return getTags().filter((tag) =>
@@ -50,6 +59,7 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 
 					<Selector
 						onSelect={(e) => setTags([...tags, e])}
+						item={TagBox}
 						entries={getMissingTags()}
 					/>
 
@@ -63,5 +73,6 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
         </DefaultPopup>
     )
 };
+
 
 export default CreateCard;
