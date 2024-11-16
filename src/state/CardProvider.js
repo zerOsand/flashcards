@@ -68,7 +68,7 @@ export const CardProvider = ({children}) => {
 
 	const addCard = (front, back, tags) => {
 		const newCard = { id: id + 1, front, back, tags: tags };
-		setCards(prevCards => [newCard, ...prevCards]); // Add the new card at the start of the list
+		setCards(prevCards => [newCard, ...prevCards]); 
 		sid(id + 1);
 	  };
 	  
