@@ -2,13 +2,13 @@ import { useState } from 'react'
 import DefaultPopup from '../components/Popup'
 import CustomButton from '../components/CustomButton'
 import Selector from '../components/Selector'
-import { defaultPopupStyle } from '../utils/styles'
+import { defaultPopupStyle, textTagStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 
 const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
     styles = styles || defaultPopupStyle
 	
-	const { cards, addCard, getTags } = useCards();
+	const { addCard, getTags } = useCards();
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
 	const [tags, setTags] = useState([]);
@@ -63,5 +63,6 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
         </DefaultPopup>
     )
 };
+
 
 export default CreateCard;

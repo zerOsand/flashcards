@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import ClickList from '../ClickList'
-import { tagStyles, textTagStyle } from '../../utils/styles'
+import { tagStyles } from '../../utils/styles'
 
 const defaultStyles = {
 	searchItem: { ...tagStyles.item, ...{backgroundColor: '#6bc879'}
@@ -11,7 +11,7 @@ const defaultStyles = {
 
 const Box = (text) => {
 	return (
-		<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
+			<div>
 				{text}
 			</div>
 	);
@@ -56,6 +56,7 @@ const Selector = ({onSelect, entries, item, styles}) => {
 	return (
 		<div>
 			<input
+				style={{ height: '12px' }}
 				type="text"
 				value={inputValue}
 				onChange={handleInputChange}
