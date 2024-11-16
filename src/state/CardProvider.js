@@ -68,9 +68,10 @@ export const CardProvider = ({children}) => {
 
 	const addCard = (front, back, tags) => {
 		const newCard = { id: id + 1, front, back, tags: tags };
-		setCards(prevCards => [...prevCards, newCard]);
+		setCards(prevCards => [newCard, ...prevCards]); // Add the new card at the start of the list
 		sid(id + 1);
-	};
+	  };
+	  
 
 	// const removeCard = (index) => {
 	// };
@@ -116,3 +117,69 @@ export const useCards = () => {
 	return useContext(CardContext);
 };
 
+
+
+// import React, { createContext, useContext, useState } from 'react';
+
+// const CardContext = createContext();
+
+// const initialCards = [
+//   /* Test Cards */
+//   { id: 1, front: 'beren', back: 'the empty-handed', tags: ['human', 'outlaw', 'mortal'] },
+//   { id: 2, front: 'thingol', back: 'king of doriath', tags: ['elf', 'mortal'] },
+//   { id: 3, front: 'luthien', back: 'princess of doriath', tags: ['elf', 'immortal', 'maia', 'magician'] },
+//   { id: 4, front: 'huan', back: 'hound of valinor', tags: ['wolf', 'immortal'] },
+//   { id: 5, front: 'mablung', back: 'captian of doriath', tags: ['elf', 'mortal'] },
+//   { id: 6, front: 'beleg', back: 'the archer', tags: ['elf', 'mortal'] },
+//   { id: 7, front: 'carcharoth', back: 'the red maw', tags: ['wolf', 'werewolf'] },
+//   // Other test cards...
+// ];
+
+// export const CardProvider = ({ children }) => {
+//   const [cards, setCards] = useState(initialCards);
+//   const [id, sid] = useState(initialCards.length);
+
+//   const addCard = (front, back, tags) => {
+//     const newCard = { id: id + 1, front, back, tags: tags };
+//     setCards(prevCards => [newCard, ...prevCards]); // Add new card to the front
+//     sid(id + 1);
+//   };
+
+//   const getTags = () => {
+//     const tags = new Set();
+//     cards.forEach(card => {
+//       card.tags.forEach(tag => {
+//         tags.add(tag);
+//       });
+//     });
+//     return Array.from(tags);
+//   };
+
+//   const addTag = (cardIndex, tag) => {
+//     setCards(prevCards =>
+//       prevCards.map((card, i) =>
+//         i === cardIndex ? { ...card, tags: [...card.tags, tag].sort() } : card
+//       )
+//     );
+//   };
+
+//   const removeTag = (cardIndex, tagIndex) => {
+//     setCards(prevCards =>
+//       prevCards.map((card, i) =>
+//         i === cardIndex
+//           ? { ...card, tags: card.tags.filter((_, tIndex) => tIndex !== tagIndex) }
+//           : card
+//       )
+//     );
+//   };
+
+//   return (
+//     <CardContext.Provider value={{ cards, addCard, getTags, addTag, removeTag }}>
+//       {children}
+//     </CardContext.Provider>
+//   );
+// };
+
+// export const useCards = () => {
+//   return useContext(CardContext);
+// };
