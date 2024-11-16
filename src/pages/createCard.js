@@ -13,6 +13,15 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
     const [back, setBack] = useState('');
 	const [tags, setTags] = useState([]);
 
+	// temporary --- bd 11/15
+	const TagBox = (text) => {
+		return (
+				<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
+					{text}
+				</div>
+		);
+	}
+
 	const getMissingTags = () => {
 		return getTags().filter((tag) =>
 			!tags.includes(tag))
@@ -50,6 +59,7 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 
 					<Selector
 						onSelect={(e) => setTags([...tags, e])}
+						item={TagBox}
 						entries={getMissingTags()}
 					/>
 
