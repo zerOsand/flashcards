@@ -1,21 +1,30 @@
 import { useState } from 'react'
 import DefaultPopup from '../components/Popup'
 import CustomButton from '../components/CustomButton'
-import { createFlashcardStyle } from '../utils/styles'
 import ConfirmationPopup from './confirmPopup'
+import Selector from '../components/Selector'
+import { defaultPopupStyle } from '../utils/styles'
+import { useCards } from '../state/CardProvider.js'
 
-const CreateCard = ({ togglePopup, addCard, styles }) => {
-    styles = styles || createFlashcardStyle
-
+const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
+    styles = styles || defaultPopupStyle
+	
+	const { cards, addCard, getTags } = useCards();
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
+	const [tags, setTags] = useState([]);
+
+	const getMissingTags = () => {
+		return getTags().filter((tag) =>
+			!tags.includes(tag))
+	}
 
     const [showCancel, setShowCancel] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
 
     const handleSave = () => {
         if (front.trim() && back.trim()) {
-            addCard(front.trim(), back.trim());
+            addCard(front.trim(), back.trim(), tags);
             togglePopup();
         }
     };
@@ -41,6 +50,11 @@ const CreateCard = ({ togglePopup, addCard, styles }) => {
                             value={back}
                             onChange={(e) => setBack(e.target.value)}/>
                     </div>
+
+					<Selector
+						onSelect={(e) => setTags([...tags, e])}
+						entries={getMissingTags()}
+					/>
 
                     <div style={styles.buttonContainer}>
                         <CustomButton text="Cancel" event={() => setShowCancel(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
