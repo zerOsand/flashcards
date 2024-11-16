@@ -90,8 +90,8 @@ const cardPaneStyle = {
 		cursor: 'pointer',
 		overflowY: 'auto',
 		overflowX: 'hidden',
-		wordWrap: 'break-word',
-		overflowWrap: 'break-word',
+		wordWrap: 'anywhere',
+		overflowWrap: 'anywhere',
 		hyphens: 'auto',
 	},
 	back: {
