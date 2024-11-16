@@ -44,7 +44,7 @@ const CreateCard = ({ togglePopup, addCard, styles }) => {
 
                     <div style={styles.buttonContainer}>
                         <CustomButton text="Cancel" event={() => setShowCancel(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
-                        <CustomButton text="Save" event={() => setShowConfirm(true)} stylesOverride={{backgroundColor: '#6bc879'}}/>
+                        <CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: '#6bc879'}}/>
                     </div>  
                     {showCancel && <ConfirmationPopup onConfirm={togglePopup} onClose={() => setShowCancel(false)} message="Are you sure you want to cancel?"/>}
                     {showConfirm && <ConfirmationPopup onConfirm={() => handleSave()} onClose={() => setShowConfirm(false)} message="Would you like to save your changes?"/>}
