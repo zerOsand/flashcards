@@ -68,9 +68,10 @@ export const CardProvider = ({children}) => {
 
 	const addCard = (front, back, tags) => {
 		const newCard = { id: id + 1, front, back, tags: tags };
-		setCards(prevCards => [...prevCards, newCard]);
+		setCards(prevCards => [newCard, ...prevCards]); 
 		sid(id + 1);
-	};
+	  };
+	  
 
 	// const removeCard = (index) => {
 	// };
@@ -115,4 +116,5 @@ export const CardProvider = ({children}) => {
 export const useCards = () => {
 	return useContext(CardContext);
 };
+
 
