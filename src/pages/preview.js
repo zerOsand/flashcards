@@ -57,7 +57,6 @@ const PreviewPane = ({activeIndex}) => {
 				</div>
 				{isPopupOpen && (
 					<TagSelector
-						isPopupOpen={isPopupOpen}
 						togglePopup={togglePopup}
 						index={activeIndex}
 					/>

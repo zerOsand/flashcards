@@ -6,7 +6,7 @@ import Selector from '../components/Selector'
 import { useCards } from '../state/CardProvider.js'
 
 
-const TagSelector = ({ isPopupOpen, togglePopup, index}) => {
+const TagSelector = ({ togglePopup, index}) => {
 	const { cards, getTags, addTag } = useCards()
 
 	const getMissingTags = () => {
@@ -20,7 +20,6 @@ const TagSelector = ({ isPopupOpen, togglePopup, index}) => {
 
 	return (
 		<DefaultPopup
-			isOpen={isPopupOpen}
 			onClose={togglePopup}>
 			<div style={defaultPopupStyle.overlay}>
 				<div style={defaultPopupStyle.modal}>
