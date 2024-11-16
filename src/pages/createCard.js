@@ -2,11 +2,11 @@ import { useState } from 'react'
 import DefaultPopup from '../components/Popup'
 import CustomButton from '../components/CustomButton'
 import Selector from '../components/Selector'
-import { createFlashcardStyle } from '../utils/styles'
+import { defaultPopupStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 
 const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
-    styles = styles || createFlashcardStyle
+    styles = styles || defaultPopupStyle
 	
 	const { cards, addCard, getTags } = useCards();
     const [front, setFront] = useState('');

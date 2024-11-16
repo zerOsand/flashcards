@@ -5,7 +5,7 @@ import { tagStyles, textTagStyle } from '../../utils/styles'
 const defaultStyles = {
 	searchItem: { ...tagStyles.item, ...{backgroundColor: '#6bc879'}
 	},
-	clickList: { ...tagStyles, item: {...tagStyles.item, ...{backgroundColor: '#3366ff'}}
+	clickList: { ...tagStyles, container: {}, item: {...tagStyles.item, ...{backgroundColor: '#3366ff', marginBottom: '2px'}}
 	},
 }
 
