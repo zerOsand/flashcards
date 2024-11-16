@@ -32,6 +32,7 @@ export const textTagStyle = {
 	lineHeight: '1.0',
 	color: 'white',
 	overflow: 'hidden',
+	userSelect: 'none',
 }
 
 export const defaultPopupStyle = {
