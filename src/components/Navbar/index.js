@@ -14,6 +14,9 @@ const Navbar = () => {
                     <NavLink to="/tags">
                         Tags
                     </NavLink>
+                    <NavLink to="/import-flashcards">
+                    Import Flashcards
+                    </NavLink> 
                 </NavMenu>
             </Nav>
         </>

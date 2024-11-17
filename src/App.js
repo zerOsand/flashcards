@@ -4,6 +4,7 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Home from './pages'
 import Tags from './pages/tags'
+import ImportFlashcards from './pages/importFlashcards'
 import { CardProvider } from './state/CardProvider.js'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Home />} />
 					<Route path='/tags/*' element={<Tags />} />
+					<Route path="/import-flashcards" element={<ImportFlashcards />} />
 				</Routes>
 			</CardProvider>
 		</Router>
