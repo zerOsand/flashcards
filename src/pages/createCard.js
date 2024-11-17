@@ -9,10 +9,12 @@ import { useCards } from '../state/CardProvider.js'
 const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
     styles = styles || defaultPopupStyle
 	
-	const { cards, addCard, getTags } = useCards();
+	const { addCard, getTags } = useCards();
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
 	const [tags, setTags] = useState([]);
+
+    const isSaveEnabled = front.trim() !== "" && back.trim() !== "";
 
 	const getMissingTags = () => {
 		return getTags().filter((tag) =>
@@ -40,7 +42,8 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
                         <textarea 
                             style={styles.textarea} 
                             value={front}
-                            onChange={(e) => setFront(e.target.value)}/>
+                            onChange={(e) => setFront(e.target.value)}
+                            placeholder="Front of Flashcard"/>
                     </div>
 
                     <div style={styles.inputContainer}>
@@ -48,7 +51,8 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
                         <textarea 
                             style={styles.textarea} 
                             value={back}
-                            onChange={(e) => setBack(e.target.value)}/>
+                            onChange={(e) => setBack(e.target.value)}
+                            placeholder="Back of Flashcard"/>
                     </div>
 
 					<Selector
@@ -58,7 +62,7 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 
                     <div style={styles.buttonContainer}>
                         <CustomButton text="Cancel" event={() => setShowCancel(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
-                        <CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: '#6bc879'}}/>
+                        <CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: isSaveEnabled ? '#6bc879' : 'gray'}}/>
                     </div>  
                     {showCancel && <ConfirmationPopup onConfirm={togglePopup} onClose={() => setShowCancel(false)} message="Are you sure you want to cancel?"/>}
                     {showConfirm && <ConfirmationPopup onConfirm={() => handleSave()} onClose={() => setShowConfirm(false)} message="Would you like to save your changes?"/>}
