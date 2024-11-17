@@ -146,7 +146,7 @@ const previewStyles = {
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: '75px',
-		overflow: 'hidden',
+		overflow: 'auto',
 		boxSizing: 'border-box',
 	},
 	active_item: {
@@ -159,7 +159,10 @@ const previewStyles = {
 const textListStyle = {
 	fontSize: 'clamp(1rem, 5vw, 1.2rem)',
 	lineHeight: '1.2',
-	overflow: 'hidden',
+	whiteSpace: 'normal',  // Allows text to wrap
+    wordWrap: 'break-word',  // Breaks long words if necessary
+    wordBreak: 'break-word',  // Breaks words at the end of a line if necessary
+    hyphens: 'auto',  // Automatically adds hyphens where word breaks
 }
 
 
