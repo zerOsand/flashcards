@@ -67,7 +67,7 @@ export const CardProvider = ({children}) => {
 	const [id, sid] = useState(initialCards.length);
 
 	const addCard = (front, back, tags) => {
-		const newCard = { id: id + 1, front, back, tags: tags };
+		const newCard = { id: id + 1, front, back, tags: tags.sort() };
 		setCards(prevCards => [newCard, ...prevCards]); 
 		sid(id + 1);
 	  };
@@ -76,8 +76,14 @@ export const CardProvider = ({children}) => {
 	// const removeCard = (index) => {
 	// };
 
-	// const editCard = (index) => {		
-	// };
+	const editCard = (id, front, back, tags) => {
+		const newCards = cards.map(card => {
+			if (card.id === id)
+				return { ...card, front, back, tags: tags.sort() }
+			return card
+		});
+		setCards(newCards)
+	};
 
 	const getTags = () => {
 		const tags = new Set()
@@ -89,25 +95,8 @@ export const CardProvider = ({children}) => {
 		return Array.from(tags)
 	}
 
-	const addTag = (cardIndex, tag) => {
-		setCards(prevCards =>
-			prevCards.map((card, i) =>
-				i === cardIndex ? { ...card, tags: [...card.tags, tag].sort() } : card
-			)
-		);
-	};
-
-	const removeTag = (cardIndex, tagIndex) => {
-		setCards(prevCards =>
-			prevCards.map((card, i) => i === cardIndex
-						  ? { ...card, tags: card.tags.filter((_, tIndex) => tIndex !== tagIndex) }
-						  : card
-						 )
-		);
-	};
-
 	return (
-			<CardContext.Provider value={{ cards, addCard, getTags, addTag, removeTag }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags }}>
 				{children}
 			</CardContext.Provider>
 	);
