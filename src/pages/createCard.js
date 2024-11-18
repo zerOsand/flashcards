@@ -22,7 +22,6 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 	}
 
     const [showCancel, setShowCancel] = useState(false);
-    const [showConfirm, setShowConfirm] = useState(false);
 
     const handleSave = () => {
         if (front.trim() && back.trim()) {
@@ -65,7 +64,6 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
                         <CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: isSaveEnabled ? '#6bc879' : 'gray'}}/>
                     </div>  
                     {showCancel && <ConfirmationPopup onConfirm={togglePopup} onClose={() => setShowCancel(false)} message="Are you sure you want to cancel?"/>}
-                    {showConfirm && <ConfirmationPopup onConfirm={() => handleSave()} onClose={() => setShowConfirm(false)} message="Would you like to save your changes?"/>}
                 </div>
             </div>
         </DefaultPopup>
