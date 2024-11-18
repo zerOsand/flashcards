@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import DefaultPopup from '../components/Popup'
 import CustomButton from '../components/CustomButton'
+import ConfirmationPopup from './confirmPopup'
 import Selector from '../components/Selector'
 import { defaultPopupStyle, textTagStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
@@ -13,6 +14,9 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
     const [back, setBack] = useState('');
 	const [tags, setTags] = useState([]);
 
+
+    const isSaveEnabled = front.trim() !== "" && back.trim() !== "";
+
 	// temporary --- bd 11/15
 	const TagBox = (text) => {
 		return (
@@ -22,10 +26,13 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 		);
 	}
 
+
 	const getMissingTags = () => {
 		return getTags().filter((tag) =>
 			!tags.includes(tag))
 	}
+
+    const [showCancel, setShowCancel] = useState(false);
 
     const handleSave = () => {
         if (front.trim() && back.trim()) {
@@ -36,7 +43,6 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 
     return (
         <DefaultPopup 
-            isOpen={isPopupOpen} 
             onClose={togglePopup}>
             <div style={styles.overlay}>
                 <div style={styles.modal}>
@@ -46,7 +52,8 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
                         <textarea 
                             style={styles.textarea} 
                             value={front}
-                            onChange={(e) => setFront(e.target.value)}/>
+                            onChange={(e) => setFront(e.target.value)}
+                            placeholder="Front of Flashcard"/>
                     </div>
 
                     <div style={styles.inputContainer}>
@@ -54,7 +61,8 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
                         <textarea 
                             style={styles.textarea} 
                             value={back}
-                            onChange={(e) => setBack(e.target.value)}/>
+                            onChange={(e) => setBack(e.target.value)}
+                            placeholder="Back of Flashcard"/>
                     </div>
 
 					<Selector
@@ -64,10 +72,10 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 					/>
 
                     <div style={styles.buttonContainer}>
-                        <CustomButton text="Cancel" event={togglePopup} /* TODO #15; confirm cancel */ stylesOverride={{backgroundColor: '#b53550'}}/>
-                        <CustomButton text="Save" event={handleSave} stylesOverride={{backgroundColor: '#6bc879'}}/>
-                    </div>
-
+                        <CustomButton text="Cancel" event={() => setShowCancel(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
+                        <CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: isSaveEnabled ? '#6bc879' : 'gray'}}/>
+                    </div>  
+                    {showCancel && <ConfirmationPopup onConfirm={togglePopup} onClose={() => setShowCancel(false)} message="Are you sure you want to cancel?"/>}
                 </div>
             </div>
         </DefaultPopup>

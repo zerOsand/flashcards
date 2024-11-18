@@ -74,7 +74,6 @@ const Home = () => {
 				
 				{isPopupOpen && (
 					<CreateCard
-						isPopupOpen={isPopupOpen}
 						togglePopup={togglePopup}
 					/>
 				)}

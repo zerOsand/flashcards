@@ -57,7 +57,6 @@ const PreviewPane = ({activeIndex}) => {
 				</div>
 				{isPopupOpen && (
 					<TagSelector
-						isPopupOpen={isPopupOpen}
 						togglePopup={togglePopup}
 						index={activeIndex}
 					/>
@@ -93,9 +92,11 @@ const cardPaneStyle = {
 		wordWrap: 'anywhere',
 		overflowWrap: 'anywhere',
 		hyphens: 'auto',
+		userSelect: 'none'
 	},
 	back: {
 		background: '#f0f0f0',
+		userSelect: 'none'
 	}
 };
 

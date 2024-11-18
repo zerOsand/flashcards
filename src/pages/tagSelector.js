@@ -32,7 +32,6 @@ const TagSelector = ({ isPopupOpen, togglePopup, index}) => {
 
 	return (
 		<DefaultPopup
-			isOpen={isPopupOpen}
 			onClose={togglePopup}>
 			<div style={defaultPopupStyle.overlay}>
 				<div style={defaultPopupStyle.modal}>
