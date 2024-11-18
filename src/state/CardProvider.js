@@ -70,8 +70,7 @@ export const CardProvider = ({children}) => {
 		const newCard = { id: id + 1, front, back, tags: tags.sort() };
 		setCards(prevCards => [newCard, ...prevCards]); 
 		sid(id + 1);
-	  };
-	  
+	};
 
 	// const removeCard = (index) => {
 	// };
@@ -95,8 +94,34 @@ export const CardProvider = ({children}) => {
 		return Array.from(tags)
 	}
 
+	const handleExportFlashcards = ( filteredCards ) => {
+		// first, save the filtered flashcards as a json
+		const jsonCards = JSON.stringify(filteredCards, null, 2);
+
+		const blob = new Blob([jsonCards], { type: "application/json" });
+
+		// create a link and download the file
+		const url = window.URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = url;
+		link.download = "Flashcards.json"; 
+		link.click();
+
+		// frees blob memory
+		URL.revokeObjectURL(link.href);
+	};
+
+	const removeTag = (cardIndex, tagIndex) => {
+		setCards(prevCards =>
+			prevCards.map((card, i) => i === cardIndex
+						  ? { ...card, tags: card.tags.filter((_, tIndex) => tIndex !== tagIndex) }
+						  : card
+						 )
+		);
+	};
+
 	return (
-			<CardContext.Provider value={{ cards, addCard, editCard, getTags }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, handleExportFlashcards }}>
 				{children}
 			</CardContext.Provider>
 	);

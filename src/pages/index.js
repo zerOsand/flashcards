@@ -16,7 +16,7 @@ const Flashcard = (flashcard, active) => {
 };
 
 const Home = () => {
-	const { cards } = useCards();
+	const { cards, handleExportFlashcards } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined)
 	const [filteredCards, setFilteredCards] = useState(cards);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -54,7 +54,8 @@ const Home = () => {
 			<div style={contentArea}>
 				<div style={searchBarStyle}>
 					<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
-					<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
+					<CustomButton text="Export" event={() => handleExportFlashcards(filteredCards)} stylesOverride={{backgroundColor: '#c9c9c9'}} />
+					<CustomButton text="Practice" event={() => console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>
