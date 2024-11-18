@@ -121,7 +121,7 @@ export const CardProvider = ({children}) => {
 	};
 
 	return (
-			<CardContext.Provider value={{ cards, addCard, getTags, removeTag, handleExportFlashcards }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, handleExportFlashcards }}>
 				{children}
 			</CardContext.Provider>
 	);
