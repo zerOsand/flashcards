@@ -89,6 +89,23 @@ export const CardProvider = ({children}) => {
 		return Array.from(tags)
 	}
 
+	const handleExportFlashcards = ( filteredCards ) => {
+		// first, save the filtered flashcards as a json
+		const jsonCards = JSON.stringify(filteredCards, null, 2);
+    
+		const blob = new Blob([jsonCards], { type: "application/json" });
+
+		// create a link and download the file
+		const url = window.URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = url;
+		link.download = "Flashcards.json"; 
+		link.click();
+		
+		// frees blob memory
+		URL.revokeObjectURL(link.href);
+	};
+
 	const addTag = (cardIndex, tag) => {
 		setCards(prevCards =>
 			prevCards.map((card, i) =>
@@ -107,7 +124,7 @@ export const CardProvider = ({children}) => {
 	};
 
 	return (
-			<CardContext.Provider value={{ cards, addCard, getTags, addTag, removeTag }}>
+			<CardContext.Provider value={{ cards, addCard, getTags, addTag, removeTag, handleExportFlashcards }}>
 				{children}
 			</CardContext.Provider>
 	);

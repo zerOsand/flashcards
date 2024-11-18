@@ -16,7 +16,7 @@ const Flashcard = (flashcard, active) => {
 };
 
 const Home = () => {
-	const { cards } = useCards();
+	const { cards, handleExportFlashcards } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined)
 	const [filteredCards, setFilteredCards] = useState(cards);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -49,29 +49,12 @@ const Home = () => {
 		setFilteredCards(newFilteredCards);
 	};
 
-	const handleExportFlashcards = () => {
-		// first, save the filtered flashcards as a json
-		const jsonCards = JSON.stringify(filteredCards, null, 2);
-    
-		const blob = new Blob([jsonCards], { type: "application/json" });
-
-		// create a link and download the file
-		const url = window.URL.createObjectURL(blob);
-		const link = document.createElement("a");
-		link.href = url;
-		link.download = "Flashcards.json"; 
-		link.click();
-		
-		// frees blob memory
-		URL.revokeObjectURL(link.href);
-	};
-
 	return (
 		<div style={contentContainer}>
 			<div style={contentArea}>
 				<div style={searchBarStyle}>
 					<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
-					<CustomButton text="Export" event={handleExportFlashcards} stylesOverride={{backgroundColor: '#c9c9c9'}} />
+					<CustomButton text="Export" event={handleExportFlashcards(filteredCards)} stylesOverride={{backgroundColor: '#c9c9c9'}} />
 					<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
 				</div>
 				<div style={container}>
