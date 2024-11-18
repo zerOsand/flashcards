@@ -53,7 +53,7 @@ const EditCard = ({togglePopup, card, styles}) => {
 			onClose={togglePopup}>
 			<div style={styles.overlay}>
 				<div style={styles.modal}>
-					<h2>Create Flashcard</h2>
+					<h2>{cardState.id ? "Edit" : "Create"} Flashcard</h2>
 					<div style={styles.inputContainer}>
 						<label style={styles.label}>Front</label>
 						<textarea
