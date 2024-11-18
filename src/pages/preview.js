@@ -66,7 +66,7 @@ const PreviewPane = ({activeIndex}) => {
 }
 
 
-export const cardPaneStyle = {
+const cardPaneStyle = {
 	container: {
 		height: '90%',
 		width: '80%',		
@@ -89,8 +89,8 @@ export const cardPaneStyle = {
 		cursor: 'pointer',
 		overflowY: 'auto',
 		overflowX: 'hidden',
-		wordWrap: 'break-word',
-		overflowWrap: 'break-word',
+		wordWrap: 'anywhere',
+		overflowWrap: 'anywhere',
 		hyphens: 'auto',
 		userSelect: 'none'
 	},
@@ -100,7 +100,7 @@ export const cardPaneStyle = {
 	}
 };
 
-export const textPreviewStyle = {
+const textPreviewStyle = {
 	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
 	lineHeight: '1.2',
 	margin: 'auto',

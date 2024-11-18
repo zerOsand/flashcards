@@ -84,7 +84,7 @@ const Home = () => {
 };
 
 
-export const contentArea = {
+const contentArea = {
 	display: 'flex',
 	flexDirection: 'column',
 	margin: '20px',
@@ -94,7 +94,7 @@ export const contentArea = {
 	overflow: 'hidden',
 };
 
-export const contentContainer = {
+const contentContainer = {
 	display: 'flex',
 	flexDirection: 'column',
 	height: 'calc(100vh - 60px)',
@@ -102,23 +102,23 @@ export const contentContainer = {
 	overflow: 'hidden',
 };
 
-export const searchBarStyle = {
+const searchBarStyle = {
 	margin: '3px',
 	display: 'flex',
 };
 
-export const container = {
+const container = {
 	display: 'flex',
 	overflow: 'hidden',
 };
 
-export const leftContainer = {
+const leftContainer = {
 	flex: '1 0 40%',
 	overflow: 'auto',
 	padding: '10px',
 };
 
-export const rightContainer = {
+const rightContainer = {
 	flex: '1 0 60%',
 	display: 'flex',
 	flexDirection: 'column',
@@ -127,7 +127,7 @@ export const rightContainer = {
 	alignItems: 'center',
 };
 
-export const previewStyles = {
+const previewStyles = {
 	container: {
 		display: 'flex',
 		flexWrap: 'wrap',
@@ -155,7 +155,7 @@ export const previewStyles = {
 	},
 };
 
-export const textListStyle = {
+const textListStyle = {
 	fontSize: 'clamp(1rem, 5vw, 1.2rem)',
 	lineHeight: '1.2',
 	overflow: 'hidden',
