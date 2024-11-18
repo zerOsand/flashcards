@@ -6,37 +6,38 @@ import Selector from '../components/Selector'
 import { defaultPopupStyle, textTagStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 
-const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
+const EditCard = ({togglePopup, card, styles}) => {
     styles = styles || defaultPopupStyle
-	
-	const { addCard, getTags } = useCards();
-    const [front, setFront] = useState('');
-    const [back, setBack] = useState('');
-	const [tags, setTags] = useState([]);
 
+    const { addCard, getTags } = useCards();
+    const [cardState, setCardState] = useState({
+        front: card?.front ?? '',
+        back: card?.back ?? '',
+        tags: card?.tags ?? [],
+    });
 
-    const isSaveEnabled = front.trim() !== "" && back.trim() !== "";
+    const isSaveEnabled = cardState.front.trim() !== "" && cardState.back.trim() !== "";
 
-	// temporary --- bd 11/15
-	const TagBox = (text) => {
-		return (
-				<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
-					{text}
-				</div>
-		);
-	}
+    // temporary --- bd 11/15
+    const TagBox = (text) => {
+        return (
+                <div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
+                    {text}
+                </div>
+        );
+    }
 
-
-	const getMissingTags = () => {
-		return getTags().filter((tag) =>
-			!tags.includes(tag))
-	}
+    const getMissingTags = () => {
+        return getTags().filter((tag) =>
+            !cardState.tags.includes(tag))
+    }
 
     const [showCancel, setShowCancel] = useState(false);
 
     const handleSave = () => {
-        if (front.trim() && back.trim()) {
-            addCard(front.trim(), back.trim(), tags);
+        let front = cardState.front.trim(); let back = cardState.back.trim();
+        if (front && back) {
+            addCard(front, back, cardState.tags);
             togglePopup();
         }
     };
@@ -51,8 +52,8 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
                         <label style={styles.label}>Front</label>
                         <textarea 
                             style={styles.textarea} 
-                            value={front}
-                            onChange={(e) => setFront(e.target.value)}
+                            value={cardState.front}
+                            onChange={(e) => { setCardState((p) => ({ ...p, front: e.target.value}))}}
                             placeholder="Front of Flashcard"/>
                     </div>
 
@@ -60,16 +61,16 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
                         <label style={styles.label}>Back</label>
                         <textarea 
                             style={styles.textarea} 
-                            value={back}
-                            onChange={(e) => setBack(e.target.value)}
+                            value={cardState.back}
+                            onChange={(e) => { setCardState((p) => ({ ...p, back: e.target.value}))}}
                             placeholder="Back of Flashcard"/>
                     </div>
 
-					<Selector
-						onSelect={(e) => setTags([...tags, e])}
-						item={TagBox}
-						entries={getMissingTags()}
-					/>
+                    <Selector
+                        onSelect={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
+                        item={TagBox}
+                        entries={getMissingTags()}
+                    />
 
                     <div style={styles.buttonContainer}>
                         <CustomButton text="Cancel" event={() => setShowCancel(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
@@ -83,4 +84,4 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 };
 
 
-export default CreateCard;
+export default EditCard;
