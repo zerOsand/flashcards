@@ -64,7 +64,7 @@ const CreateCard = ({ isPopupOpen, togglePopup, styles}) => {
 					/>
 
                     <div style={styles.buttonContainer}>
-                        <CustomButton text="Cancel" event={togglePopup} /* TODO #15; confirm cancel */ stylesOverride={{backgroundColor: '#b53550'}}/>
+                        <CustomButton text="Cancel" event={togglePopup} stylesOverride={{backgroundColor: '#b53550'}}/>
                         <CustomButton text="Save" event={handleSave} stylesOverride={{backgroundColor: '#6bc879'}}/>
                     </div>
 

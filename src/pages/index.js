@@ -54,8 +54,8 @@ const Home = () => {
 			<div style={contentArea}>
 				<div style={searchBarStyle}>
 					<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
-					<CustomButton text="Export" event={handleExportFlashcards(filteredCards)} stylesOverride={{backgroundColor: '#c9c9c9'}} />
-					<CustomButton text="Practice" event={console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
+					<CustomButton text="Export" event={() => handleExportFlashcards(filteredCards)} stylesOverride={{backgroundColor: '#c9c9c9'}} />
+					<CustomButton text="Practice" event={() => console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
 				</div>
 				<div style={container}>
 					<div style={leftContainer}>
