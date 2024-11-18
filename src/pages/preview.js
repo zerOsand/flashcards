@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { tagStyles, textTagStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 import ClickList from '../components/ClickList'
-import TagSelector from './tagSelector.js'
+import EditCard from './editCard.js'
 
 
 const PreviewPane = ({activeIndex}) => {
@@ -33,7 +33,7 @@ const PreviewPane = ({activeIndex}) => {
 		return (
 				<div style={{ ...tagStyles.item, ...{backgroundColor: '#6bc879'}}} onClick={togglePopup}>
 					<div style={textTagStyle}>
-					{'+'}
+					{'E'}
 					</div>
 				</div>
 		);
@@ -56,10 +56,9 @@ const PreviewPane = ({activeIndex}) => {
 					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} prependItem={AddTag} />}
 				</div>
 				{isPopupOpen && (
-					<TagSelector
-						isPopupOpen={isPopupOpen}
+					<EditCard
 						togglePopup={togglePopup}
-						index={activeIndex}
+						card={cards[activeIndex]}
 					/>
 				)}
 			</>
@@ -93,9 +92,11 @@ const cardPaneStyle = {
 		wordWrap: 'anywhere',
 		overflowWrap: 'anywhere',
 		hyphens: 'auto',
+		userSelect: 'none'
 	},
 	back: {
 		background: '#f0f0f0',
+		userSelect: 'none'
 	}
 };
 

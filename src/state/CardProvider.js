@@ -67,17 +67,22 @@ export const CardProvider = ({children}) => {
 	const [id, sid] = useState(initialCards.length);
 
 	const addCard = (front, back, tags) => {
-		const newCard = { id: id + 1, front, back, tags: tags };
+		const newCard = { id: id + 1, front, back, tags: tags.sort() };
 		setCards(prevCards => [newCard, ...prevCards]); 
 		sid(id + 1);
-	  };
-	  
+	};
 
 	// const removeCard = (index) => {
 	// };
 
-	// const editCard = (index) => {		
-	// };
+	const editCard = (id, front, back, tags) => {
+		const newCards = cards.map(card => {
+			if (card.id === id)
+				return { ...card, front, back, tags: tags.sort() }
+			return card
+		});
+		setCards(newCards)
+	};
 
 	const getTags = () => {
 		const tags = new Set()
@@ -92,7 +97,7 @@ export const CardProvider = ({children}) => {
 	const handleExportFlashcards = ( filteredCards ) => {
 		// first, save the filtered flashcards as a json
 		const jsonCards = JSON.stringify(filteredCards, null, 2);
-    
+
 		const blob = new Blob([jsonCards], { type: "application/json" });
 
 		// create a link and download the file
@@ -101,17 +106,9 @@ export const CardProvider = ({children}) => {
 		link.href = url;
 		link.download = "Flashcards.json"; 
 		link.click();
-		
+
 		// frees blob memory
 		URL.revokeObjectURL(link.href);
-	};
-
-	const addTag = (cardIndex, tag) => {
-		setCards(prevCards =>
-			prevCards.map((card, i) =>
-				i === cardIndex ? { ...card, tags: [...card.tags, tag].sort() } : card
-			)
-		);
 	};
 
 	const removeTag = (cardIndex, tagIndex) => {
@@ -124,7 +121,7 @@ export const CardProvider = ({children}) => {
 	};
 
 	return (
-			<CardContext.Provider value={{ cards, addCard, getTags, addTag, removeTag, handleExportFlashcards }}>
+			<CardContext.Provider value={{ cards, addCard, getTags, removeTag, handleExportFlashcards }}>
 				{children}
 			</CardContext.Provider>
 	);
