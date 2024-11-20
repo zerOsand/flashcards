@@ -1,70 +1,87 @@
-import { useState, useEffect } from 'react'
-import { tagStyles, textTagStyle } from '../utils/styles'
-import { useCards } from '../state/CardProvider.js'
-import ClickList from '../components/ClickList'
-import EditCard from './editCard.js'
 
+import { useState, useEffect } from "react";
+import { tagStyles, textTagStyle } from "../utils/styles";
+import { useCards } from "../state/CardProvider.js";
+import ClickList from "../components/ClickList";
+import EditCard from "./editCard.js";
 
-const PreviewPane = ({activeIndex}) => {
-	const { cards, removeTag } = useCards();
-	const [flipped, setFlipped] = useState(false)
-	const [isPopupOpen, setIsPopupOpen] = useState(false)
+const PreviewPane = ({ activeIndex, setSearchTerm }) => {
+    const { cards } = useCards();
+    const [flipped, setFlipped] = useState(false);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-	const handleTagClick = (tagIndex) => {
-		removeTag(activeIndex, tagIndex)
-	};
+    const handleTagClickWrapper = (tagIndex) => {
+        const tagValue = cards[activeIndex]?.tags?.[tagIndex];
+        if (!tagValue) return;
+        setSearchTerm(tagValue);
+    };
 
-	useEffect(() => {
+    useEffect(() => {
         setFlipped(false);
     }, [activeIndex]);
 
-	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
+    const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
-	const TagBox = (text) => {
-		return (
-				<div style={textTagStyle}>
-					{text}
-					<span>&times;</span>
-				</div>
-		);
-	}
+    const TagBox = (text) => (
+        <div style={textTagStyle}>
+            {text}
+            <span>&times;</span>
+        </div>
+    );
 
-	const AddTag = () => {
-		return (
-				<div style={{ ...tagStyles.item, ...{backgroundColor: '#6bc879'}}} onClick={togglePopup}>
-					<div style={textTagStyle}>
-					{'E'}
-					</div>
-				</div>
-		);
-	}
+    const AddTag = () => (
+        <div
+            style={{ ...tagStyles.item, backgroundColor: "#6bc879" }}
+            onClick={togglePopup}
+        >
+            <div style={textTagStyle}>{"E"}</div>
+        </div>
+    );
 
-	return (
-			<>
-				<div style={cardPaneStyle.container} >
-					<div style={{ ...cardPaneStyle.front, ...((flipped && activeIndex !== undefined) ? cardPaneStyle.back : {}) }} onClick={(e) => {
-						e.stopPropagation()
-						setFlipped(!flipped)
-					}}>
-						{(activeIndex === undefined) ?
-						 <div style={{ ...textPreviewStyle, ...{color: 'lightgrey'}}}>
-								Select a card for preview...
-						 </div> : <div style={textPreviewStyle}>
-							 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
-						</div>}
-					</div>
-					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} prependItem={AddTag} />}
-				</div>
-				{isPopupOpen && (
-					<EditCard
-						togglePopup={togglePopup}
-						card={cards[activeIndex]}
-					/>
-				)}
-			</>
-	)
-}
-
+    return (
+        <>
+            <div style={cardPaneStyle.container}>
+                <div
+                    style={{
+                        ...cardPaneStyle.front,
+                        ...(flipped && activeIndex !== undefined
+                            ? cardPaneStyle.back
+                            : {}),
+                    }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setFlipped(!flipped);
+                    }}
+                >
+                    {activeIndex === undefined ? (
+                        <div style={{ ...textPreviewStyle, color: "lightgrey" }}>
+                            Select a card for preview...
+                        </div>
+                    ) : (
+                        <div style={textPreviewStyle}>
+                            {flipped ? cards[activeIndex].back : cards[activeIndex].front}
+                        </div>
+                    )}
+                </div>
+                {activeIndex !== undefined && (
+                    <ClickList
+                        list={cards[activeIndex].tags}
+                        item={TagBox}
+                        event={handleTagClickWrapper}
+                        styles={{
+                            ...tagStyles,
+                            item: { ...tagStyles.item, backgroundColor: "#b53550" },
+                        }}
+                        prependItem={AddTag}
+                    />
+                )}
+            </div>
+            {isPopupOpen && (
+                <EditCard togglePopup={togglePopup} card={cards[activeIndex]} />
+            )}
+        </>
+    );
+};
 
 const cardPaneStyle = {
 	container: {
@@ -107,5 +124,7 @@ const textPreviewStyle = {
 	whiteSpace: 'pre-wrap',
 }
 
+export default PreviewPane;
 
-export default PreviewPane
+
+

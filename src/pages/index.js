@@ -1,89 +1,95 @@
-import { useState } from 'react'
-import { useCards } from '../state/CardProvider.js'
-import Searchbar from '../components/Searchbar'
-import ClickList from '../components/ClickList'
-import PreviewPane from './preview'
-import CustomButton from '../components/CustomButton'
-import EditCard from './editCard.js'
-
-
-const Flashcard = (flashcard, active) => {
-	return (
-		<div>
-			<div style={{ ...textListStyle, ...(active && { color: 'white' })}}>{flashcard.front}</div>
-		</div>
-	)
-};
+import { useState, useEffect } from 'react';
+import { useCards } from '../state/CardProvider.js';
+import Searchbar from '../components/Searchbar';
+import ClickList from '../components/ClickList';
+import PreviewPane from './preview';
+import CustomButton from '../components/CustomButton';
+import EditCard from './editCard.js';
 
 const Home = () => {
-	const { cards, handleExportFlashcards } = useCards();
-	const [activeIndex, setActiveIndex] = useState(undefined)
-	const [filteredCards, setFilteredCards] = useState(cards);
-	const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const { cards, handleExportFlashcards } = useCards();
+    const [activeIndex, setActiveIndex] = useState(undefined);
+    const [filteredCards, setFilteredCards] = useState(cards);
+    const [searchTerm, setSearchTerm] = useState(''); 
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-	const convertIndex = (array, target) => {
-		return array.findIndex(item => {
-			return item.id === target.id;
-		});
-	};
+    // 
+    const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
-	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
+    const handleCardClick = (index) => {
+        setActiveIndex(index); 
+    };
 
-	const handleCardClick = (index) => {
-		// use the 'true' index
-		setActiveIndex(convertIndex(cards, filteredCards[index]));
-	};
+    const handleFilteredCardsChange = (newFilteredCards) => {
+        setFilteredCards(newFilteredCards); 
+    };
 
-	const AddFlashcard = () => {
-		return (
-				<div style={{ ...previewStyles.item, ...{backgroundColor: '#6bc879', border: 'none', cursor: 'pointer'}}} 
-				onClick={togglePopup}>
-					<div style={{ ...textListStyle, ...{color: 'white'}}}>
-						{'+'}
-					</div>
-				</div>
-		);
-	}
+    const handleTagSelected = (tag) => {
+        setSearchTerm((prev) => {
+            const newTerm =
+                typeof prev === "string" && prev.length > 0 ? `${prev},${tag}` : tag;
+            return newTerm;
+        });
+    };
 
-	const handleFilteredCardsChange = (newFilteredCards) => {
-		setFilteredCards(newFilteredCards);
-	};
-
-	return (
-		<div style={contentContainer}>
-			<div style={contentArea}>
-				<div style={searchBarStyle}>
-					<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
-					<CustomButton text="Export" event={() => handleExportFlashcards(filteredCards)} stylesOverride={{backgroundColor: '#c9c9c9'}} />
-					<CustomButton text="Practice" event={() => console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
-				</div>
-				<div style={container}>
-					<div style={leftContainer}>
-						<ClickList 
-							active={(activeIndex === undefined) ? activeIndex : convertIndex(filteredCards, cards[activeIndex])} 
-							list={filteredCards} 
-							item={Flashcard} 
-							event={handleCardClick} 
-							styles={previewStyles} 
-							prependItem={AddFlashcard}
-						/>
-					</div>
-					<div style={rightContainer}>
-						<PreviewPane activeIndex={activeIndex} />
-					</div>
-				</div>
-				
-				{isPopupOpen && (
-					<EditCard
-						togglePopup={togglePopup}
-					/>
-				)}
-
-			</div>
-		</div>
-	)
+    return (
+        <div style={contentContainer}>
+            <div style={contentArea}>
+                <div style={searchBarStyle}>
+                    <Searchbar
+                        onFilteredCardsChange={handleFilteredCardsChange}
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                    />
+                    <CustomButton
+                        text="Export"
+                        event={() => handleExportFlashcards(filteredCards)}
+                        stylesOverride={{ backgroundColor: '#c9c9c9' }}
+                    />
+                    <CustomButton
+                        text="Practice"
+                        event={() => console.log('Practice!')}
+                        stylesOverride={{ backgroundColor: '#3366ff' }}
+                    />
+                </div>
+                <div style={container}>
+                    <div style={leftContainer}>
+                        <ClickList
+                            active={activeIndex}
+                            list={filteredCards}
+                            item={(flashcard, active) => (
+                                <div>
+                                    <div style={{ ...textListStyle, ...(active && { color: 'white' }) }}>
+                                        {flashcard.front}
+                                    </div>
+                                </div>
+                            )}
+                            event={handleCardClick}
+                            styles={previewStyles}
+                            prependItem={() => (
+                                <div
+                                    style={{
+                                        ...previewStyles.item,
+                                        backgroundColor: '#6bc879',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={togglePopup}
+                                >
+                                    <div style={{ ...textListStyle, color: 'white' }}>+</div>
+                                </div>
+                            )}
+                        />
+                    </div>
+                    <div style={rightContainer}>
+                        <PreviewPane activeIndex={activeIndex} setSearchTerm={handleTagSelected} />
+                    </div>
+                </div>
+                {isPopupOpen && <EditCard togglePopup={togglePopup} />}
+            </div>
+        </div>
+    );
 };
-
 
 const contentArea = {
 	display: 'flex',
@@ -135,7 +141,7 @@ const previewStyles = {
 		justifyContent: 'space-between',
 	},
 	item: {
-		flex: '0 0 calc(100% / 2 - 5px)', // items/spacing per row
+		flex: '0 0 calc(100% / 2 - 5px)', 
 		marginBottom: '15px',
 		borderStyle: 'solid',
 		borderRadius: '4px',
@@ -162,5 +168,7 @@ const textListStyle = {
 	overflow: 'hidden',
 }
 
+export default Home;
 
-export default Home
+
+
