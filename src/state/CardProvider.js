@@ -134,5 +134,3 @@ export const CardProvider = ({children}) => {
 export const useCards = () => {
 	return useContext(CardContext);
 };
-
-

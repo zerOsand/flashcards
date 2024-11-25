@@ -29,10 +29,8 @@ const PreviewPane = ({ index })  => {
 
 	const handleRemoveCard = () => {
 		removeCard(activeIndex);
-		if (activeIndex >= cards.length - 1) {
-			setActiveIndex(activeIndex - 1);
-		}
-		toggleRemovePopup();
+		if (activeIndex >= cards.length - 1)
+			setActiveIndex(undefined);
 	}
 
 	const TagBox = (text) => {
