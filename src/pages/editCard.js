@@ -2,14 +2,14 @@ import { useState } from 'react'
 import DefaultPopup from '../components/Popup'
 import CustomButton from '../components/CustomButton'
 import ConfirmationPopup from './confirmPopup'
-import Selector from '../components/Selector'
-import { defaultPopupStyle, textTagStyle } from '../utils/styles'
+import Selector from './Selector'
+import { defaultPopupStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 
 const EditCard = ({togglePopup, card, styles}) => {
 	styles = styles || defaultPopupStyle
 
-	const { addCard, editCard, getTags } = useCards();
+	const { addCard, editCard } = useCards();
 	const [cardState, setCardState] = useState({
 		id: card?.id ?? null,
 		front: card?.front ?? '',
@@ -18,20 +18,6 @@ const EditCard = ({togglePopup, card, styles}) => {
 	});
 
 	const isSaveEnabled = cardState.front.trim() !== "" && cardState.back.trim() !== "";
-
-	// temporary --- bd 11/15
-	const TagBox = (text) => {
-		return (
-				<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
-					{text}
-				</div>
-		);
-	}
-
-	const getMissingTags = () => {
-		return getTags().filter((tag) =>
-			!cardState.tags.includes(tag))
-	}
 
 	const [showCancel, setShowCancel] = useState(false);
 
@@ -73,9 +59,9 @@ const EditCard = ({togglePopup, card, styles}) => {
 					</div>
 
 					<Selector
-						onSelect={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
-						item={TagBox}
-						entries={getMissingTags()}
+						onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
+						onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
+						tags={cardState.tags}
 					/>
 
 					<div style={styles.buttonContainer}>
