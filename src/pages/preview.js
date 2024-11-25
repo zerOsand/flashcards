@@ -4,11 +4,11 @@ import { useCards } from '../state/CardProvider.js'
 import ClickList from '../components/ClickList'
 import EditCard from './editCard.js'
 import ConfirmationPopup from './confirmPopup.js'
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
-import { FaEdit, FaTrash } from 'react-icons/fa'; // Import the book icon
 
-
-const PreviewPane = ({activeIndex}) => {
+const PreviewPane = ({ index })  => {
+	const {activeIndex, setActiveIndex} = index
 	const { cards, removeTag, removeCard } = useCards();
 	const [flipped, setFlipped] = useState(false)
 	const [isEditOpen, setIsEditOpen] = useState(false)
@@ -28,9 +28,12 @@ const PreviewPane = ({activeIndex}) => {
 	const toggleRemovePopup = () => setIsRemoveOpen(!isRemoveOpen);
 
 	const handleRemoveCard = () => {
-		removeCard(activeIndex)
-		toggleRemovePopup()
-	};
+		removeCard(activeIndex);
+		if (activeIndex >= cards.length - 1) {
+			setActiveIndex(activeIndex - 1);
+		}
+		toggleRemovePopup();
+	}
 
 	const TagBox = (text) => {
 		return (
