@@ -76,7 +76,6 @@ export const CardProvider = ({children}) => {
 		setCards(prevCards =>
 			prevCards.filter((_, i) => i !== index)
 		);
-		console.log()
 	};
 
 	const editCard = (id, front, back, tags) => {
@@ -124,8 +123,16 @@ export const CardProvider = ({children}) => {
 		);
 	};
 
+	/**
+	 * The following methods only exist for testing purposes.
+	 * They are not used during normal execution.
+	 */
+	const forceCards = (cards) => {
+		setCards(cards)
+	}
+
 	return (
-			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards, forceCards }}>
 				{children}
 			</CardContext.Provider>
 	);
