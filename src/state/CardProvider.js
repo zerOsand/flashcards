@@ -123,8 +123,16 @@ export const CardProvider = ({children}) => {
 		);
 	};
 
+	/**
+	 * The following methods only exist for testing purposes.
+	 * They are not used during normal execution.
+	 */
+	const forceCards = (cards) => {
+		setCards(cards)
+	}
+
 	return (
-			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards, forceCards }}>
 				{children}
 			</CardContext.Provider>
 	);
@@ -133,5 +141,3 @@ export const CardProvider = ({children}) => {
 export const useCards = () => {
 	return useContext(CardContext);
 };
-
-
