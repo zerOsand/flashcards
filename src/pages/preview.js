@@ -39,7 +39,7 @@ const PreviewPane = ({activeIndex}) => {
 					</div>
 				</div>
 		);
-	}
+	} 
 
 	return (
 			<>
@@ -56,7 +56,11 @@ const PreviewPane = ({activeIndex}) => {
 						</div>}
 						
 						
-						<button style={cardPaneStyle.iconStyle} onClick={() => alert('button')}>
+						<button style={cardPaneStyle.iconStyle} 
+							onClick={(e) => {
+								e.stopPropagation();
+								togglePopup();
+							}}>
 							<FaEdit size={40} color="#555" />
 						</button>
 
@@ -119,6 +123,8 @@ const cardPaneStyle = {
 		position: 'absolute',
 		bottom: '10px',
 		right: '10px',
+		border: 'none',
+		background: '#ffffff'
 	}
 };
 
