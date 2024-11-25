@@ -76,7 +76,6 @@ export const CardProvider = ({children}) => {
 		setCards(prevCards =>
 			prevCards.filter((_, i) => i !== index)
 		);
-		console.log()
 	};
 
 	const editCard = (id, front, back, tags) => {
@@ -134,3 +133,5 @@ export const CardProvider = ({children}) => {
 export const useCards = () => {
 	return useContext(CardContext);
 };
+
+
