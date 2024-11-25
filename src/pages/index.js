@@ -4,6 +4,7 @@ import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
 import PreviewPane from './preview'
 import CustomButton from '../components/CustomButton'
+import EditCard from './editCard.js'
 
 
 const Flashcard = (flashcard, active) => {
@@ -71,6 +72,12 @@ const Home = () => {
 						<PreviewPane activeIndex={activeIndex} />
 					</div>
 				</div>
+
+				{isPopupOpen && (
+					<EditCard
+						togglePopup={togglePopup}
+					/>
+				)}
 
 			</div>
 		</div>

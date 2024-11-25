@@ -73,7 +73,6 @@ export const CardProvider = ({children}) => {
 	};
 
 	const removeCard = (index) => {
-		// cardIndex, tagIndex
 		setCards(prevCards =>
 			prevCards.filter((_, i) => i !== index)
 		);
