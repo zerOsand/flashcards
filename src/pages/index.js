@@ -72,12 +72,6 @@ const Home = () => {
 						<PreviewPane activeIndex={activeIndex} />
 					</div>
 				</div>
-				
-				{isPopupOpen && (
-					<EditCard
-						togglePopup={togglePopup}
-					/>
-				)}
 
 			</div>
 		</div>
