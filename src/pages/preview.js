@@ -141,7 +141,7 @@ const cardPaneStyle = {
 		bottom: '10px',
 		right: '10px',
 		border: 'none',
-		background: '#ffffff'
+		backgroundColor: 'transparent',
 	},
 
 	trashIconStyle: {
@@ -149,7 +149,7 @@ const cardPaneStyle = {
 		bottom: '10px',
 		right: '50px',
 		border: 'none',
-		background: '#ffffff'
+		backgroundColor: 'transparent',
 	}
 };
 
