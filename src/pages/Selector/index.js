@@ -3,14 +3,6 @@ import ClickList from '../../components/ClickList'
 import { tagStyles, textTagStyle  } from '../../utils/styles'
 import { useCards } from '../../state/CardProvider.js'
 
-const Box = (text) => {
-	return (
-			<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
-			{text}
-		</div>
-	);
-}
-
 const Selector = ({onAdd, onRemove, tags}) => {
 	const { getTags } = useCards();
  	const [inputValue, setInputValue] = useState('')
@@ -40,6 +32,14 @@ const Selector = ({onAdd, onRemove, tags}) => {
 
 	const handleRemove = (index) => {
 		onRemove(tags[index])
+	}
+
+	const Box = (text) => {
+		return (
+				<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
+					{text}
+				</div>
+		);
 	}
 
 	const AddNew = () => {
