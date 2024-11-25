@@ -56,7 +56,7 @@ const PreviewPane = ({activeIndex}) => {
 						</div>}
 						
 						
-						<button style={cardPaneStyle.iconStyle} onClick={() => alert('butt')}>
+						<button style={cardPaneStyle.iconStyle} onClick={() => alert('button')}>
 							<FaEdit size={40} color="#555" />
 						</button>
 
