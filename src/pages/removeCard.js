@@ -25,10 +25,9 @@ const RemoveCard = ({togglePopup, cardIndex, styles}) => {
             onClose={togglePopup}>
             <div style={styles.overlay}>
                 <div style={styles.modal}>
-                    <div style={styles.buttonContainer}>
-                        <CustomButton text="No" event={() => handleNo()} stylesOverride={{backgroundColor: '#b53550'}}/>
-                        <CustomButton text="Yes" event={() => handleYes()} stylesOverride={{backgroundColor:'#6bc879'}}/>
-                    </div>	
+                    <h2>Are you sure you want to remove this flashcard?</h2>
+                    <CustomButton text="No" event={() => handleNo()} stylesOverride={{backgroundColor: '#b53550'}}/>
+                    <CustomButton text="Yes" event={() => handleYes()} stylesOverride={{backgroundColor:'#6bc879'}}/>
                 </div>
             </div>
         </DefaultPopup>
