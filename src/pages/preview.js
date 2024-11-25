@@ -4,6 +4,8 @@ import { useCards } from '../state/CardProvider.js'
 import ClickList from '../components/ClickList'
 import EditCard from './editCard.js'
 
+import { FaEdit } from 'react-icons/fa'; // Import the book icon
+
 
 const PreviewPane = ({activeIndex}) => {
 	const { cards, removeTag } = useCards();
@@ -52,11 +54,12 @@ const PreviewPane = ({activeIndex}) => {
 						 </div> : <div style={textPreviewStyle}>
 							 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
 						</div>}
-						<div style={cardPaneStyle.bar}>
-							<button onClick={() => alert('Button Clicked')}>
-								Buttoonnn
-							</button>
-						</div>
+						
+						
+						<button style={cardPaneStyle.iconStyle} onClick={() => alert('butt')}>
+							<FaEdit size={40} color="#555" />
+						</button>
+
 					</div>
 					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick } styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} />}
 				</div>
@@ -107,8 +110,16 @@ const cardPaneStyle = {
 		userSelect: 'none'
 	},
 	bar: {
-
+		position: 'absolute',
+		top: '95%',
+		left: '85%',
 	},
+
+	iconStyle: {
+		position: 'absolute',
+		bottom: '10px',
+		right: '10px',
+	}
 };
 
 const textPreviewStyle = {
