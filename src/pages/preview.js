@@ -3,14 +3,16 @@ import { tagStyles, textTagStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 import ClickList from '../components/ClickList'
 import EditCard from './editCard.js'
+import RemoveCard from './removeCard.js'
 
-import { FaEdit } from 'react-icons/fa'; // Import the book icon
+import { FaEdit, FaTrash } from 'react-icons/fa'; // Import the book icon
 
 
 const PreviewPane = ({activeIndex}) => {
 	const { cards, removeTag } = useCards();
 	const [flipped, setFlipped] = useState(false)
-	const [isPopupOpen, setIsPopupOpen] = useState(false)
+	const [isEditOpen, setIsEditOpen] = useState(false)
+	const [isRemoveOpen, setIsRemoveOpen] = useState(false)
 
 	const handleTagClick = (tagIndex) => {
 		removeTag(activeIndex, tagIndex)
@@ -20,7 +22,10 @@ const PreviewPane = ({activeIndex}) => {
         setFlipped(false);
     }, [activeIndex]);
 
-	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
+
+	const toggleEditPopup = () => setIsEditOpen(!isEditOpen);
+
+	const toggleRemovePopup = () => setIsRemoveOpen(!isRemoveOpen);
 
 	const TagBox = (text) => {
 		return (
@@ -30,16 +35,6 @@ const PreviewPane = ({activeIndex}) => {
 				</div>
 		);
 	}
-
-	const AddTag = () => {
-		return (
-				<div style={{ ...tagStyles.item, ...{backgroundColor: '#6bc879'}}} onClick={togglePopup}>
-					<div style={textTagStyle}>
-					{'E'}
-					</div>
-				</div>
-		);
-	} 
 
 	return (
 			<>
@@ -55,22 +50,36 @@ const PreviewPane = ({activeIndex}) => {
 							 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
 						</div>}
 						
-						
-						<button style={cardPaneStyle.iconStyle} 
+						<button style={cardPaneStyle.editIconStyle} 
 							onClick={(e) => {
 								e.stopPropagation();
-								togglePopup();
+								if (activeIndex !== undefined) toggleEditPopup()
 							}}>
-							<FaEdit size={40} color="#555" />
+							<FaEdit size={25} color="#555" />
+						</button>
+
+						<button style={cardPaneStyle.trashIconStyle} 
+							onClick={(e) => {
+								e.stopPropagation();
+								if (activeIndex !== undefined) toggleRemovePopup()
+							}}>
+							<FaTrash size={25} color="#555" />
 						</button>
 
 					</div>
 					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick } styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} />}
 				</div>
-				{isPopupOpen && (
+				{isEditOpen && (
 					<EditCard
-						togglePopup={togglePopup}
+						togglePopup={toggleEditPopup}
 						card={cards[activeIndex]}
+					/>
+				)}
+
+				{isRemoveOpen && (
+					<RemoveCard
+						togglePopup={toggleRemovePopup}
+						cardIndex={activeIndex}
 					/>
 				)}
 			</>
@@ -119,10 +128,18 @@ const cardPaneStyle = {
 		left: '85%',
 	},
 
-	iconStyle: {
+	editIconStyle: {
 		position: 'absolute',
 		bottom: '10px',
 		right: '10px',
+		border: 'none',
+		background: '#ffffff'
+	},
+
+	trashIconStyle: {
+		position: 'absolute',
+		bottom: '10px',
+		right: '50px',
 		border: 'none',
 		background: '#ffffff'
 	}
