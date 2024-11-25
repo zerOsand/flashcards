@@ -54,6 +54,11 @@ const PreviewPane = ({activeIndex}) => {
 						</div>}
 					</div>
 					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick } styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} />}
+					<button
+						style={cardPaneStyle.button}
+						onClick={() => alert('Button Clicked')}>
+							Buttoonnn
+						</button>
 				</div>
 				{isPopupOpen && (
 					<EditCard
@@ -75,6 +80,7 @@ const cardPaneStyle = {
 		alignItems: 'flex-start',
 		justifyContent: 'center',
 		cursor: 'default',
+		position: 'relative',
 	},
 	front: {
 		display: 'flex',
@@ -92,11 +98,24 @@ const cardPaneStyle = {
 		wordWrap: 'anywhere',
 		overflowWrap: 'anywhere',
 		hyphens: 'auto',
-		userSelect: 'none'
+		userSelect: 'none',
+		position: 'relative',
 	},
 	back: {
 		background: '#f0f0f0',
 		userSelect: 'none'
+	},
+	button: {
+		position: 'absolute',
+		top: '600px',
+		right: '10px',
+		zIndex: 1,
+		padding: '8px 16px',
+		backgroundColor: '#007bff',
+		color: '#fff',
+		border: 'none',
+		borderRadius: '4px',
+		cursor: 'pointer',
 	}
 };
 
