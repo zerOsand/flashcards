@@ -4,7 +4,6 @@ import Searchbar from '../components/Searchbar'
 import ClickList from '../components/ClickList'
 import PreviewPane from './preview'
 import CustomButton from '../components/CustomButton'
-import EditCard from './editCard.js'
 
 
 const Flashcard = (flashcard, active) => {
