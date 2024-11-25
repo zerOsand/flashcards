@@ -52,13 +52,13 @@ const PreviewPane = ({activeIndex}) => {
 						 </div> : <div style={textPreviewStyle}>
 							 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
 						</div>}
+						<div style={cardPaneStyle.bar}>
+							<button onClick={() => alert('Button Clicked')}>
+								Buttoonnn
+							</button>
+						</div>
 					</div>
 					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick } styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} />}
-					<button
-						style={cardPaneStyle.button}
-						onClick={() => alert('Button Clicked')}>
-							Buttoonnn
-						</button>
 				</div>
 				{isPopupOpen && (
 					<EditCard
@@ -84,6 +84,7 @@ const cardPaneStyle = {
 	},
 	front: {
 		display: 'flex',
+		flexDirection: 'column',
 		height: '80%',
 		width: '100%',		
 		borderStyle: 'solid',
@@ -105,18 +106,9 @@ const cardPaneStyle = {
 		background: '#f0f0f0',
 		userSelect: 'none'
 	},
-	button: {
-		position: 'absolute',
-		top: '600px',
-		right: '10px',
-		zIndex: 1,
-		padding: '8px 16px',
-		backgroundColor: '#007bff',
-		color: '#fff',
-		border: 'none',
-		borderRadius: '4px',
-		cursor: 'pointer',
-	}
+	bar: {
+
+	},
 };
 
 const textPreviewStyle = {
