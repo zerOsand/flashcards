@@ -8,3 +8,7 @@ Run `npm start`.
 ## Build client
 
 Run `npm run build`.
+
+## Test client
+
+Run `npm run tests`.
