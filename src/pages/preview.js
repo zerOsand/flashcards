@@ -3,12 +3,16 @@ import { tagStyles, textTagStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 import ClickList from '../components/ClickList'
 import EditCard from './editCard.js'
+import ConfirmationPopup from './confirmPopup.js'
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 
-const PreviewPane = ({activeIndex}) => {
-	const { cards, removeTag } = useCards();
+const PreviewPane = ({ index })  => {
+	const {activeIndex, setActiveIndex} = index
+	const { cards, removeTag, removeCard } = useCards();
 	const [flipped, setFlipped] = useState(false)
-	const [isPopupOpen, setIsPopupOpen] = useState(false)
+	const [isEditOpen, setIsEditOpen] = useState(false)
+	const [isRemoveOpen, setIsRemoveOpen] = useState(false)
 
 	const handleTagClick = (tagIndex) => {
 		removeTag(activeIndex, tagIndex)
@@ -18,23 +22,23 @@ const PreviewPane = ({activeIndex}) => {
         setFlipped(false);
     }, [activeIndex]);
 
-	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
+
+	const toggleEditPopup = () => setIsEditOpen(!isEditOpen);
+
+	const toggleRemovePopup = () => setIsRemoveOpen(!isRemoveOpen);
+
+	const handleRemoveCard = () => {
+		removeCard(activeIndex);
+		if (activeIndex >= cards.length - 1)
+			setActiveIndex(undefined);
+		toggleRemovePopup();
+	}
 
 	const TagBox = (text) => {
 		return (
 				<div style={textTagStyle}>
 					{text}
 					<span>&times;</span>
-				</div>
-		);
-	}
-
-	const AddTag = () => {
-		return (
-				<div style={{ ...tagStyles.item, ...{backgroundColor: '#6bc879'}}} onClick={togglePopup}>
-					<div style={textTagStyle}>
-					{'E'}
-					</div>
 				</div>
 		);
 	}
@@ -52,13 +56,39 @@ const PreviewPane = ({activeIndex}) => {
 						 </div> : <div style={textPreviewStyle}>
 							 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
 						</div>}
+						{activeIndex !== undefined &&
+		 					<>
+								<button style={cardPaneStyle.editIconStyle} 
+									onClick={(e) => {
+										e.stopPropagation();
+										toggleEditPopup()
+									}}>
+									<FaEdit size={25} color="#555" />
+								</button>
+								<button style={cardPaneStyle.trashIconStyle} 
+									onClick={(e) => {
+										e.stopPropagation();
+										toggleRemovePopup()
+									}}>
+									<FaTrash size={25} color="#555" />
+								</button>
+							</>
+						}
 					</div>
-					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick} styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} prependItem={AddTag} />}
+					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick } styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} />}
 				</div>
-				{isPopupOpen && (
+				{isEditOpen && (
 					<EditCard
-						togglePopup={togglePopup}
+						togglePopup={toggleEditPopup}
 						card={cards[activeIndex]}
+					/>
+				)}
+
+				{isRemoveOpen && (
+					<ConfirmationPopup
+						onConfirm={handleRemoveCard}
+						onClose={toggleRemovePopup}
+						message="Are you sure you want to remove this flashcard?"
 					/>
 				)}
 			</>
@@ -75,9 +105,11 @@ const cardPaneStyle = {
 		alignItems: 'flex-start',
 		justifyContent: 'center',
 		cursor: 'default',
+		position: 'relative',
 	},
 	front: {
 		display: 'flex',
+		flexDirection: 'column',
 		height: '80%',
 		width: '100%',		
 		borderStyle: 'solid',
@@ -92,11 +124,33 @@ const cardPaneStyle = {
 		wordWrap: 'anywhere',
 		overflowWrap: 'anywhere',
 		hyphens: 'auto',
-		userSelect: 'none'
+		userSelect: 'none',
+		position: 'relative',
 	},
 	back: {
 		background: '#f0f0f0',
 		userSelect: 'none'
+	},
+	bar: {
+		position: 'absolute',
+		top: '95%',
+		left: '85%',
+	},
+
+	editIconStyle: {
+		position: 'absolute',
+		bottom: '10px',
+		right: '10px',
+		border: 'none',
+		backgroundColor: 'transparent',
+	},
+
+	trashIconStyle: {
+		position: 'absolute',
+		bottom: '10px',
+		right: '50px',
+		border: 'none',
+		backgroundColor: 'transparent',
 	}
 };
 

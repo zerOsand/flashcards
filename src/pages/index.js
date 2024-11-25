@@ -69,10 +69,10 @@ const Home = () => {
 						/>
 					</div>
 					<div style={rightContainer}>
-						<PreviewPane activeIndex={activeIndex} />
+						<PreviewPane index={{activeIndex, setActiveIndex}} />
 					</div>
 				</div>
-				
+
 				{isPopupOpen && (
 					<EditCard
 						togglePopup={togglePopup}

@@ -72,8 +72,11 @@ export const CardProvider = ({children}) => {
 		sid(id + 1);
 	};
 
-	// const removeCard = (index) => {
-	// };
+	const removeCard = (index) => {
+		setCards(prevCards =>
+			prevCards.filter((_, i) => i !== index)
+		);
+	};
 
 	const editCard = (id, front, back, tags) => {
 		const newCards = cards.map(card => {
@@ -129,7 +132,7 @@ export const CardProvider = ({children}) => {
 	}
 
 	return (
-			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, handleExportFlashcards, forceCards }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards, forceCards }}>
 				{children}
 			</CardContext.Provider>
 	);
