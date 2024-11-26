@@ -138,9 +138,7 @@ describe('CardProvider', () => {
 		act(() => {
 			result.current.forceCards(undefined)
 		})
-		act(() => {
-			expect(() => result.current.removeCard(0)).toThrow()
-		})
+		expect(() => result.current.removeCard(0)).toThrow()
 	})
 
 	test('removeCard-cards-empty', () => {
@@ -273,7 +271,7 @@ describe('CardProvider', () => {
 	})
 
 	test('editCard-back-undefined', () => {
-			expect(() => result.current.editCard(1, newCard.front, undefined, newCard.tags)).toThrow()
+		expect(() => result.current.editCard(1, newCard.front, undefined, newCard.tags)).toThrow()
 	})
 
 	test('editCard-back-number', () => {
