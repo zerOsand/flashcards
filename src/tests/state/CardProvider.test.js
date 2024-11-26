@@ -50,9 +50,7 @@ describe('CardProvider', () => {
 		act(() => {
 			result.current.forceCards(undefined)
 		})
-		act(() => {
-			expect(() => result.current.addCard(Object.values(newCard))).toThrow()
-		})
+		expect(() => result.current.addCard(Object.values(newCard))).toThrow()
 	})
 
 	test('addCard-cards-empty', () => {
@@ -82,39 +80,27 @@ describe('CardProvider', () => {
 	})
 
 	test('addCard-front-undefined', () => {
-		act(() => {
-			expect(() => result.current.addCard(undefined, newCard.back, newCard.tags)).toThrow()
-		})
+		expect(() => result.current.addCard(undefined, newCard.back, newCard.tags)).toThrow()
 	})
 
 	test('addCard-front-number', () => {
-		act(() => {
-			expect(() => result.current.addCard(1, newCard.back, newCard.tags)).toThrow()
-		})
+		expect(() => result.current.addCard(1, newCard.back, newCard.tags)).toThrow()
 	})
 
 	test('addCard-back-undefined', () => {
-		act(() => {
-			expect(() => result.current.addCard(newCard.front, undefined, newCard.tags)).toThrow()
-		})
+		expect(() => result.current.addCard(newCard.front, undefined, newCard.tags)).toThrow()
 	})
 
 	test('addCard-back-number', () => {
-		act(() => {
-			expect(() => result.current.addCard(newCard.front, 1, newCard.tags)).toThrow()
-		})
+		expect(() => result.current.addCard(newCard.front, 1, newCard.tags)).toThrow()
 	})
 
 	test('addCard-tags-undefined', () => {
-		act(() => {
-			expect(() => result.current.addCard(newCard.front, newCard.back, undefined)).toThrow()
-		})
+		expect(() => result.current.addCard(newCard.front, newCard.back, undefined)).toThrow()
 	})
 
 	test('addCard-tags-numbers', () => {
-		act(() => {
-			expect(() => result.current.addCard(newCard.front, newCard.back, [1, 2, 3])).toThrow()
-		})
+		expect(() => result.current.addCard(newCard.front, newCard.back, [1, 2, 3])).toThrow()
 	})
 
 	test('addCard-tags-empty', () => {
@@ -161,9 +147,7 @@ describe('CardProvider', () => {
 		act(() => {
 			result.current.forceCards([])
 		})
-		act(() => {
-			expect(() => result.current.removeCard(0)).toThrow()
-		})
+		expect(() => result.current.removeCard(0)).toThrow()
 	})
 
 	test('removeCard-cards-single', () => {
@@ -177,15 +161,11 @@ describe('CardProvider', () => {
 	})
 
 	test('removeCard-index-undefined', () => {
-		act(() => {
-			expect(() => result.current.removeCard(undefined)).toThrow()
-		})
+		expect(() => result.current.removeCard(undefined)).toThrow()
 	})
 
 	test('removeCard-index-negative', () => {
-		act(() => {
-			expect(() => result.current.removeCard(-1)).toThrow()
-		})
+		expect(() => result.current.removeCard(-1)).toThrow()
 	})
 
 	test('removeCard-index-middle', () => {
@@ -205,15 +185,11 @@ describe('CardProvider', () => {
 	})
 
 	test('removeCard-index-negative', () => {
-		act(() => {
-			expect(() => result.current.removeCard(8)).toThrow()
-		})
+		expect(() => result.current.removeCard(8)).toThrow()
 	})
 
 	test('removeCard-index-string', () => {
-		act(() => {
-			expect(() => result.current.removeCard('beren')).toThrow()
-		})
+		expect(() => result.current.removeCard('beren')).toThrow()
 	})
 
 	/* END REMOVECARD */
@@ -234,18 +210,14 @@ describe('CardProvider', () => {
 		act(() => {
 			result.current.forceCards(undefined)
 		})
-		act(() => {
-			expect(() => result.current.editCard(1, ...Object.values(newCard))).toThrow()
-		})
+		expect(() => result.current.editCard(1, ...Object.values(newCard))).toThrow()
 	})
 
 	test('editCard-cards-empty', () => {
 		act(() => {
 			result.current.forceCards([])
 		})
-		act(() => {
-			expect(() => result.current.editCard(1, ...Object.values(newCard))).toThrow()
-		})
+		expect(() => result.current.editCard(1, ...Object.values(newCard))).toThrow()
 	})
 
 	test('editCard-cards-single', () => {
@@ -262,21 +234,15 @@ describe('CardProvider', () => {
 	})
 
 	test('editCard-id-undefined', () => {
-		act(() => {
-			expect(() => result.current.editCard(undefined, ...Object.values(newCard))).toThrow()
-		})
+		expect(() => result.current.editCard(undefined, ...Object.values(newCard))).toThrow()
 	})
 
 	test('editCard-id-negative', () => {
-		act(() => {
-			expect(() => result.current.editCard(-1, ...Object.values(newCard))).toThrow()
-		})
+		expect(() => result.current.editCard(-1, ...Object.values(newCard))).toThrow()
 	})
 
 	test('editCard-id-zero', () => {
-		act(() => {
-			expect(() => result.current.editCard(0, ...Object.values(newCard))).toThrow()
-		})
+		expect(() => result.current.editCard(0, ...Object.values(newCard))).toThrow()
 	})
 
 	test('editCard-id-maximum', () => {
@@ -291,51 +257,35 @@ describe('CardProvider', () => {
 	})
 
 	test('editCard-id-too-high', () => {
-		act(() => {
-			expect(() => result.current.editCard(testCards.length+1, ...Object.values(newCard))).toThrow()
-		})
+		expect(() => result.current.editCard(testCards.length+1, ...Object.values(newCard))).toThrow()
 	})
 
 	test('editCard-id-string', () => {
-		act(() => {
-			expect(() => result.current.editCard('beren', ...Object.values(newCard))).toThrow()
-		})
+		expect(() => result.current.editCard('beren', ...Object.values(newCard))).toThrow()
 	})
 
 	test('editCard-front-undefined', () => {
-		act(() => {
-			expect(() => result.current.editCard(1, undefined, newCard.back, newCard.tags)).toThrow()
-		})
+		expect(() => result.current.editCard(1, undefined, newCard.back, newCard.tags)).toThrow()
 	})
 
 	test('editCard-front-number', () => {
-		act(() => {
-			expect(() => result.current.editCard(1, 1, newCard.back, newCard.tags)).toThrow()
-		})
+		expect(() => result.current.editCard(1, 1, newCard.back, newCard.tags)).toThrow()
 	})
 
 	test('editCard-back-undefined', () => {
-		act(() => {
 			expect(() => result.current.editCard(1, newCard.front, undefined, newCard.tags)).toThrow()
-		})
 	})
 
 	test('editCard-back-number', () => {
-		act(() => {
-			expect(() => result.current.editCard(1, newCard.front, 1, newCard.tags)).toThrow()
-		})
+		expect(() => result.current.editCard(1, newCard.front, 1, newCard.tags)).toThrow()
 	})
 
 	test('editCard-tags-undefined', () => {
-		act(() => {
-			expect(() => result.current.editCard(1, newCard.front, newCard.back, undefined)).toThrow()
-		})
+		expect(() => result.current.editCard(1, newCard.front, newCard.back, undefined)).toThrow()
 	})
 
 	test('editCard-tags-numbers', () => {
-		act(() => {
-			expect(() => result.current.editCard(1, newCard.front, newCard.back, [1, 2, 3])).toThrow()
-		})
+		expect(() => result.current.editCard(1, newCard.front, newCard.back, [1, 2, 3])).toThrow()
 	})
 
 	test('editCard-tags-none', () => {
