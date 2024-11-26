@@ -1,0 +1,92 @@
+* Files tested using Input Space Partitioning (ISP):
+
+'*' signifies base choice in ISP tables.
+
+** Card Provider
+
+*** addCard
+
+| Input Space Partitioning |                |              |                                 |
+|--------------------------+----------------+--------------+---------------------------------|
+| Variable                 | Characteristic | Partition    | Value                           |
+|--------------------------+----------------+--------------+---------------------------------|
+|--------------------------+----------------+--------------+---------------------------------|
+| cards                    | A) undefined?  | A1) T        | undefined                       |
+|                          |                | A2*) F       | array obj                       |
+|                          | B) size        | B1) 0        | []                              |
+|                          |                | B2) 1        | ['manwe'...]                    |
+|                          |                | B3*) >1      | [{size 7}]                      |
+|--------------------------+----------------+--------------+---------------------------------|
+| addCard.front            | A) undefined?  | A1) T        | undefined                       |
+|                          |                | A2*) F       | 'sauron'                        |
+|                          | B) type        | B1*) string  | 'sauron'                        |
+|                          |                | B2) other    | number:1                        |
+|--------------------------+----------------+--------------+---------------------------------|
+| addCard.back             | A) undefined?  | A1) T        | undefined                       |
+|                          |                | A2*) F       | 'lord of the rings'             |
+|                          | B) type        | B1*) string  | 'lord of the rings'             |
+|                          |                | B2) other    | number:1                        |
+|--------------------------+----------------+--------------+---------------------------------|
+| addCard.tags             | A) undefined?  | A1) T        | undefined                       |
+|                          |                | A2*) F       | ['ainur', 'immortal', 'imoral'] |
+|                          | B) type        | B1*) strings | ['ainur', 'immortal', 'imoral'] |
+|                          |                | B2) other    | number:[1, 2, 3]             |
+|                          | C) size        | C1) 0        | []                              |
+|                          |                | C2) 1        | ['ainur']                       |
+|                          |                | C3*) >1      | ['ainur', 'immortal', 'imoral'] |
+
+| Base Choice Coverage Test Set |          |          |         |         |        |
+| Test                          |          |          |         |         | Throw? |
+|-------------------------------+----------+----------+---------+---------+--------|
+| addCard-base                  | cards:B3 | front:B1 | back:B1 | tags:C3 |        |
+| addCard-cards-undefined       | cards:A1 | front:B1 | back:B1 | tags:C3 | Y      |
+| addCard-cards-empty           | cards:B1 | front:B1 | back:B1 | tags:C3 |        |
+| addCards-cards-single         | cards:B2 | front:B1 | back:B1 | tags:C3 |        |
+| addCards-front-undefined      | cards:B3 | front:A1 | back:B1 | tags:C3 | Y      |
+| addCards-front-numbers        | cards:B3 | front:B2 | back:B1 | tags:C3 | Y      |
+| addCards-back-undefined       | cards:B3 | front:B1 | back:A1 | tags:C3 | Y      |
+| addCards-back-numbers         | cards:B3 | front:B1 | back:B2 | tags:C3 | Y      |
+| addCards-tags-undefined       | cards:B3 | front:B1 | back:B1 | tags:A1 | Y      |
+| addCards-tags-numberss        | cards:B3 | front:B1 | back:B1 | tags:B2 | Y      |
+| addCards-tags-empty           | cards:B3 | front:B1 | back:B1 | tags:C1 |        |
+| addCards-tags-single          | cards:B3 | front:B1 | back:B1 | tags:C2 |        |
+
+*** removeCard
+
+| Input Space Partitioning |                  |                  |                |
+|--------------------------+------------------+------------------+----------------|
+| Variable                 | Characteristic   | Partition        | Value          |
+|--------------------------+------------------+------------------+----------------|
+|--------------------------+------------------+------------------+----------------|
+| cards                    | A) undefined?    | A1) T            | undefined      |
+|                          |                  | A2*) F           | array obj      |
+|                          | B) size          | B1) 0            | []             |
+|                          |                  | B2) 1            | ['manwe'...]   |
+|                          |                  | B3*) >1          | [{size 7}]     |
+|--------------------------+------------------+------------------+----------------|
+| removeCard.index         | A) undefined?    | A1) T            | undefined      |
+|                          |                  | A2*) F           | 0              |
+|                          | B) relative size | B1) < 0          | -1             |
+|                          |                  | B2*) = 0         | 0              |
+|                          |                  | B3) < cards.size | 3              |
+|                          |                  | B4) = cards.size | 7              |
+|                          |                  | B5) > cards.size | 8              |
+|                          | C) type          | C1*) number   | 0              |
+|                          |                  | C2) other        | string:'beren' |
+
+| Base Choice Coverage Test Set |          |          |        |
+| Test                          |          |          | Throw? |
+|-------------------------------+----------+----------+--------|
+| removeCard-base               | cards:B3 | index:B2 |        |
+| removeCard-cards-undefined    | cards:A1 | index:B2 | Y      |
+| removeCard-cards-empty        | cards:B1 | index:B2 | Y      |
+| removeCards-cards-single      | cards:B2 | index:B2 |        |
+| removeCards-index-undefined   | cards:B3 | index:A1 | Y      |
+| removeCards-index-negative    | cards:B3 | index:B1 | Y      |
+| removeCards-index-middle      | cards:B3 | index:B3 |        |
+| removeCards-index-match       | cards:B3 | index:B4 |        |
+| removeCards-index-over        | cards:B3 | index:B5 | Y      |
+| removeCards-index-string      | cards:B3 | index:C2 | Y      |
+
+
+* Files tested using Workflows:

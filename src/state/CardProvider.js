@@ -67,12 +67,28 @@ export const CardProvider = ({children}) => {
 	const [id, sid] = useState(initialCards.length);
 
 	const addCard = (front, back, tags) => {
+		if (typeof front !== 'string') {
+			throw new Error('front must be a string');
+		}
+		if (typeof back !== 'string') {
+			throw new Error('back must be a string');
+		}
+		if (!Array.isArray(tags)) {
+			throw new Error('tags must be an array');
+		}
+		if (!tags.every(tag => typeof tag === 'string')) {
+			throw new Error('all elements in tags must be a string');
+		}
 		const newCard = { id: id + 1, front, back, tags: tags.sort() };
 		setCards(prevCards => [newCard, ...prevCards]); 
 		sid(id + 1);
 	};
 
 	const removeCard = (index) => {
+		if (index < 0 || index > cards.length-1)
+			throw new Error('invalid index')
+		if (typeof index !== 'number')
+			throw new Error('index must be an number')
 		setCards(prevCards =>
 			prevCards.filter((_, i) => i !== index)
 		);
@@ -129,7 +145,7 @@ export const CardProvider = ({children}) => {
 	 */
 	const forceCards = (c) => {
 		setCards(c)
-		sid(c.length)
+		sid(c?.length ?? 0)
 	}
 
 	return (
