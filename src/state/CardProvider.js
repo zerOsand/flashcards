@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const CardContext = createContext();
 
@@ -67,10 +67,18 @@ export const CardProvider = ({children}) => {
 	const [id, sid] = useState(initialCards.length);
 
 	const addCard = (front, back, tags) => {
+		console.log("front: " + front + " back: " + back + " tags: " + tags)
 		const newCard = { id: id + 1, front, back, tags: tags.sort() };
 		setCards(prevCards => [newCard, ...prevCards]); 
 		sid(id + 1);
 	};
+
+	useEffect(() => {
+		console.log("Updated cards length:", cards.length);
+	}, [cards]);
+	useEffect(() => {
+		console.log("CardProvider rendered");
+	}, []);
 
 	const removeCard = (index) => {
 		setCards(prevCards =>
@@ -127,8 +135,9 @@ export const CardProvider = ({children}) => {
 	 * The following methods only exist for testing purposes.
 	 * They are not used during normal execution.
 	 */
-	const forceCards = (cards) => {
-		setCards(cards)
+	const forceCards = (c) => {
+		setCards(c)
+		sid(c.length)
 	}
 
 	return (

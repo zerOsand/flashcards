@@ -30,32 +30,30 @@ describe('CardProvider', () => {
 	})
 
 	const nextCard = { front: 'sauron', back: 'lord of the rings', tags: ['ainur', 'immortal', 'immoral'] }
-	test('addCard adds element to cards', async () => {
-		await act(() => {
+	test('addCard adds element to cards', () => {
+		act(() => {
+			result.current.addCard(nextCard.front, nextCard.back, nextCard.tags)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length + 1)
+	})
+
+	test('addCard increments id', () => {
+		act(() => {
 			result.current.addCard(nextCard.front, nextCard.back, nextCard.tags)
 		})
 		waitFor(() => {
-			expect(result.current.cards).toHaveLength(8)
+			expect(result.current.cards[0].id).toBe(8)
 		})
 	})
 
-	test('addCard increments id', async () => {
-		await act(() => {
+	test('addCard stores front, back, and tag fields', () => {
+		act(() => {
 			result.current.addCard(nextCard.front, nextCard.back, nextCard.tags)
 		})
 		waitFor(() => {
-			expect(result.current.cards[-1].id).toBe(8)
-		})
-	})
-
-	test('addCard stores front, back, and tag fields', async () => {
-		await act(() => {
-			result.current.addCard(nextCard.front, nextCard.back, nextCard.tags)
-		})
-		waitFor(() => {
-			expect(result.current.cards[-1].front).toBe(newCard.front)
-			expect(result.current.cards[-1].back).toBe(newCard.back)
-			expect(result.current.cards[-1].tags).toBe(newCard.tags)
+			expect(result.current.cards[0].front).toBe(newCard.front)
+			expect(result.current.cards[0].back).toBe(newCard.back)
+			expect(result.current.cards[0].tags).toBe(newCard.tags)
 		})
 	})
 
