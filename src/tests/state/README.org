@@ -6,34 +6,34 @@
 
 *** addCard
 
-| Input Space Partitioning |                |              |                                 |
-|--------------------------+----------------+--------------+---------------------------------|
-| Variable                 | Characteristic | Partition    | Value                           |
-|--------------------------+----------------+--------------+---------------------------------|
-|--------------------------+----------------+--------------+---------------------------------|
-| cards                    | A) undefined?  | A1) T        | undefined                       |
-|                          |                | A2*) F       | array obj                       |
-|                          | B) size        | B1) 0        | []                              |
-|                          |                | B2) 1        | ['manwe'...]                    |
-|                          |                | B3*) >1      | [{size 7}]                      |
-|--------------------------+----------------+--------------+---------------------------------|
-| addCard.front            | A) undefined?  | A1) T        | undefined                       |
-|                          |                | A2*) F       | 'sauron'                        |
-|                          | B) type        | B1*) string  | 'sauron'                        |
-|                          |                | B2) other    | number:1                        |
-|--------------------------+----------------+--------------+---------------------------------|
-| addCard.back             | A) undefined?  | A1) T        | undefined                       |
-|                          |                | A2*) F       | 'lord of the rings'             |
-|                          | B) type        | B1*) string  | 'lord of the rings'             |
-|                          |                | B2) other    | number:1                        |
-|--------------------------+----------------+--------------+---------------------------------|
-| addCard.tags             | A) undefined?  | A1) T        | undefined                       |
-|                          |                | A2*) F       | ['ainur', 'immortal', 'imoral'] |
-|                          | B) type        | B1*) strings | ['ainur', 'immortal', 'imoral'] |
-|                          |                | B2) other    | number:[1, 2, 3]                |
-|                          | C) size        | C1) 0        | []                              |
-|                          |                | C2) 1        | ['ainur']                       |
-|                          |                | C3*) >1      | ['ainur', 'immortal', 'imoral'] |
+| Input Space Partitioning |                |              |                                  |
+|--------------------------+----------------+--------------+----------------------------------|
+| Variable                 | Characteristic | Partition    | Value                            |
+|--------------------------+----------------+--------------+----------------------------------|
+|--------------------------+----------------+--------------+----------------------------------|
+| cards                    | A) undefined?  | A1) T        | undefined                        |
+|                          |                | A2*) F       | array obj                        |
+|                          | B) size        | B1) 0        | []                               |
+|                          |                | B2) 1        | ['manwe'...]                     |
+|                          |                | B3*) >1      | [{size 7}]                       |
+|--------------------------+----------------+--------------+----------------------------------|
+| addCard.front            | A) undefined?  | A1) T        | undefined                        |
+|                          |                | A2*) F       | 'sauron'                         |
+|                          | B) type        | B1*) string  | 'sauron'                         |
+|                          |                | B2) other    | number:1                         |
+|--------------------------+----------------+--------------+----------------------------------|
+| addCard.back             | A) undefined?  | A1) T        | undefined                        |
+|                          |                | A2*) F       | 'lord of the rings'              |
+|                          | B) type        | B1*) string  | 'lord of the rings'              |
+|                          |                | B2) other    | number:1                         |
+|--------------------------+----------------+--------------+----------------------------------|
+| addCard.tags             | A) undefined?  | A1) T        | undefined                        |
+|                          |                | A2*) F       | ['ainur', 'immortal', 'immoral'] |
+|                          | B) type        | B1*) strings | ['ainur', 'immortal', 'immoral'] |
+|                          |                | B2) other    | number:[1, 2, 3]                 |
+|                          | C) size        | C1) 0        | []                               |
+|                          |                | C2) 1        | ['ainur']                        |
+|                          |                | C3*) >1      | ['ainur', 'immortal', 'immoral'] |
 
 | Base Choice Coverage Test Set |          |          |         |         |        |
 | Test                          |          |          |         |         | Throw? |
@@ -90,44 +90,45 @@
 
 *** editCard
 
-| Input Space Partitioning |                |                    |                                 |
-|--------------------------+----------------+--------------------+---------------------------------|
-| Variable                 | Characteristic | Partition          | Value                           |
-|--------------------------+----------------+--------------------+---------------------------------|
-|--------------------------+----------------+--------------------+---------------------------------|
-| cards                    | A) undefined?  | A1) T              | undefined                       |
-|                          |                | A2*) F             | array obj                       |
-|                          | B) size        | B1) 0              | []                              |
-|                          |                | B2) 1              | ['manwe'...]                    |
-|                          |                | B3*) >1            | [{size 7}]                      |
-|--------------------------+----------------+--------------------+---------------------------------|
-| editCard.id              | A) undefined?  | A1) T              | undefined                       |
-|                          |                | A2*) F             | 1                               |
-|                          | B) value       | B1) negative       | -1                              |
-|                          |                | B2) zero           | 0                               |
-|                          |                | B3*) lowest card   | 1                               |
-|                          |                | B4) highest card   | 7                               |
-|                          |                | B5) > highest card | 8                               |
-|                          | C) type        | C1*) number        | 1                               |
-|                          |                | C2) string         | string:beren                    |
-|--------------------------+----------------+--------------------+---------------------------------|
-| editCard.front           | A) undefined?  | A1) T              | undefined                       |
-|                          |                | A2*) F             | 'sauron'                        |
-|                          | B) type        | B1*) string        | 'sauron'                        |
-|                          |                | B2) other          | number:1                        |
-|--------------------------+----------------+--------------------+---------------------------------|
-| editCard.back            | A) undefined?  | A1) T              | undefined                       |
-|                          |                | A2*) F             | 'lord of the rings'             |
-|                          | B) type        | B1*) string        | 'lord of the rings'             |
-|                          |                | B2) other          | number:1                        |
-|--------------------------+----------------+--------------------+---------------------------------|
-| editCard.tags            | A) undefined?  | A1) T              | undefined                       |
-|                          |                | A2*) F             | ['ainur', 'immortal', 'imoral'] |
-|                          | B) type        | B1*) strings       | ['ainur', 'immortal', 'imoral'] |
-|                          |                | B2) other          | number:[1, 2, 3]                |
-|                          | C) size        | C1) 0              | []                              |
-|                          |                | C2) 1              | ['ainur']                       |
-|                          |                | C3*) >1            | ['ainur', 'immortal', 'imoral'] |
+| Input Space Partitioning |                |                    |                                  |
+|--------------------------+----------------+--------------------+----------------------------------|
+| Variable                 | Characteristic | Partition          | Value                            |
+|--------------------------+----------------+--------------------+----------------------------------|
+|--------------------------+----------------+--------------------+----------------------------------|
+| cards                    | A) undefined?  | A1) T              | undefined                        |
+|                          |                | A2*) F             | array obj                        |
+|                          | B) size        | B1) 0              | []                               |
+|                          |                | B2) 1              | ['manwe'...]                     |
+|                          |                | B3*) >1            | [{size 7}]                       |
+|--------------------------+----------------+--------------------+----------------------------------|
+| editCard.id              | A) undefined?  | A1) T              | undefined                        |
+|                          |                | A2*) F             | 1                                |
+|                          | B) value       | B1) negative       | -1                               |
+|                          |                | B2) zero           | 0                                |
+|                          |                | B3*) lowest card   | 1                                |
+|                          |                | B4) highest card   | 7                                |
+|                          |                | B5) > highest card | 8                                |
+|                          | C) type        | C1*) number        | 1                                |
+|                          |                | C2) string         | string:beren                     |
+|--------------------------+----------------+--------------------+----------------------------------|
+| editCard.front           | A) undefined?  | A1) T              | undefined                        |
+|                          |                | A2*) F             | 'sauron'                         |
+|                          | B) type        | B1*) string        | 'sauron'                         |
+|                          |                | B2) other          | number:1                         |
+|--------------------------+----------------+--------------------+----------------------------------|
+| editCard.back            | A) undefined?  | A1) T              | undefined                        |
+|                          |                | A2*) F             | 'lord of the rings'              |
+|                          | B) type        | B1*) string        | 'lord of the rings'              |
+|                          |                | B2) other          | number:1                         |
+|--------------------------+----------------+--------------------+----------------------------------|
+| editCard.tags            | A) undefined?  | A1) T              | undefined                        |
+|                          |                | A2*) F             | ['ainur', 'immortal', 'immoral'] |
+|                          | B) type        | B1*) strings       | ['ainur', 'immortal', 'immoral'] |
+|                          |                | B2) other          | number:[1, 2, 3]                 |
+|                          | C) size        | C1) 0              | []                               |
+|                          |                | C2) 1              | ['ainur']                        |
+|                          |                | C3*) >1            | ['ainur', 'immortal', 'immoral'] |
+|                          |                |                    |                                  |
 
 | Base Choice Coverage Test Set |          |        |          |         |         |        |
 | Test                          |          |        |          |         |         | Throw? |
@@ -150,6 +151,27 @@
 | editCard-tags-numbers         | cards:B3 | id: B3 | front:B1 | back:B1 | tags:B2 | Y      |
 | editCard-tags-none            | cards:B3 | id: B3 | front:B1 | back:B1 | tags:C1 |        |
 | editCard-tags-single          | cards:B3 | id: B3 | front:B1 | back:B1 | tags:C2 |        |
+
+*** getTags
+
+| Input Space Partitioning |                |                    |                                  |
+|--------------------------+----------------+--------------------+----------------------------------|
+| Variable                 | Characteristic | Partition          | Value                            |
+|--------------------------+----------------+--------------------+----------------------------------|
+|--------------------------+----------------+--------------------+----------------------------------|
+| cards                    | A) undefined?  | A1) T              | undefined                        |
+|                          |                | A2*) F             | array obj                        |
+|                          | B) size        | B1) 0              | []                               |
+|                          |                | B2) 1              | ['manwe'...]                     |
+|                          |                | B3*) >1            | [{size 7}]                       |
+
+| Base Choice Coverage Test Set |          |        |
+| Test                          |          | Throw? |
+|-------------------------------+----------+--------|
+| getTags-base                  | cards:B3 |        |
+| getTags-cards-undefined       | cards:A1 | Y      |
+| getTags-cards-empty           | cards:B1 |        |
+| getTags-cards-single          | cards:B2 |        |
 
 * Files tested using Workflows:
 

@@ -361,6 +361,35 @@ describe('CardProvider', () => {
 	})
 
 	/* END EDITCARD */
+	/* BEGIN GETTAGS */
+
+	test('getTags-base', () => {
+		expect(result.current.getTags()).toStrictEqual(['elf', 'human', 'immortal', 'magician', 'maia',
+														'mortal', 'outlaw', 'werewolf', 'wolf'])
+	})
+
+	test('getTags-cards-undefined', () => {
+		act(() => {
+			result.current.forceCards(undefined)
+		})
+		expect(() => result.current.getTags()).toThrow()
+	})
+
+	test('getTags-cards-empty', () => {
+		act(() => {
+			result.current.forceCards([])
+		})
+		expect(result.current.getTags()).toStrictEqual([])
+	})
+
+	test('getTags-cards-single', () => {
+		act(() => {
+			result.current.forceCards([singleCard])
+		})
+		expect(result.current.getTags()).toStrictEqual(['ainur', 'immortal', 'moral'])
+	})
+
+	/* END GETTAGS */
 })
 
 // Local Variables:

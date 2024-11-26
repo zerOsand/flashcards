@@ -98,7 +98,7 @@ export const CardProvider = ({children}) => {
 				tags.add(tag)
 			});
 		});
-		return Array.from(tags)
+		return Array.from(tags).sort()
 	}
 
 	const handleExportFlashcards = ( filteredCards ) => {
