@@ -13,13 +13,16 @@ describe('CardProvider', () => {
 		{ id: 6, front: 'beleg', back: 'the archer', tags: ['elf', 'mortal'] },
 		{ id: 7, front: 'carcharoth', back: 'guard of angband', tags: ['wolf', 'werewolf'] },
 	]
+	const nextCard = { front: 'sauron', back: 'lord of the rings', tags: ['ainur', 'immortal', 'immoral'] }
 
-	const { result } = renderHook(() =>
-		useCards(), {
-			wrapper: CardProvider,
-		})
-
+	let result;
 	beforeEach(() => {
+		const hookResult = renderHook(() =>
+			useCards(), {
+				wrapper: CardProvider
+			})
+		result = hookResult.result
+
 		act(() => {
 			result.current.forceCards(testCards)
 		})
@@ -29,7 +32,6 @@ describe('CardProvider', () => {
 		expect(result.current.cards).toHaveLength(7)
 	})
 
-	const nextCard = { front: 'sauron', back: 'lord of the rings', tags: ['ainur', 'immortal', 'immoral'] }
 	test('addCard adds element to cards', () => {
 		act(() => {
 			result.current.addCard(nextCard.front, nextCard.back, nextCard.tags)
@@ -41,20 +43,16 @@ describe('CardProvider', () => {
 		act(() => {
 			result.current.addCard(nextCard.front, nextCard.back, nextCard.tags)
 		})
-		waitFor(() => {
-			expect(result.current.cards[0].id).toBe(8)
-		})
+		expect(result.current.cards[0].id).toBe(8)
 	})
 
 	test('addCard stores front, back, and tag fields', () => {
 		act(() => {
 			result.current.addCard(nextCard.front, nextCard.back, nextCard.tags)
 		})
-		waitFor(() => {
-			expect(result.current.cards[0].front).toBe(newCard.front)
-			expect(result.current.cards[0].back).toBe(newCard.back)
-			expect(result.current.cards[0].tags).toBe(newCard.tags)
-		})
+		expect(result.current.cards[0].front).toBe(nextCard.front)
+		expect(result.current.cards[0].back).toBe(nextCard.back)
+		expect(result.current.cards[0].tags).toBe(nextCard.tags)
 	})
 
 })
