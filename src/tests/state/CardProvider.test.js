@@ -55,8 +55,26 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].tags).toBe(nextCard.tags)
 	})
 
+	test('removeCard remove first', () => {
+		act(() => {
+			result.current.removeCard(0)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length - 1)
+		expect(result.current.cards[0].front).toBe('thingol')
+		expect(result.current.cards[testCards.length - 2].front).toBe('carcharoth')
+	})
+
+	test('removeCard remove last', () => {
+		act(() => {
+			result.current.removeCard(testCards.length - 1)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length - 1)
+		expect(result.current.cards[0].front).toBe('beren')
+		expect(result.current.cards[testCards.length - 2].front).toBe('beleg')
+	})
 })
 
 // Local Variables:
 // compile-command: "guix shell -m manifest.scm -- npm run test"
 // End:
+
