@@ -38,14 +38,6 @@ const MainPage = () => {
 			</Typography>
 		)
 	};
-	const AddFlashcard = () => {
-		return (
-			<Button disableRipple variant="contained"
-					onClick={togglePopup} >
-				+
-			</Button>
-		);
-	};
 
 	const handleFilteredCardsChange = (newFilteredCards) => {
 		setFilteredCards(newFilteredCards);
@@ -93,8 +85,15 @@ const MainPage = () => {
 				>
 					{/* Sidebar content */}
 					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-						 {AddFlashcard()}
+						<Button disableRipple variant="contained"
+								onClick={togglePopup} >
+							+
+						</Button>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
+						<Button disableRipple variant="outlined"
+								onClick={console.log("practice!")} >
+							Practice
+						</Button>
 					</Box>
 					<ClickList
 						active={(activeIndex === undefined) ?
