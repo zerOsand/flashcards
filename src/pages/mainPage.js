@@ -91,7 +91,7 @@ const MainPage = () => {
 					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: '8px' }}>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
 						<Button disableRipple variant="outlined"
-								onClick={console.log("practice!")} >
+								onClick={() => console.log("practice!")} >
 							Practice
 						</Button>
 						<Button disableRipple variant="contained"
