@@ -1,19 +1,38 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Navbar from "../components/Navbar";
 import ClickList from "../components/ClickList";
 import { useCards } from "../state/CardProvider";
+import { useTheme } from "@mui/material/styles";
 
 const MainPage = () => {
 	const { cards, handleExportFlashcards } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined);
 	const [filteredCards, setFilteredCards] = useState(cards);
-	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [isPopupOpen, setIsPopupOpen] = useState(false);	const theme = useTheme()
 
 	const convertIndex = (array, target) => {
 		return array.findIndex((item) => {
 			return item.id === target.id;
 		});
+	};
+
+	const ListCard = (card, active) => {
+		return (
+			<Typography
+				sx={{
+					fontFamily: theme.typography.fontFamily,
+					fontSize: theme.typography.body1.fontSize,
+					fontWeight: active ? 600 : 400,
+					color:
+					active
+						? theme.palette.primary.main
+						: theme.palette.text.primary,
+				}}
+			>
+				{card.front}
+			</Typography>
+		)
 	};
 	const AddFlashcard = () => {
 		return (
@@ -39,6 +58,7 @@ const MainPage = () => {
 		// use the 'true' index
 		setActiveIndex(convertIndex(cards, filteredCards[index]));
 	};
+
 	return (
 		<Box
 			sx={{
@@ -49,12 +69,7 @@ const MainPage = () => {
 			}}
 		>
 			{/* Navbar */}
-			<Box
-				sx={{
-					backgroundColor: "#fff",
-					// color: "#fff",
-				}}
-			>
+			<Box sx={{backgroundColor: "#fff"}}>
 				<Navbar />
 			</Box>
 
@@ -63,27 +78,29 @@ const MainPage = () => {
 				sx={{
 					display: "flex",
 					flexGrow: 1,
-					backgroundColor: "#fff", // Light gray background for entire page
+					backgroundColor: "#fff",
 				}}
 			>
+
 				{/* Sidebar */}
 				<Box
 					sx={{
-						width: "35%", // Adjusted to match the layout
-						backgroundColor: "#f4f4f4", // White background for sidebar
-						boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Subtle shadow
+						width: "35%",
+						backgroundColor: "#f4f4f4",
+						boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
 						padding: "16px",
 						overflowY: "auto",
 					}}
 				>
 					{/* Sidebar content */}
 					<ClickList
-						active={activeIndex}
+						active={(activeIndex === undefined) ?
+								activeIndex :
+								convertIndex(filteredCards, cards[activeIndex])} 
 						list={filteredCards}
-						item={(flashcard, active) => (
-							<Box>{flashcard.front}</Box> /* Optional customization */
-						)}
+						item={ListCard}
 						event={handleCardClick}
+						styles={theme.cardsList}
 						prependItem={AddFlashcard}
 					/>
 				</Box>
@@ -107,5 +124,6 @@ const MainPage = () => {
 		</Box>
 	);
 };
+
 
 export default MainPage;
