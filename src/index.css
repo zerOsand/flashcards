@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 body {
-	margin: 0;
-	font-family: "Inter", sans-serif; /* Set Inter as the global font */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	color: #333333; /* Global text color */
+  margin: 0;
+  font-family: "Inter", 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333333;
 }
 
 code {
-	font-family: "Inter", monospace; /* Use Inter for code as well */
+  font-family: monospace;
 }
