@@ -130,7 +130,13 @@ const MainPage = () => {
 					}}
 				>
 					{/* Main content */}
+					<PreviewPane index={{activeIndex, setActiveIndex}} />
 				</Box>
+				{isPopupOpen && (
+					<EditCard
+						togglePopup={togglePopup}
+					/>
+				)}
 			</Box>
 		</Box>
 	);
