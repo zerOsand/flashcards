@@ -1,4 +1,3 @@
-import { Nav, NavLink, NavLogo, NavMenu } from "./navbarElements";
 import UmassLogo from "../../umassLogo";
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 

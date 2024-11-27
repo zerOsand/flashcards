@@ -1,10 +1,13 @@
-import React, { useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import Navbar from "../components/Navbar";
 import ClickList from "../components/ClickList";
+import EditCard from './editCard.js'
+import Navbar from "../components/Navbar";
+import PreviewPane from './preview'
+import React, { useState } from "react";
+import Searchbar from '../components/Searchbar'
 import { useCards } from "../state/CardProvider";
 import { useTheme } from "@mui/material/styles";
-import Searchbar from '../components/Searchbar'
+
 
 const MainPage = () => {
 	const theme = useTheme();
@@ -28,6 +31,9 @@ const MainPage = () => {
 					fontSize: theme.typography.body1.fontSize,
 					fontWeight: active ? 600 : 400,
 					width: '100%',
+					overflow: 'hidden',
+					textOverflow: 'ellipsis',
+					whiteSpace: 'nowrap',
 					color:
 					active
 						? theme.palette.primary.main
@@ -55,12 +61,11 @@ const MainPage = () => {
 			sx={{
 				display: "flex",
 				flexDirection: "column",
-				height: "100vh",
-				// overflow: "hidden",
+				height: "calc(100vh - 16px)",
 			}}
 		>
 			{/* Navbar */}
-			<Box sx={{backgroundColor: "#fff"}}>
+			<Box sx={{backgroundColor: "#fff" }}>
 				<Navbar />
 			</Box>
 
@@ -68,7 +73,6 @@ const MainPage = () => {
 			<Box
 				sx={{
 					display: "flex",
-					flexGrow: 1,
 					backgroundColor: "#fff",
 				}}
 			>
@@ -80,11 +84,10 @@ const MainPage = () => {
 						backgroundColor: "#f4f4f4",
 						boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
 						padding: "16px",
-						overflowY: "auto",
 					}}
 				>
 					{/* Sidebar content */}
-					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: '8px' }}>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
 						<Button disableRipple variant="outlined"
 								onClick={console.log("practice!")} >
@@ -104,6 +107,13 @@ const MainPage = () => {
 						event={handleCardClick}
 						styles={theme.cardsList}
 					/>
+
+					{isPopupOpen && (
+						<EditCard
+							togglePopup={togglePopup}
+						/>
+					)}
+
 				</Box>
 
 				{/* Main Content */}
@@ -119,7 +129,6 @@ const MainPage = () => {
 					}}
 				>
 					{/* Main content */}
-					hey3
 				</Box>
 			</Box>
 		</Box>
