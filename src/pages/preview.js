@@ -75,7 +75,6 @@ const PreviewPane = ({ index })  => {
 							</>
 						}
 					</div>
-					{activeIndex !== undefined && <ClickList list={cards[activeIndex].tags} item={TagBox} event={ handleTagClick } styles={{ ...tagStyles, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} />}
 				</div>
 				{isEditOpen && (
 					<EditCard

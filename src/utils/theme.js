@@ -66,9 +66,9 @@ const theme = createTheme({
 
 theme.cardsList = {
 	container: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-between',
+		padding: '8px',
+		height: '84vh',
+		overflowY: 'auto',
 	},
 	grid: {
 		display: 'grid',
@@ -77,6 +77,7 @@ theme.cardsList = {
 	},
 	item: (index, active) => ({
 		borderRadius: '4px',
+		width: '100%',
 		display: 'flex',
 		justifyContent: 'center',
 		backgroundColor:

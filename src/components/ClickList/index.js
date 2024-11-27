@@ -18,7 +18,7 @@ const ClickList = ({ active, list, item, event, styles, prependItem }) => {
 				{list.map((value, index) => {
 					return (
 						<ListItem key={index}
-								sx={styles.item(index,active)}
+								sx={{ ...styles.item(index,active), cursor: 'pointer', }}
 								onClick={(e) => {e.stopPropagation(); event(index);}}
 						>
 							{item ? item(value, active === index) : <ListItemText primary={value} />}

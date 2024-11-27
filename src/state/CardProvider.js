@@ -6,23 +6,30 @@ const initialCards = [
 	/* Test Cards */
 	{ id: 1, front: 'beren', back: 'the empty-handed', tags: ['human', 'outlaw', 'mortal'] },
 	{ id: 2, front: 'thingol', back: 'king of doriath', tags: ['elf', 'mortal'] },
-	{ id: 3, front: 'luthien', back: 'princess of doriath', tags: ['elf', 'immortal', 'maia', 'magician'] },
+	{ id: 3, front: 'luthien', back: 'princess of doriath', tags: ['ainur', 'elf', 'immortal', 'maia', 'magician'] },
 	{ id: 4, front: 'huan', back: 'hound of valinor', tags: ['wolf', 'immortal'] },
 	{ id: 5, front: 'mablung', back: 'captian of doriath', tags: ['elf', 'mortal'] },
 	{ id: 6, front: 'beleg', back: 'the archer', tags: ['elf', 'mortal'] },
-	{ id: 7, front: 'carcharoth', back: 'the red maw', tags: ['wolf', 'werewolf'] },
+	{ id: 7, front: 'carcharoth', back: 'guard of angband', tags: ['wolf', 'werewolf'] },
+	{ id: 8, front: 'sauron', back: 'lord of the rings', tags: ['ainur', 'valar', 'immortal', 'immoral'] },
+	{ id: 9, front: 'manwe', back: 'lord of the valar', tags: ['ainur', 'valar', 'immortal', 'moral'] },
+	{ id: 10, front: 'ulmo', back: 'lord of waters', tags: ['ainur', 'valar', 'immortal', 'moral'] },
+	{ id: 11, front: 'melkor', back: 'lord of the dark', tags: ['ainur', 'valar', 'immortal', 'immoral'] },
 
-	{ id: 8, front: 'awk', back: '1977', tags: ['interpreted', 'garbage collected', 'memory safe'] },
-	{ id: 9, front: 'c', back: '1972', tags: ['compiled', 'macros', 'functional', 'fast'] },
-	{ id: 10, front: 'c++', back: '1985', tags: ['compiled', 'macros', 'object-oriented', 'fast'] },
-	{ id: 11, front: 'go', back: '2009', tags: ['compiled', 'garbage collected', 'reflective', 'object-oriented', 'memory safe'] },
-	{ id: 12, front: 'java', back: '1995', tags: ['compiled*', 'garbage collected', 'reflective', 'object-oriented', 'memory safe'] },
-	{ id: 13, front: 'javascript', back: '1995', tags: ['interpreted', 'garbage collected', 'object-oriented', 'memory safe'] },
-	{ id: 14, front: 'lisp', back: '1960', tags: ['interpreted', 'garbage collected', 'macros', 'reflective', 'functional'] },
-	{ id: 15, front: 'python', back: '1994', tags: ['interpreted', 'garbage collected', 'reflective', 'object-oriented', 'memory safe'] },
-	{ id: 16, front: 'rust', back: '2015', tags: ['compiled', 'macros', 'functional', 'memory safe', 'fast'] },
+	{ id: 12, front: 'awk', back: '1977', tags: ['interpreted', 'garbage collected', 'memory safe'] },
+	{ id: 13, front: 'c', back: '1972', tags: ['compiled', 'macros', 'functional', 'fast'] },
+	{ id: 14, front: 'c++', back: '1985', tags: ['compiled', 'macros', 'object-oriented', 'fast'] },
+	{ id: 15, front: 'go', back: '2009', tags: ['compiled', 'garbage collected', 'reflective', 'object-oriented', 'memory safe'] },
+	{ id: 16, front: 'java', back: '1995', tags: ['compiled*', 'garbage collected', 'reflective', 'object-oriented', 'memory safe'] },
+	{ id: 17, front: 'javascript', back: '1995', tags: ['interpreted', 'garbage collected', 'object-oriented', 'memory safe'] },
+	{ id: 18, front: 'lisp', back: '1960', tags: ['interpreted', 'garbage collected', 'macros', 'reflective', 'functional'] },
+	{ id: 19, front: 'python', back: '1994', tags: ['interpreted', 'garbage collected', 'reflective', 'object-oriented', 'memory safe'] },
+	{ id: 20, front: 'rust', back: '2015', tags: ['compiled', 'macros', 'functional', 'memory safe', 'fast'] },
+	{ id: 21, front: 'ruby', back: '1995', tags: ['interpreted', 'macros', 'functional', 'memory safe', 'reflective'] },
+	{ id: 22, front: 'perl', back: '1987', tags: ['interpreted', 'functional', 'object-oriented'] },
+	{ id: 23, front: 'haskell', back: '2010', tags: ['compiled', 'garbaged collected' ] },
 
-	{ id: 17, front: 'waking of angantyr', back: `Awaken, Angantyr!
+	{ id: 24, front: 'waking of angantyr', back: `Awaken, Angantyr!
 Hervor awakens you;
 your only daughter
 by Sváfa!
@@ -30,16 +37,16 @@ Yield up from the mound
 the sharp sword
 that which dwarves forged
 for Svafrlami`, tags: ['poetry', 'fornyrðislag'] },
-	{ id: 18, front: 'hail the givers' , back: `Hail the givers! A guest has come,
+	{ id: 25, front: 'hail the givers' , back: `Hail the givers! A guest has come,
 where shall he sit?
 Hard pressed is he,
 who tests his luck by the fire.`, tags: ['poetry'] },
-	{ id: 19, front: 'evil words' , back: `Thine evil words shall work no ill
+	{ id: 26, front: 'evil words' , back: `Thine evil words shall work no ill
 Though, giantess, bitter thy baleful threats;
 A drink full fair shall Ottar find,
 If of all the gods the favor I get.`, tags: ['poetry'] },
 
-	{ id: 20, front: 'Old Sultan', back: `A farmer once had a faithful dog called Sultan, who had grown old, and lost all his teeth, so that he could no longer hold anything fast. One day the farmer was standing with his wife before the house-door, and said, "To-morrow I intend to shoot Old Sultan, he is no longer of any use."
+	{ id: 27, front: 'Old Sultan', back: `A farmer once had a faithful dog called Sultan, who had grown old, and lost all his teeth, so that he could no longer hold anything fast. One day the farmer was standing with his wife before the house-door, and said, "To-morrow I intend to shoot Old Sultan, he is no longer of any use."
 
 His wife, who felt pity for the faithful beast, answered, "He has served us so long, and been so faithful, that we might well give him his keep."
 
@@ -58,8 +65,10 @@ The next morning the wolf sent the boar to challenge the dog to come out into th
 The wolf and his friend were already on the spot appointed, but when they saw their enemy coming they thought that he was bringing a sabre with him, for they mistook the outstretched tail of the cat for one. And when the poor beast hopped on its three legs, they could only think every time that it was picking up a stone to throw at them. So they were both afraid; the wild boar crept into the under-wood and the wolf jumped up a tree.
 
 The dog and the cat, when they came up, wondered that there was no one to be seen. The wild boar, however, had not been able to hide himself altogether; and one of his ears was still to be seen. Whilst the cat was looking carefully about, the boar moved his ear; the cat, who thought it was a mouse moving there, jumped upon it and bit it hard. The boar made a fearful noise and ran away, crying out, "The guilty one is up in the tree." The dog and cat looked up and saw the wolf, who was ashamed of having shown himself so timid, and made friends with the dog.`, tags: ['stresstest', 'grimm', 'moral'] },
-	{ id: 21, front: 'longlinelonglinelonglinelonglinelonglinelonglinelonglinelonglinelonglinelonglinelonglinelongline',  back: '\n\n\n\n\n\n\n\n\n\n\n\n\nnone\n\n\n\n\n\n\n\n\n\n\n\n\n\n', tags: ['stresstest'] },
-	{ id: 22, front: 'everything',  back: 'all the tags', tags: ['compiled', 'compiled*', 'elf', 'fast', 'fornyrðislag', 'functional', 'garbage collected', 'grimm', 'human', 'immortal', 'interpreted', 'macros', 'magician', 'maia', 'memory safe', 'moral', 'object-oriented', 'outlaw', 'chrome', 'chromium', 'cs520', 'edge', 'exam', 'firefox', 'general', 'homework1', 'memory', 'mortal', 'poetry', 'other', 'react', 'reflective', 'stresstest', 'theory', 'umass', 'webkit', 'werewolf', 'wolf'] },
+	{ id: 28, front: 'longlinelonglinelonglinelonglinelonglinelonglinelonglinelonglinelonglinelonglinelonglinelongline',  back: '\n\n\n\n\n\n\n\n\n\n\n\n\nnone\n\n\n\n\n\n\n\n\n\n\n\n\n\n', tags: ['stresstest'] },
+	{ id: 29, front: `True or false?
+Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.`, back: 'falsue', tags: ['stresstest'] },
+	{ id: 30, front: 'everything',  back: 'all the tags', tags: ['compiled', 'compiled*', 'elf', 'fast', 'fornyrðislag', 'functional', 'garbage collected', 'grimm', 'human', 'immortal', 'interpreted', 'macros', 'magician', 'maia', 'memory safe', 'moral', 'object-oriented', 'outlaw', 'chrome', 'chromium', 'cs520', 'edge', 'exam', 'firefox', 'general', 'homework1', 'memory', 'mortal', 'poetry', 'other', 'react', 'reflective', 'stresstest', 'theory', 'umass', 'webkit', 'werewolf', 'wolf'] },
 ];
 
 export const CardProvider = ({children}) => {
