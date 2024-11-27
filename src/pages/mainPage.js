@@ -85,14 +85,14 @@ const MainPage = () => {
 				>
 					{/* Sidebar content */}
 					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-						<Button disableRipple variant="contained"
-								onClick={togglePopup} >
-							+
-						</Button>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
 						<Button disableRipple variant="outlined"
 								onClick={console.log("practice!")} >
 							Practice
+						</Button>
+						<Button disableRipple variant="contained"
+								onClick={togglePopup} >
+							+
 						</Button>
 					</Box>
 					<ClickList
