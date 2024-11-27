@@ -111,6 +111,7 @@ const searchBarStyle = {
 const container = {
 	display: 'flex',
 	overflow: 'hidden',
+	backgroundColor: '#fff',
 };
 
 const leftContainer = {
