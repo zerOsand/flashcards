@@ -34,6 +34,7 @@ const MainPage = () => {
 					overflow: 'hidden',
 					textOverflow: 'ellipsis',
 					whiteSpace: 'nowrap',
+					userSelect: 'none',
 					color:
 					active
 						? theme.palette.primary.main

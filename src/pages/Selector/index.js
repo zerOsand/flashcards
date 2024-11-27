@@ -49,6 +49,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 					width: '100%',
 					overflow: 'hidden',
 					textOverflow: 'ellipsis',
+					userSelect: 'none',
 					whiteSpace: 'nowrap',
 				}}>
 					{text}
