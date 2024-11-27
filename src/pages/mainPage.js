@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Navbar from "../components/Navbar";
 import ClickList from "../components/ClickList";
 import { useCards } from "../state/CardProvider";
+import Searchbar from '../components/Searchbar'
+import { useTheme } from "@mui/material/styles";
+
 
 const MainPage = () => {
+	const theme = useTheme();
+
 	const { cards, handleExportFlashcards } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined);
 	const [filteredCards, setFilteredCards] = useState(cards);
@@ -17,22 +22,16 @@ const MainPage = () => {
 	};
 	const AddFlashcard = () => {
 		return (
-			<Box
-				sx={{
-					backgroundColor: "#6bc879",
-					color: "#fff",
-					borderRadius: "8px",
-					padding: "10px 16px",
-					textAlign: "center",
-					cursor: "pointer",
-					"&:hover": { backgroundColor: "#5aa96a" },
-				}}
-				onClick={togglePopup}
-			>
+			<Button disableRipple variant="contained" onClick={togglePopup} >
 				+
-			</Box>
+			</Button>
 		);
 	};
+
+	const handleFilteredCardsChange = (newFilteredCards) => {
+		setFilteredCards(newFilteredCards);
+	};
+
 	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
 	const handleCardClick = (index) => {
@@ -77,6 +76,10 @@ const MainPage = () => {
 					}}
 				>
 					{/* Sidebar content */}
+					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+						 {AddFlashcard()}
+						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
+					</Box>
 					<ClickList
 						active={activeIndex}
 						list={filteredCards}
@@ -84,7 +87,6 @@ const MainPage = () => {
 							<Box>{flashcard.front}</Box> /* Optional customization */
 						)}
 						event={handleCardClick}
-						prependItem={AddFlashcard}
 					/>
 				</Box>
 
