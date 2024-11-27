@@ -1,9 +1,15 @@
-import { useState, useEffect } from 'react'
 import ClickList from '../../components/ClickList'
-import { tagStyles, textTagStyle  } from '../../utils/styles'
+import SearchIcon from '@mui/icons-material/Search';
+import { tagStyles, textTagStyle } from '../../utils/styles'
+import { Box, TextField, InputAdornment, Typography, ListItem } from "@mui/material";
 import { useCards } from '../../state/CardProvider.js'
+import { useState, useEffect } from 'react'
+import { useTheme } from "@mui/material/styles";
+
 
 const Selector = ({onAdd, onRemove, tags}) => {
+	const theme = useTheme();
+
 	const { getTags } = useCards();
  	const [inputValue, setInputValue] = useState('')
 	const getMissingTags = () => {
@@ -34,44 +40,113 @@ const Selector = ({onAdd, onRemove, tags}) => {
 		onRemove(tags[index])
 	}
 
-	const Box = (text) => {
+	const ListTag = (text) => {
 		return (
-				<div style={{ ...textTagStyle, ...{minWidth: '200px'}}}>
+				<Typography sx={{
+					fontFamily: theme.typography.fontFamily,
+					fontSize: theme.typography.body1.fontSize,
+					fontWeight: 400,
+					width: '100%',
+					overflow: 'hidden',
+					textOverflow: 'ellipsis',
+					whiteSpace: 'nowrap',
+				}}>
 					{text}
-				</div>
+				</Typography>
 		);
+	}
+
+	const selectorList = {
+		container: {
+			overflowY: 'auto',
+			height: '100%'
+		},
+		grid: {
+			display: 'grid',
+			gridTemplateColumns: 'repeat(1, 1fr)',
+			gap: '8px',
+		},
+		item: (index, active) => ({
+			borderRadius: '4px',
+			textAlign: 'center',
+			backgroundColor: theme.palette.background.paper,
+			border: `2px solid ${
+							theme.palette.accent.light
+					    }`,
+			height: '25px',
+			overflow: 'hidden',
+			boxSizing: 'border-box',
+			boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+			transition: "all 0.3s ease",
+			"&:hover": {
+				backgroundColor: theme.palette.background.default,
+			},
+		}),
 	}
 
 	const AddNew = () => {
 		return (
-			<div style={{ ...styles.searchItem, cursor: 'pointer'}} onClick={(e) => {
-					 e.stopPropagation()
-					 onAdd(inputValue)
-					 setInputValue('')
-				 }}>
-				{Box('+ '.concat(inputValue))}
-			</div>
+			<ListItem
+				onClick={(e) => {
+					e.stopPropagation()
+					onAdd(inputValue)
+					setInputValue('')}
+				}
+			sx={{ ...selectorList.item(undefined, true), cursor: 'pointer', }}
+			>
+				{ListTag('+ '.concat(inputValue))}
+			</ListItem>
 		)
 	}
 
 	return (
-			<div style={styles.body}>
-				<div style={styles.lg}>
-					<input
-						style={{ height: '12px' }}
-						type="text"
+			<Box sx={{ padding: 2 }}>
+				<Box sx={{ display: 'flex' }}>
+					<TextField
+						placeholder='Filter...'
 						value={inputValue}
 						onChange={handleInputChange}
-						placeholder="Search..."
+						variant='standard'
+						fullWidth={false}
+        			    InputProps={{
+    	    	    	    startAdornment: (
+	            	    	    <InputAdornment position="start">
+                    			    <SearchIcon />
+			               	    </InputAdornment>
+        			        ),
+		    	        }}
+						sx={{
+							marginLeft: '0',
+							marginBottom: '2px',
+							width: '50%',
+						}}
 					/>
-					<div style={{marginTop: '5px', display: 'flex', justifyContent: 'center', overflowY: 'auto', height: '200px'}} >
-						<ClickList list={matchedTags} item={Box} event={handleAdd} styles={styles.clickList} prependItem={(inputValue !== '' && matchedTags.length === 0) ? AddNew : undefined} />
-					</div>
-				</div>
-				<div style={styles.rg}>
-					<ClickList list={tags} item={Box} event={handleRemove} styles={{ container: { ...tagStyles.container, ...{maxHeight: '200px', minHeight: '200px', justifyContent: 'center'}}, item: { ...tagStyles.item, ...{backgroundColor: '#b53550'}}}} />
-				</div>
-			</div>
+					<Box sx={{ width: '50%', minHeight: '1px' }} />
+				</Box>
+				<Box sx={{ display: 'flex', height: '300px', gap: 2 }}>
+					<Box sx={{ flex: 1 }}>
+						<ClickList
+							styles={selectorList}
+							list={matchedTags}
+							item={ListTag}
+							event={handleAdd}
+							prependItem={(inputValue !== '' && matchedTags.length === 0)
+								? AddNew : undefined} />
+					</Box>
+					<Box sx={{ flex: 1 }}>
+						<ClickList
+							styles={{ ...selectorList,
+									  item: (index, active) => ({ ...selectorList.item(index, active),
+																 border: `2px solid ${
+																			theme.palette.accent.border
+															     }`,
+																 backgroundColor: theme.palette.background.accent})}}
+							list={tags}
+							item={ListTag}
+							event={handleRemove} />
+					</Box>
+				</Box>
+			</Box>
 	);
 }
 
@@ -91,10 +166,6 @@ const styles  = {
 		gridRow: 1,
 		gridColumn: 2,
 		overflowY: 'auto'
-	},
-	searchItem: { ...tagStyles.item, ...{backgroundColor: '#6bc879'}
-	},
-	clickList: { ...tagStyles, container: {}, item: {...tagStyles.item, ...{backgroundColor: '#3366ff', marginBottom: '2px'}}
 	},
 }
 

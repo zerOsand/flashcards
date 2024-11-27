@@ -58,6 +58,12 @@ const EditCard = ({togglePopup, card, styles}) => {
 							placeholder="Back of Flashcard"/>
 					</div>
 
+					<Selector
+						onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
+						onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
+						tags={cardState.tags}
+					/>
+
 					<div style={styles.buttonContainer}>
 						<CustomButton text="Cancel" event={() => setShowCancel(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
 						<CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: isSaveEnabled ? '#6bc879' : 'gray'}}/>

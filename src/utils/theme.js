@@ -13,6 +13,7 @@ const theme = createTheme({
 		background: {
 			default: "#f4f4f4", // Default app background
 			paper: "#fff", // Card and paper background
+			accent: "#ffe5e5",
 		},
 		text: {
 			primary: "#000", // Black for primary text
@@ -21,6 +22,7 @@ const theme = createTheme({
 		accent: {
 			main: "#ffe5e5", // Light pink for tag chips
 			border: "#800000", // Border color for tags
+			light: "#a63a3a"
 		},
 	},
 	typography: {
