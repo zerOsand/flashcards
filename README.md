@@ -11,4 +11,5 @@ Run `npm run build`.
 
 ## Test client
 
-Run `npm run tests`.
+Run `npm run test`.
+See /src/tests/README.org for information on tests.

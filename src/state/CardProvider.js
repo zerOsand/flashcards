@@ -67,24 +67,28 @@ export const CardProvider = ({children}) => {
 	const [id, sid] = useState(initialCards.length);
 
 	const addCard = (front, back, tags) => {
+		assertValidCard(front, back, tags)
 		const newCard = { id: id + 1, front, back, tags: tags.sort() };
 		setCards(prevCards => [newCard, ...prevCards]); 
 		sid(id + 1);
 	};
 
 	const removeCard = (index) => {
+		if (index < 0 || index > cards.length-1)
+			throw new Error('invalid index')
+		if (typeof index !== 'number')
+			throw new Error('index must be an number')
 		setCards(prevCards =>
 			prevCards.filter((_, i) => i !== index)
 		);
 	};
 
 	const editCard = (id, front, back, tags) => {
-		const newCards = cards.map(card => {
-			if (card.id === id)
-				return { ...card, front, back, tags: tags.sort() }
-			return card
-		});
-		setCards(newCards)
+		assertValidCard(front, back, tags)
+		const index = cards.findIndex(card => card.id === id);
+		if (index === -1)
+			throw new Error('id was not present')
+		setCards([...cards.slice(0, index), { ...cards[index], front, back, tags: tags.sort() }, ...cards.slice(index + 1)])
 	};
 
 	const getTags = () => {
@@ -94,7 +98,7 @@ export const CardProvider = ({children}) => {
 				tags.add(tag)
 			});
 		});
-		return Array.from(tags)
+		return Array.from(tags).sort()
 	}
 
 	const handleExportFlashcards = ( filteredCards ) => {
@@ -123,12 +127,28 @@ export const CardProvider = ({children}) => {
 		);
 	};
 
+	function assertValidCard(front, back, tags) {
+		if (typeof front !== 'string') {
+			throw new Error('front must be a string');
+		}
+		if (typeof back !== 'string') {
+			throw new Error('back must be a string');
+		}
+		if (!Array.isArray(tags)) {
+			throw new Error('tags must be an array');
+		}
+		if (!tags.every(tag => typeof tag === 'string')) {
+			throw new Error('all elements in tags must be a string');
+		}
+	}
+
 	/**
 	 * The following methods only exist for testing purposes.
 	 * They are not used during normal execution.
 	 */
-	const forceCards = (cards) => {
-		setCards(cards)
+	const forceCards = (c) => {
+		setCards(c)
+		sid(c?.length ?? 0)
 	}
 
 	return (
