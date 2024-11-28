@@ -49,10 +49,6 @@ const EditCard = ({popupState, card}) => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '90vh', 
-                    maxHeight: '90vh', 
-					overflow: 'hidden',
-					gap: 1
                 }}
             >
 			<Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold', fontFamily: theme.typography.fontFamily, color: theme.palette.text.primary }}>
@@ -68,8 +64,8 @@ const EditCard = ({popupState, card}) => {
 					overflow:'hidden'
                 }}
                 >
-			<Box sx={{ flex: 1, overflow:'hidden'}}>
-				<Typography variant="body1" sx={{ mb: 1, fontWeight: 'bold',fontFamily: theme.typography.fontFamily, color: theme.palette.text.primary }}>
+			<Box sx={{ flex: 1, overflow:'hidden', marginBottom: '10px'}}>
+				<Typography variant="body1" sx={{ mb: 1, fontWeight: 'bold' }}>
                     Front
                 </Typography>
                 <TextField
@@ -83,8 +79,8 @@ const EditCard = ({popupState, card}) => {
 			</Box>
 			
 
-			<Box sx={{ flex:1, overflow:"hidden"}}>
-                <Typography variant="body1" sx={{ mb: 1, fontWeight: 'bold',fontFamily: theme.typography.fontFamily, color: theme.palette.text.primary}}>
+			<Box sx={{ flex:1, overflow:"hidden", marginBottom: '10px',}}>
+                <Typography variant="body1" sx={{ mb: 1, fontWeight: 'bold'}}>
                     Back
                 </Typography>
                 <TextField
@@ -97,7 +93,7 @@ const EditCard = ({popupState, card}) => {
                 />
             </Box>
 
-			<Box sx={{height:'250px'}}>
+			<Box>
 			<Selector
 				onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
 				onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
