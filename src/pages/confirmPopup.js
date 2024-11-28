@@ -7,7 +7,7 @@ const ConfirmationPopup = ({ open, onCancel, onConfirm, message }) => {
     return (
         <DefaultPopup
             open={open}
-            onClose={onCancel}
+            onClose={onConfirm}
         >
             <Typography variant="h2">Confirmation</Typography>
             <Typography variant="body1" sx={{ marginTop: '5px' }} >{message}</Typography>

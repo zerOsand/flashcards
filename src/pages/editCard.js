@@ -40,45 +40,43 @@ const EditCard = ({popupState, card}) => {
 
 	return (
 		<DefaultPopup
-			open={open}>
-			<div style={styles.overlay}>
-				<div style={styles.modal}>
-					<h2>{cardState.id ? "Edit" : "Create"} Flashcard</h2>
-					<div style={styles.inputContainer}>
-						<label style={styles.label}>Front</label>
-						<textarea
-							style={styles.textarea}
-							value={cardState.front}
-							onChange={(e) => { setCardState((p) => ({ ...p, front: e.target.value}))}}
-							placeholder="Front of Flashcard"/>
-					</div>
-
-					<div style={styles.inputContainer}>
-						<label style={styles.label}>Back</label>
-						<textarea
-							style={styles.textarea}
-							value={cardState.back}
-							onChange={(e) => { setCardState((p) => ({ ...p, back: e.target.value}))}}
-							placeholder="Back of Flashcard"/>
-					</div>
-
-					<Selector
-						onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
-						onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
-						tags={cardState.tags}
-					/>
-
-					<div style={styles.buttonContainer}>
-						<CustomButton text="Cancel" event={() => setCopen(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
-						<CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: isSaveEnabled ? '#6bc879' : 'gray'}}/>
-					</div>	
-					<ConfirmationPopup
-						open={copen}
-						onCancel={() => setCopen(false)}
-						onConfirm={() => handleCancelConfirm()}
-						message='Discard Edits?'/>
-				</div>
+			open={open}
+			onClose={(e) => {setCopen(true)}}
+		>
+			<h2>{cardState.id ? "Edit" : "Create"} Flashcard</h2>
+			<div style={styles.inputContainer}>
+				<label style={styles.label}>Front</label>
+				<textarea
+					style={styles.textarea}
+					value={cardState.front}
+					onChange={(e) => { setCardState((p) => ({ ...p, front: e.target.value}))}}
+					placeholder="Front of Flashcard"/>
 			</div>
+
+			<div style={styles.inputContainer}>
+				<label style={styles.label}>Back</label>
+				<textarea
+					style={styles.textarea}
+					value={cardState.back}
+					onChange={(e) => { setCardState((p) => ({ ...p, back: e.target.value}))}}
+					placeholder="Back of Flashcard"/>
+			</div>
+
+			<Selector
+				onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
+				onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
+				tags={cardState.tags}
+			/>
+
+			<div style={styles.buttonContainer}>
+				<CustomButton text="Cancel" event={() => setCopen(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
+				<CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: isSaveEnabled ? '#6bc879' : 'gray'}}/>
+			</div>	
+			<ConfirmationPopup
+				open={copen}
+				onCancel={() => setCopen(false)}
+				onConfirm={() => handleCancelConfirm()}
+				message='Discard Edits?'/>
 		</DefaultPopup>
 	)
 };
