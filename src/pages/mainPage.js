@@ -75,7 +75,9 @@ const MainPage = () => {
 				sx={{
 					display: "flex",
 					backgroundColor: "#fff",
-				}}
+					flexGrow: 1,
+					overflow: "hidden",
+					}}
 			>
 
 				{/* Sidebar */}
@@ -85,6 +87,9 @@ const MainPage = () => {
 						backgroundColor: "#f4f4f4",
 						boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
 						padding: "16px",
+						display: "flex",
+						flexGrow: 1,
+						flexDirection: 'column',
 					}}
 				>
 					{/* Sidebar content */}
