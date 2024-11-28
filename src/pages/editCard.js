@@ -51,80 +51,80 @@ const EditCard = ({popupState, card}) => {
 					flexDirection: 'column',
 				}}
 			>
-			<Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold', fontFamily: theme.typography.fontFamily, color: theme.palette.text.primary }}>
-				{cardState.id ? 'Edit' : 'Create'} Flashcard
-			</Typography>
+				<Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold', fontFamily: theme.typography.fontFamily, color: theme.palette.text.primary }}>
+					{cardState.id ? 'Edit' : 'Create'} Flashcard
+				</Typography>
 
-			<Box
-		sx={{ display: 'flex', height: '280px', mb: '15px', }}
-			>
 				<Box
-					sx={{
-						flex: '0 0 55%',
-						display: 'flex',
-						flexDirection: 'column',
-						marginRight: '10px',
-					}}
-					>
-					<Box sx={{ flex: 1, marginBottom: '10px', }}>
-						<Typography variant="body3" sx={{ fontWeight: 'bold' }}>
-							Front
-						</Typography>
-						<TextField
-							fullWidth
-							multiline
-							variant="filled"
-							rows={4}
-							value={cardState.front}
-							onChange={(e) => setCardState((prev) => ({ ...prev, front: e.target.value }))}
-							placeholder="Front of Flashcard"
-						/>
+					sx={{ display: 'flex', height: '280px', mb: '15px', }}
+				>
+					<Box
+						sx={{
+							flex: '0 0 55%',
+							display: 'flex',
+							flexDirection: 'column',
+							marginRight: '10px',
+						}}
+						>
+						<Box sx={{ flex: 1, marginBottom: '10px', }}>
+							<Typography variant="body3" sx={{ fontWeight: 'bold' }}>
+								Front
+							</Typography>
+							<TextField
+								fullWidth
+								multiline
+								variant="filled"
+								rows={4}
+								value={cardState.front}
+								onChange={(e) => setCardState((prev) => ({ ...prev, front: e.target.value }))}
+								placeholder="Front of Flashcard"
+							/>
+						</Box>
+
+						<Box sx={{ flex:1, marginBottom: '10px',}}>
+							<Typography variant="body3" sx={{ fontWeight: 'bold'}}>
+								Back
+							</Typography>
+							<TextField
+								fullWidth
+								multiline
+								variant="filled"
+								rows={4}
+								value={cardState.back}
+								onChange={(e) => setCardState((prev) => ({ ...prev, back: e.target.value }))}
+								placeholder="Back of Flashcard"
+							/>
+						</Box>
 					</Box>
 
-					<Box sx={{ flex:1, marginBottom: '10px',}}>
-						<Typography variant="body3" sx={{ fontWeight: 'bold'}}>
-							Back
-						</Typography>
-						<TextField
-							fullWidth
-							multiline
-							variant="filled"
-							rows={4}
-							value={cardState.back}
-							onChange={(e) => setCardState((prev) => ({ ...prev, back: e.target.value }))}
-							placeholder="Back of Flashcard"
-						/>
+				<Box sx={{  flex: '0 0 45%',
+							display: 'flex',
+							flexDirection: 'column',
+						}}>
+						<Box sx={{ flex:1,}}>
+							<Typography variant="body3" sx={{ fontWeight: 'bold', }}>
+								Tags
+							</Typography>
+						</Box>
+						<Box sx={{ backgroundColor: "#f4f4f4", borderRadius: '8px', height: '100%', }}>
+							<Selector
+								onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
+								onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
+								tags={cardState.tags}
+							/>
+						</Box>
 					</Box>
 				</Box>
 
-			<Box sx={{  flex: '0 0 45%',
-						display: 'flex',
-						flexDirection: 'column',
-					}}>
-					<Box sx={{ flex:1,}}>
-						<Typography variant="body3" sx={{ fontWeight: 'bold', }}>
-							Tags
-						</Typography>
-					</Box>
-					<Box sx={{ backgroundColor: "#f4f4f4", borderRadius: '8px', height: '100%', width: '250px' }}>
-						<Selector
-							onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
-							onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
-							tags={cardState.tags}
-						/>
-					</Box>
-				</Box>
-			</Box>
-
-			<Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems:'center', mt:2}}>
-				<Button disableRipple variant="outlined" onClick={() => setCopen(true)} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px', }}> Cancel </Button>
-				<Button disableRipple variant="contained" onClick={() => handleSave()} disabled={!isSaveEnabled} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px'}}> Save </Button>
-			</Box>	
-			<ConfirmationPopup
-				open={copen}
-				onCancel={() => setCopen(false)}
-				onConfirm={() => handleCancelConfirm()}
-				message='Discard Edits?'/>
+				<Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems:'center', mt:2}}>
+					<Button disableRipple variant="outlined" onClick={() => setCopen(true)} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px', }}> Cancel </Button>
+					<Button disableRipple variant="contained" onClick={() => handleSave()} disabled={!isSaveEnabled} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px'}}> Save </Button>
+				</Box>	
+				<ConfirmationPopup
+					open={copen}
+					onCancel={() => setCopen(false)}
+					onConfirm={() => handleCancelConfirm()}
+					message='Discard Edits?'/>
 			</Box>
         </DefaultPopup>
 	)
