@@ -13,6 +13,7 @@ const theme = createTheme({
 		background: {
 			default: "#f4f4f4", // Default app background
 			paper: "#fff", // Card and paper background
+			accent: "#ffe5e5",
 		},
 		text: {
 			primary: "#000", // Black for primary text
@@ -21,6 +22,7 @@ const theme = createTheme({
 		accent: {
 			main: "#ffe5e5", // Light pink for tag chips
 			border: "#800000", // Border color for tags
+			light: "#a63a3a"
 		},
 	},
 	typography: {
@@ -67,7 +69,7 @@ const theme = createTheme({
 theme.cardsList = {
 	container: {
 		padding: '8px',
-		height: '84vh',
+		height: '83vh',
 		overflowY: 'auto',
 	},
 	grid: {
@@ -86,8 +88,7 @@ theme.cardsList = {
 			: theme.palette.background.paper,
 		border: `2px solid ${
 					index === active
-						? theme.palette.accent.border
-						: theme.palette.background.default
+						&& theme.palette.accent.border
 					}`,
 		height: '75px',
 		overflow: 'hidden',

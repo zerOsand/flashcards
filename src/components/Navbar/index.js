@@ -1,5 +1,5 @@
 import UmassLogo from "../../umassLogo";
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 
 import { styled } from "@mui/system";
 const Navbars = styled(AppBar)(({ theme }) => ({

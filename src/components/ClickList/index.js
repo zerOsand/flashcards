@@ -5,16 +5,16 @@ const defaultStyle = {
 	},
 	grid: {
 	},
-	item: {
-	},
+	item: (index, active) => ({
+	}),
 }
 
 const ClickList = ({ active, list, item, event, styles, prependItem }) => {
 	styles = styles || defaultStyle
 	return (
 		<Box sx={styles.container}>
-			{prependItem && prependItem()}
 			<List sx = {styles.grid}>
+				{prependItem && prependItem()}
 				{list.map((value, index) => {
 					return (
 						<ListItem key={index}

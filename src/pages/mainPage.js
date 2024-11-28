@@ -1,5 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import ClickList from "../components/ClickList";
+import DownloadIcon from '@mui/icons-material/Download';
+import UploadIcon from '@mui/icons-material/Upload';
 import EditCard from './editCard.js'
 import Navbar from "../components/Navbar";
 import PreviewPane from './preview'
@@ -15,7 +17,7 @@ const MainPage = () => {
 	const { cards, handleExportFlashcards } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined);
 	const [filteredCards, setFilteredCards] = useState(cards);
-	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [open, setOpen] = useState(false)
 
 	const convertIndex = (array, target) => {
 		return array.findIndex((item) => {
@@ -34,6 +36,7 @@ const MainPage = () => {
 					overflow: 'hidden',
 					textOverflow: 'ellipsis',
 					whiteSpace: 'nowrap',
+					userSelect: 'none',
 					color:
 					active
 						? theme.palette.primary.main
@@ -48,8 +51,6 @@ const MainPage = () => {
 	const handleFilteredCardsChange = (newFilteredCards) => {
 		setFilteredCards(newFilteredCards);
 	};
-
-	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
 	const handleCardClick = (index) => {
 		// use the 'true' index
@@ -87,14 +88,34 @@ const MainPage = () => {
 					}}
 				>
 					{/* Sidebar content */}
-					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: '8px' }}>
+					<Box sx={{ display: 'flex', alignItems: 'center', gap: 1, marginBottom: '8px', }}>
+					    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30px', }}>
+					        <Button
+								size="small"
+								variant="standard"
+								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
+								disableRipple
+								onClick={() => console.log("import!")}
+							>
+								<UploadIcon fontSize="small" />
+							</Button>
+					        <Button
+								size="small"
+								variant="standard"
+								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
+								disableRipple
+								onClick={() => handleExportFlashcards(cards)}
+							>
+								<DownloadIcon fontSize="small" sx={{ color: theme.palette.accent.border }} />
+							</Button>
+					    </Box>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
 						<Button disableRipple variant="outlined"
-								onClick={console.log("practice!")} >
+								onClick={() => console.log("practice!")} >
 							Practice
 						</Button>
 						<Button disableRipple variant="contained"
-								onClick={togglePopup} >
+								onClick={(e) => setOpen(true)} >
 							+
 						</Button>
 					</Box>
@@ -108,11 +129,7 @@ const MainPage = () => {
 						styles={theme.cardsList}
 					/>
 
-					{isPopupOpen && (
-						<EditCard
-							togglePopup={togglePopup}
-						/>
-					)}
+					 <EditCard popupState={{open, setOpen}} />
 
 				</Box>
 
