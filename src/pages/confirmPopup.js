@@ -21,7 +21,6 @@ const ConfirmationPopup = ({ open, onCancel, onConfirm, message }) => {
         		        }}
 				>
 						Cancel
-
 				</Button>
 				<Button disableRipple variant="contained"
 						onClick={onConfirm}
