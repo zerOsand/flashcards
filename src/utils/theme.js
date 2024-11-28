@@ -69,7 +69,7 @@ const theme = createTheme({
 theme.cardsList = {
 	container: {
 		padding: '8px',
-		height: '84vh',
+		height: '83vh',
 		overflowY: 'auto',
 	},
 	grid: {
