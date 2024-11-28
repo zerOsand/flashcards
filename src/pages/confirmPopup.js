@@ -1,27 +1,41 @@
+import { Box, Button, Typography } from '@mui/material/';
 import DefaultPopup from "../components/Popup";
-import CustomButton from "../components/CustomButton";
 import { defaultPopupStyle } from "../utils/styles";
 
-const ConfirmationPopup = ({ onConfirm, onClose, message, styles }) => {
 
-	styles = styles || defaultPopupStyle
-
+const ConfirmationPopup = ({ open, onCancel, onConfirm, message }) => {
 	return (
-		<DefaultPopup onClose={onClose}>
-			<div style={styles.overlay}>
-				<div style={styles.modal}>
-					<h2>Confirmation</h2>
-					<p>{message}</p>
-					<div style={styles.buttonContainer}>
-						<CustomButton text="No" event={onClose} stylesOverride={{backgroundColor: '#b53550'}}></CustomButton>
-						<CustomButton text="Yes" event={onConfirm} stylesOverride={{backgroundColor: '#6bc879'}}>Yes</CustomButton>
-					</div>
-				</div>
-			</div>
+		<DefaultPopup
+			open={open}
+			onClose={onCancel}
+		>
+			<Typography variant="h2">Confirmation</Typography>
+			<Typography variant="body1" sx={{ marginTop: '5px' }} >{message}</Typography>
+			<Box sx={{ display: 'flex', marginTop: '30px', justifyContent: 'flex-end', padding: '10px', width: '100%' }}>
+				<Button disableRipple variant="outlined"
+						onClick={onCancel}
+		                sx={{
+        	    	        fontSize: '0.875rem',
+            	    	    padding: '6px 12px',
+		                    marginRight: '8px',
+        		        }}
+				>
+						Cancel
+
+				</Button>
+				<Button disableRipple variant="contained"
+						onClick={onConfirm}
+		                sx={{
+        	    	        fontSize: '0.875rem',
+            	    	    padding: '6px 12px',
+		                    marginRight: '8px',
+        		        }}
+				>
+						Confirm
+				</Button>
+			</Box>
 		</DefaultPopup>
 	);
-
-
 };
 
 export default ConfirmationPopup;
