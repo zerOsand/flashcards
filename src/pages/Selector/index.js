@@ -109,13 +109,13 @@ const Selector = ({onAdd, onRemove, tags}) => {
 						onChange={handleInputChange}
 						variant='standard'
 						fullWidth={false}
-        			    InputProps={{
-    	    	    	    startAdornment: (
-	            	    	    <InputAdornment position="start">
-                    			    <SearchIcon />
-			               	    </InputAdornment>
-        			        ),
-		    	        }}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<SearchIcon />
+									</InputAdornment>
+							),
+						}}
 						sx={{
 							marginLeft: '0',
 							marginBottom: '2px',
@@ -140,7 +140,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 									  item: (index, active) => ({ ...selectorList.item(index, active),
 																 border: `2px solid ${
 																			theme.palette.accent.border
-															     }`,
+																 }`,
 																 backgroundColor: theme.palette.background.accent})}}
 							list={tags}
 							item={ListTag}

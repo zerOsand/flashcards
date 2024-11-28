@@ -26,18 +26,18 @@ const style = {
 }
 
 function DefaultPopup({ open, onClose, children }) {
-    return (
+	return (
 		<Modal
 			open={open}
 			onClose={onClose}
 		>
 			<Box sx={style.overlay} onClick={onClose}>
-        		<Box sx={style.modal} onClick={(e) => e.stopPropagation()}>
-    	            {children}
+				<Box sx={style.modal} onClick={(e) => e.stopPropagation()}>
+					{children}
 				</Box>
-	        </Box>
+			</Box>
 		</Modal>
-    );
+	);
 };
 
 export default DefaultPopup;
