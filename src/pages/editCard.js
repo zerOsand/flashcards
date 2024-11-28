@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import DefaultPopup from '../components/Popup'
-import CustomButton from '../components/CustomButton'
+//import CustomButton from '../components/CustomButton'
 import ConfirmationPopup from './confirmPopup'
 import Selector from './Selector'
-import { defaultPopupStyle } from '../utils/styles'
+//import { defaultPopupStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
+import { Button, TextField, Typography, Box } from '@mui/material';
+import { useTheme } from "@mui/material/styles";
 
 const EditCard = ({popupState, card}) => {
 	const {open, setOpen} = popupState
 	const [copen, setCopen] = useState(false)
-	let styles = defaultPopupStyle
+	const theme = useTheme(); 
 
 	const { addCard, editCard } = useCards();
 	const [cardState, setCardState] = useState({
@@ -36,47 +38,84 @@ const EditCard = ({popupState, card}) => {
 	const handleCancelConfirm = () => {
 		setCopen(false)
 		setOpen(false)
-	}
+	};
 
 	return (
 		<DefaultPopup
 			open={open}
 			onClose={(e) => {setCopen(true)}}
 		>
-			<h2>{cardState.id ? "Edit" : "Create"} Flashcard</h2>
-			<div style={styles.inputContainer}>
-				<label style={styles.label}>Front</label>
-				<textarea
-					style={styles.textarea}
-					value={cardState.front}
-					onChange={(e) => { setCardState((p) => ({ ...p, front: e.target.value}))}}
-					placeholder="Front of Flashcard"/>
-			</div>
+			<Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '90vh', 
+                    maxHeight: '90vh', 
+					overflow: 'hidden',
+					gap: 1
+                }}
+            >
+			<Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold', fontFamily: theme.typography.fontFamily, color: theme.palette.text.primary }}>
+                {cardState.id ? 'Edit' : 'Create'} Flashcard
+            </Typography>
 
-			<div style={styles.inputContainer}>
-				<label style={styles.label}>Back</label>
-				<textarea
-					style={styles.textarea}
-					value={cardState.back}
-					onChange={(e) => { setCardState((p) => ({ ...p, back: e.target.value}))}}
-					placeholder="Back of Flashcard"/>
-			</div>
+			<Box
+                sx={{
+                    flex: 1, 
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 1, 
+					overflow:'hidden'
+                }}
+                >
+			<Box sx={{ flex: 1, overflow:'hidden'}}>
+				<Typography variant="body1" sx={{ mb: 1, fontWeight: 'bold',fontFamily: theme.typography.fontFamily, color: theme.palette.text.primary }}>
+                    Front
+                </Typography>
+                <TextField
+                    fullWidth
+                    multiline
+                    rows={3}
+                    value={cardState.front}
+                    onChange={(e) => setCardState((prev) => ({ ...prev, front: e.target.value }))}
+                    placeholder="Front of Flashcard"
+                />
+			</Box>
+			
 
+			<Box sx={{ flex:1, overflow:"hidden"}}>
+                <Typography variant="body1" sx={{ mb: 1, fontWeight: 'bold',fontFamily: theme.typography.fontFamily, color: theme.palette.text.primary}}>
+                    Back
+                </Typography>
+                <TextField
+                    fullWidth
+                    multiline
+                    rows={3}
+                    value={cardState.back}
+                    onChange={(e) => setCardState((prev) => ({ ...prev, back: e.target.value }))}
+                    placeholder="Back of Flashcard"
+                />
+            </Box>
+
+			<Box sx={{height:'250px'}}>
 			<Selector
 				onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
 				onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
 				tags={cardState.tags}
 			/>
+			</Box>
+		</Box>
 
-			<div style={styles.buttonContainer}>
-				<CustomButton text="Cancel" event={() => setCopen(true)} stylesOverride={{backgroundColor: '#b53550'}}/>
-				<CustomButton text="Save" event={() => handleSave()} stylesOverride={{backgroundColor: isSaveEnabled ? '#6bc879' : 'gray'}}/>
-			</div>	
+			<Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems:'center', mt:2}}>
+				<Button disableRipple variant="outlined" onClick={() => setCopen(true)} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px', }}> Cancel </Button>
+				<Button disableRipple variant="contained" onClick={() => handleSave()} disabled={!isSaveEnabled} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px'}}> Save </Button>
+			</Box>	
 			<ConfirmationPopup
 				open={copen}
 				onCancel={() => setCopen(false)}
 				onConfirm={() => handleCancelConfirm()}
 				message='Discard Edits?'/>
+			</Box>
 		</DefaultPopup>
 	)
 };

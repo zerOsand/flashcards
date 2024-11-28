@@ -21,7 +21,11 @@ const style = {
 		padding: '20px',
 		borderRadius: '8px',
 		textAlign: 'center',
-		boxShadow: '0px 4px 30px rgba(0, 0, 0, 0.1)'
+		boxShadow: '0px 4px 30px rgba(0, 0, 0, 0.1)',
+		maxHeight: '90vh', 
+		overflowY: 'auto',
+		height: 'auto', 
+		gap: '10px',
 	},
 }
 
