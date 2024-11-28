@@ -1,6 +1,6 @@
 import ClickList from '../../components/ClickList'
 import SearchIcon from '@mui/icons-material/Search';
-import { Box, TextField, InputAdornment, Typography, ListItem } from "@mui/material";
+import { Grid, Box, TextField, InputAdornment, Typography, ListItem } from "@mui/material";
 import { useCards } from '../../state/CardProvider.js'
 import { useState, useEffect, useCallback } from 'react'
 import { useTheme } from "@mui/material/styles";
@@ -41,7 +41,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 
 	const ListTagSx = (color) => ({
 		fontFamily: theme.typography.fontFamily,
-		fontSize: theme.typography.body1.fontSize,
+		fontSize: '0.750rem',
 		fontWeight: 400,
 		width: '100%',
 		overflow: 'hidden',
@@ -109,7 +109,10 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	}
 
 	return (
-			<Box sx={{ padding: 2 }}>
+			<Box sx={{  padding: '4px',
+						display: 'flex',
+						flexDirection: 'column',
+						height: '100%' }}>
 				<Box sx={{ display: 'flex' }}>
 					<TextField
 						placeholder='Filter...'
@@ -130,10 +133,10 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							width: '50%',
 						}}
 					/>
-					<Box sx={{ width: '50%', minHeight: '1px' }} />
+					<Box sx={{ width: '50%' }} />
 				</Box>
-				<Box sx={{ display: 'flex', height: '300px', gap: 2 }}>
-					<Box sx={{ flex: 1 }}>
+				<Grid container sx={{ display: 'flex', flexGrow: 1, overflowY: 'hidden',}} spacing={2} >
+					<Grid item xs={6} sx={{overflowY: 'auto', height: '98%', }}>
 						<ClickList
 							styles={selectorList}
 							list={matchedTags}
@@ -141,8 +144,8 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							event={handleAdd}
 							prependItem={(inputValue !== '' && matchedTags.length === 0)
 								? AddNew : undefined} />
-					</Box>
-					<Box sx={{ flex: 1 }}>
+					</Grid>
+					<Grid item xs={6} sx={{overflowY: 'auto', height: '98%', }}>
 						<ClickList
 							styles={{ ...selectorList,
 									  item: (index, active) => ({ ...selectorList.item(index, active),
@@ -153,8 +156,8 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							list={tags}
 							item={CurrentTags}
 							event={handleRemove} />
-					</Box>
-				</Box>
+					</Grid>
+				</Grid>
 			</Box>
 	);
 }

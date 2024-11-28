@@ -32,6 +32,7 @@ const theme = createTheme({
 		h3: { fontSize: "1.5rem", fontWeight: 700 },
 		body1: { fontSize: "1rem", fontWeight: 400 },
 		body2: { fontSize: "0.875rem", fontWeight: 400 },
+		body3: { fontSize: "0.875rem", fontWeight: 'bold', color: '#800000' },
 		button: { textTransform: "none", fontWeight: 600 },
 	},
 	shape: {
