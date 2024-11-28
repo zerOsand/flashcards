@@ -1,9 +1,8 @@
 import ClickList from '../../components/ClickList'
 import SearchIcon from '@mui/icons-material/Search';
-import { tagStyles, textTagStyle } from '../../utils/styles'
 import { Box, TextField, InputAdornment, Typography, ListItem } from "@mui/material";
 import { useCards } from '../../state/CardProvider.js'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTheme } from "@mui/material/styles";
 
 
@@ -12,13 +11,13 @@ const Selector = ({onAdd, onRemove, tags}) => {
 
 	const { getTags } = useCards();
  	const [inputValue, setInputValue] = useState('')
-	const getMissingTags = () => {
-		return getTags().filter((tag) =>
-			!tags.includes(tag))
-	}
-	const [matchedTags, setMatchedTags] = useState(getMissingTags())
+	const [matchedTags, setMatchedTags] = useState([])
 
 	useEffect(() => {
+		const getMissingTags = () => {
+			return getTags().filter((tag) =>
+				!tags.includes(tag))
+		}
 		const matchTags = () => {
 			const match = getMissingTags().filter((tag) =>
 				tag.toLowerCase().includes(inputValue.toLowerCase())
@@ -161,23 +160,4 @@ const Selector = ({onAdd, onRemove, tags}) => {
 }
 
 
-const styles  = {
-	body: {
-		display: 'grid',
-		gridTemplateColumns: '1fr 1fr',
-		gridGap: '10px',
-		alignItems: 'end',
-	},
-	lg: {
-		gridRow: 1,
-		gridColumn: 1,
-	},
-	rg: {
-		gridRow: 1,
-		gridColumn: 2,
-		overflowY: 'auto'
-	},
-}
-
 export default Selector
-

@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from '@mui/material/';
 import DefaultPopup from "../components/Popup";
-import { defaultPopupStyle } from "../utils/styles";
 
 
 const ConfirmationPopup = ({ open, onCancel, onConfirm, message }) => {
