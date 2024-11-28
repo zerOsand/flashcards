@@ -88,8 +88,7 @@ theme.cardsList = {
 			: theme.palette.background.paper,
 		border: `2px solid ${
 					index === active
-						? theme.palette.accent.border
-						: theme.palette.background.default
+						&& theme.palette.accent.border
 					}`,
 		height: '75px',
 		overflow: 'hidden',
