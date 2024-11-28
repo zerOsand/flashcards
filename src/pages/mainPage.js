@@ -15,7 +15,7 @@ const MainPage = () => {
 	const { cards, handleExportFlashcards } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined);
 	const [filteredCards, setFilteredCards] = useState(cards);
-	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [open, setOpen] = useState(false)
 
 	const convertIndex = (array, target) => {
 		return array.findIndex((item) => {
@@ -49,8 +49,6 @@ const MainPage = () => {
 	const handleFilteredCardsChange = (newFilteredCards) => {
 		setFilteredCards(newFilteredCards);
 	};
-
-	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
 	const handleCardClick = (index) => {
 		// use the 'true' index
@@ -95,7 +93,7 @@ const MainPage = () => {
 							Practice
 						</Button>
 						<Button disableRipple variant="contained"
-								onClick={togglePopup} >
+								onClick={(e) => setOpen(true)} >
 							+
 						</Button>
 					</Box>
@@ -109,11 +107,7 @@ const MainPage = () => {
 						styles={theme.cardsList}
 					/>
 
-					{isPopupOpen && (
-						<EditCard
-							togglePopup={togglePopup}
-						/>
-					)}
+					 <EditCard popupState={{open, setOpen}} />
 
 				</Box>
 
