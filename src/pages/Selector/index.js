@@ -40,18 +40,29 @@ const Selector = ({onAdd, onRemove, tags}) => {
 		onRemove(tags[index])
 	}
 
-	const ListTag = (text) => {
+	const ListTagSx = (color) => ({
+		fontFamily: theme.typography.fontFamily,
+		fontSize: theme.typography.body1.fontSize,
+		fontWeight: 400,
+		width: '100%',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		userSelect: 'none',
+		whiteSpace: 'nowrap',
+		color: color,
+	})
+
+	const FilteredTags = (text) => {
 		return (
-				<Typography sx={{
-					fontFamily: theme.typography.fontFamily,
-					fontSize: theme.typography.body1.fontSize,
-					fontWeight: 400,
-					width: '100%',
-					overflow: 'hidden',
-					textOverflow: 'ellipsis',
-					userSelect: 'none',
-					whiteSpace: 'nowrap',
-				}}>
+				<Typography sx={ListTagSx(theme.palette.text.primary)} >
+					{text}
+				</Typography>
+		);
+	}
+
+	const CurrentTags = (text) => {
+		return (
+				<Typography sx={ListTagSx(theme.palette.primary.main)} >
 					{text}
 				</Typography>
 		);
@@ -60,20 +71,18 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	const selectorList = {
 		container: {
 			overflowY: 'auto',
-			height: '100%'
+			height: '100%',
 		},
 		grid: {
 			display: 'grid',
 			gridTemplateColumns: 'repeat(1, 1fr)',
-			gap: '8px',
+			margin: '4px',
 		},
 		item: (index, active) => ({
+			marginBottom: '4px',
 			borderRadius: '4px',
 			textAlign: 'center',
 			backgroundColor: theme.palette.background.paper,
-			border: `2px solid ${
-							theme.palette.accent.light
-					    }`,
 			height: '25px',
 			overflow: 'hidden',
 			boxSizing: 'border-box',
@@ -95,7 +104,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 				}
 			sx={{ ...selectorList.item(undefined, true), cursor: 'pointer', }}
 			>
-				{ListTag('+ '.concat(inputValue))}
+				{FilteredTags('+ '.concat(inputValue))}
 			</ListItem>
 		)
 	}
@@ -129,7 +138,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 						<ClickList
 							styles={selectorList}
 							list={matchedTags}
-							item={ListTag}
+							item={FilteredTags}
 							event={handleAdd}
 							prependItem={(inputValue !== '' && matchedTags.length === 0)
 								? AddNew : undefined} />
@@ -143,7 +152,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 																 }`,
 																 backgroundColor: theme.palette.background.accent})}}
 							list={tags}
-							item={ListTag}
+							item={CurrentTags}
 							event={handleRemove} />
 					</Box>
 				</Box>

@@ -27,7 +27,7 @@ const initialCards = [
 	{ id: 20, front: 'rust', back: '2015', tags: ['compiled', 'macros', 'functional', 'memory safe', 'fast'] },
 	{ id: 21, front: 'ruby', back: '1995', tags: ['interpreted', 'macros', 'functional', 'memory safe', 'reflective'] },
 	{ id: 22, front: 'perl', back: '1987', tags: ['interpreted', 'functional', 'object-oriented'] },
-	{ id: 23, front: 'haskell', back: '2010', tags: ['compiled', 'garbaged collected' ] },
+	{ id: 23, front: 'haskell', back: '2010', tags: ['compiled', 'garbage collected' ] },
 
 	{ id: 24, front: 'waking of angantyr', back: `Awaken, Angantyr!
 Hervor awakens you;
