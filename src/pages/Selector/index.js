@@ -1,6 +1,6 @@
 import ClickList from '../../components/ClickList'
 import SearchIcon from '@mui/icons-material/Search';
-import { Grid, Box, TextField, InputAdornment, Typography, ListItem } from "@mui/material";
+import { Box, TextField, InputAdornment, Typography, ListItem } from "@mui/material";
 import { useCards } from '../../state/CardProvider.js'
 import { useState, useEffect, useCallback } from 'react'
 import { useTheme } from "@mui/material/styles";
@@ -70,7 +70,6 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	const selectorList = {
 		container: {
 			overflowY: 'auto',
-			height: '100%',
 		},
 		grid: {
 			display: 'grid',
@@ -135,8 +134,8 @@ const Selector = ({onAdd, onRemove, tags}) => {
 					/>
 					<Box sx={{ width: '50%' }} />
 				</Box>
-				<Grid container sx={{ display: 'flex', flexGrow: 1, overflowY: 'hidden',}} spacing={2} >
-					<Grid item xs={6} sx={{overflowY: 'auto', height: '98%', }}>
+				<Box sx={{ display: 'flex', overflowY: 'auto' }} >
+					<Box sx={{ overflowY: 'auto', height: '98%', width:'50%', }}>
 						<ClickList
 							styles={selectorList}
 							list={matchedTags}
@@ -144,8 +143,8 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							event={handleAdd}
 							prependItem={(inputValue !== '' && matchedTags.length === 0)
 								? AddNew : undefined} />
-					</Grid>
-					<Grid item xs={6} sx={{overflowY: 'auto', height: '98%', }}>
+					</Box>
+					<Box sx={{ overflowY: 'auto', height: '98%', width:'50%', }}>
 						<ClickList
 							styles={{ ...selectorList,
 									  item: (index, active) => ({ ...selectorList.item(index, active),
@@ -156,8 +155,8 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							list={tags}
 							item={CurrentTags}
 							event={handleRemove} />
-					</Grid>
-				</Grid>
+					</Box>
+				</Box>
 			</Box>
 	);
 }

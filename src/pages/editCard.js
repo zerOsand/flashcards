@@ -56,7 +56,7 @@ const EditCard = ({popupState, card}) => {
 				</Typography>
 
 				<Box
-					sx={{ display: 'flex', height: '280px', mb: '15px', }}
+					sx={{ display: 'flex', width: '600px', height: '280px', mb: '15px', }}
 				>
 					<Box
 						sx={{
@@ -97,7 +97,7 @@ const EditCard = ({popupState, card}) => {
 						</Box>
 					</Box>
 
-				<Box sx={{  flex: '0 0 45%',
+					<Box sx={{  flex: '0 0 45%',
 							display: 'flex',
 							flexDirection: 'column',
 						}}>
