@@ -1,20 +1,11 @@
+import { TextField, InputAdornment } from "@mui/material";
 import { useState, useEffect, useMemo } from 'react'
 import { useCards } from '../../state/CardProvider.js'
+import SearchIcon from '@mui/icons-material/Search';
 
-const defaultStyle = {
-	container: {
-		flexGrow: 1,
-	},
-	input: {
-		width: '100%',
-		height: '85%',
-	},
-}
-
-const Searchbar = ({ onFilteredCardsChange, styles }) => {
+const Searchbar = ({ onFilteredCardsChange }) => {
 	const { cards } = useCards();
 	const [searchTerm, setSearchTerm] = useState([''])
-	styles = styles || defaultStyle
 
 	const handleSearchChange = (e) => {
 		setSearchTerm(e.target.value.toLowerCase().split(","))
@@ -35,14 +26,20 @@ const Searchbar = ({ onFilteredCardsChange, styles }) => {
 	}, [sortedAndFilteredCards, onFilteredCardsChange]);
 
 	return (
-		<div style={styles.container}>
-			<input style={styles.input}
-				type="text"
-				placeholder="tag1,tag2,tag3"
-				value={searchTerm}
-				onChange={handleSearchChange}
-			/>
-		</div>
+		<TextField
+			placeholder="tag1,tag2,tag3"
+			value={searchTerm}
+			onChange={handleSearchChange}
+			variant="standard"
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <SearchIcon />
+                    </InputAdornment>
+                ),
+            }}
+			fullWidth
+		/>
 	);
 }
 

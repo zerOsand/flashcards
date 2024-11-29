@@ -1,38 +1,33 @@
-const Box = (value) => {
-	return <div>{value}</div>
-}
+import { Box, List, ListItem, ListItemText } from '@mui/material';
 
 const defaultStyle = {
 	container: {
 	},
-	item: {
+	grid: {
 	},
-	active_item:{
-	}
+	item: (index, active) => ({
+	}),
 }
 
 const ClickList = ({ active, list, item, event, styles, prependItem }) => {
 	styles = styles || defaultStyle
 	return (
-			<div style={styles.container}>
+		<Box sx={styles.container}>
+			<List sx = {styles.grid}>
 				{prependItem && prependItem()}
 				{list.map((value, index) => {
-					styles = JSON.parse(JSON.stringify(styles));
-					styles.item.cursor = 'pointer'
 					return (
-							<div key={index} style={{ ...styles.item, ...(index === active ? styles.active_item : {}) }} onClick={(e) => {
-								e.stopPropagation()
-								event(index);
-							}}>
-								{item ? item(value, active === index) : Box(value)}
-							</div>
-					);
+						<ListItem key={index}
+								sx={{ ...styles.item(index,active), cursor: 'pointer', }}
+								onClick={(e) => {e.stopPropagation(); event(index);}}
+						>
+							{item ? item(value, active === index) : <ListItemText primary={value} />}
+						</ListItem>
+					)
 				})}
-		</div>
+			</List>
+		</Box>
 	);
 }
 
 export default ClickList
-
-
-  
