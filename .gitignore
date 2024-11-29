@@ -6,3 +6,4 @@
 # IDE files
 /.dir-locals.el
 /manifest.scm
+*.DS_Store

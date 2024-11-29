@@ -2,7 +2,7 @@ import ClickList from '../../components/ClickList'
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, TextField, InputAdornment, Typography, ListItem } from "@mui/material";
 import { useCards } from '../../state/CardProvider.js'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { useTheme } from "@mui/material/styles";
 
 
