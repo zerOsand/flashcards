@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import DefaultPopup from '../components/Popup'
-//import CustomButton from '../components/CustomButton'
 import ConfirmationPopup from './confirmPopup'
 import Selector from './Selector'
-//import { defaultPopupStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 import { Button, TextField, Typography, Box } from '@mui/material';
 import { useTheme } from "@mui/material/styles";

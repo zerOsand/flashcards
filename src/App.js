@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { CardProvider } from "./state/CardProvider.js";
-import MainPage from "./pages/mainPage.js";
+import Home from "./pages";
 import "./App.css";
 
 
@@ -10,7 +10,7 @@ function App() {
 		<Router>
 			<CardProvider>
 				<Routes>
-					<Route path="/" element={<MainPage />} />
+					<Route path="/" element={<Home />} />
 				</Routes>
 			</CardProvider>
 		</Router>
