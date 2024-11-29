@@ -99,24 +99,27 @@ const PreviewPane = ({ index })  => {
 				}}
 			>
 				<Box sx={{
-						flexGrow: 1,
 						display: 'flex',
 						justifyContent: 'center',
 						borderRadius: '4px',
-						alignItems: 'center',
 						backgroundColor: theme.palette.background.default,
 						overflowY: 'auto',
 						marginBottom: '40px',
-						wordWrap: 'anywhere',
-						overflowWrap: 'anywhere',
-						hyphens: 'auto',
-						userSelect: 'none',
+						alignItems: 'flex-start',
+						height: '100%',
 					}}>
 					<Box sx={{
 							display: 'flex',
+							flexGrow: 1,
 							flexDirection: 'column',
 							justifyContent: 'center',
 							textAlign: 'center',
+							alignItems: 'center',
+							wordWrap: 'anywhere',
+							overflowWrap: 'anywhere',
+							hyphens: 'auto',
+							userSelect: 'none',
+							margin: 'auto',
 					}}>
 						{activeIndex !== undefined && (
 							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
