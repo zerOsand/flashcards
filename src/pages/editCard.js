@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, } from 'react'
 import DefaultPopup from '../components/Popup'
 import ConfirmationPopup from './confirmPopup'
 import Selector from './Selector'
@@ -18,6 +18,17 @@ const EditCard = ({popupState, card}) => {
 		back: card?.back ?? '',
 		tags: card?.tags ?? [],
 	});
+
+    useEffect(() => {
+        if (card) {
+            setCardState({
+				id: card?.id ?? null,
+				front: card?.front ?? '',
+				back: card?.back ?? '',
+				tags: card?.tags ?? [],
+            });
+        }
+    }, [card]);
 
 	const isSaveEnabled = cardState.front.trim() !== "" && cardState.back.trim() !== "";
 

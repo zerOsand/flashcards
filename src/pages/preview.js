@@ -16,7 +16,7 @@ const PreviewPane = ({ index })  => {
 	const {activeIndex, setActiveIndex} = index
 	const { cards, removeTag, removeCard } = useCards();
 	const [flipped, setFlipped] = useState(false)
-	const [editOpen, setEditOpen] = useState(false)
+	const [open, setOpen] = useState(false)
 	const [removeOpen, setRemoveOpen] = useState(false)
 
 	const handleTagClick = (tagIndex) => {
@@ -172,11 +172,12 @@ const PreviewPane = ({ index })  => {
 					variant="outlined"
 					disableRipple
 					sx={{ flex: '1 1 10%', marginRight: 2, }}
-					onClick={() => setEditOpen(true)}
+					onClick={(e) => setOpen(true)}
 					disabled={activeIndex === undefined}
 				>
 					<EditIcon />
 				</Button>
+				<EditCard popupState={{open, setOpen}} card={cards[activeIndex]} />
 				<Button
 					variant="outlined"
 					disableRipple
