@@ -104,6 +104,7 @@ const PreviewPane = ({ index })  => {
 						borderRadius: '4px',
 						backgroundColor: theme.palette.background.default,
 						overflowY: 'auto',
+						overflowX: 'hidden',
 						marginBottom: '40px',
 						alignItems: 'flex-start',
 						height: '100%',
