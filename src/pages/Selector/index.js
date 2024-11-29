@@ -41,7 +41,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 
 	const ListTagSx = (color) => ({
 		fontFamily: theme.typography.fontFamily,
-		fontSize: theme.typography.body1.fontSize,
+		fontSize: '0.750rem',
 		fontWeight: 400,
 		width: '100%',
 		overflow: 'hidden',
@@ -70,7 +70,6 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	const selectorList = {
 		container: {
 			overflowY: 'auto',
-			height: '100%',
 		},
 		grid: {
 			display: 'grid',
@@ -109,7 +108,10 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	}
 
 	return (
-			<Box sx={{ padding: 2 }}>
+			<Box sx={{  padding: '4px',
+						display: 'flex',
+						flexDirection: 'column',
+						height: '100%' }}>
 				<Box sx={{ display: 'flex' }}>
 					<TextField
 						placeholder='Filter...'
@@ -130,10 +132,10 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							width: '50%',
 						}}
 					/>
-					<Box sx={{ width: '50%', minHeight: '1px' }} />
+					<Box sx={{ width: '50%' }} />
 				</Box>
-				<Box sx={{ display: 'flex', height: '300px', gap: 2 }}>
-					<Box sx={{ flex: 1 }}>
+				<Box sx={{ display: 'flex', overflowY: 'auto' }} >
+					<Box sx={{ overflowY: 'auto', height: '98%', width:'50%', }}>
 						<ClickList
 							styles={selectorList}
 							list={matchedTags}
@@ -142,7 +144,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							prependItem={(inputValue !== '' && matchedTags.length === 0)
 								? AddNew : undefined} />
 					</Box>
-					<Box sx={{ flex: 1 }}>
+					<Box sx={{ overflowY: 'auto', height: '98%', width:'50%', }}>
 						<ClickList
 							styles={{ ...selectorList,
 									  item: (index, active) => ({ ...selectorList.item(index, active),

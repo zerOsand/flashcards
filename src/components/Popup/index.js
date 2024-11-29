@@ -16,15 +16,10 @@ const style = {
 	},
 
 	modal: {
-		width: '500px',
 		backgroundColor: 'white',
 		padding: '20px',
 		borderRadius: '8px',
 		textAlign: 'center',
-		boxShadow: '0px 4px 30px rgba(0, 0, 0, 0.1)',
-		maxHeight: '90vh', 
-		height: 'auto', 
-		gap: '10px',
 	},
 }
 
