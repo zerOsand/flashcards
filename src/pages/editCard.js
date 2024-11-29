@@ -1,9 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect, } from 'react'
 import DefaultPopup from '../components/Popup'
-//import CustomButton from '../components/CustomButton'
 import ConfirmationPopup from './confirmPopup'
 import Selector from './Selector'
-//import { defaultPopupStyle } from '../utils/styles'
 import { useCards } from '../state/CardProvider.js'
 import { Button, TextField, Typography, Box } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
@@ -20,6 +18,17 @@ const EditCard = ({popupState, card}) => {
 		back: card?.back ?? '',
 		tags: card?.tags ?? [],
 	});
+
+    useEffect(() => {
+        if (card) {
+            setCardState({
+				id: card?.id ?? null,
+				front: card?.front ?? '',
+				back: card?.back ?? '',
+				tags: card?.tags ?? [],
+            });
+        }
+    }, [card]);
 
 	const isSaveEnabled = cardState.front.trim() !== "" && cardState.back.trim() !== "";
 

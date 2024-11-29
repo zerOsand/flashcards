@@ -1,18 +1,23 @@
-import { useState, useEffect } from 'react'
-import { tagStyles, textTagStyle } from '../utils/styles'
-import { useCards } from '../state/CardProvider.js'
+import { Box, Typography, Button } from "@mui/material";
 import ClickList from '../components/ClickList'
-import EditCard from './editCard.js'
 import ConfirmationPopup from './confirmPopup.js'
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import EditCard from './editCard.js'
+import { useCards } from '../state/CardProvider.js'
+import { useState, useEffect } from 'react'
+import { useTheme } from "@mui/material/styles";
+import DeleteIcon from '@mui/icons-material/Delete';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const PreviewPane = ({ index })  => {
+	const theme = useTheme();
 	const {activeIndex, setActiveIndex} = index
 	const { cards, removeTag, removeCard } = useCards();
 	const [flipped, setFlipped] = useState(false)
-	const [isEditOpen, setIsEditOpen] = useState(false)
-	const [isRemoveOpen, setIsRemoveOpen] = useState(false)
+	const [open, setOpen] = useState(false)
+	const [removeOpen, setRemoveOpen] = useState(false)
 
 	const handleTagClick = (tagIndex) => {
 		removeTag(activeIndex, tagIndex)
@@ -22,142 +27,177 @@ const PreviewPane = ({ index })  => {
         setFlipped(false);
     }, [activeIndex]);
 
-
-	const toggleEditPopup = () => setIsEditOpen(!isEditOpen);
-
-	const toggleRemovePopup = () => setIsRemoveOpen(!isRemoveOpen);
-
-	const handleRemoveCard = () => {
+	const handleRemoveConfirm = () => {
 		removeCard(activeIndex);
 		if (activeIndex >= cards.length - 1)
 			setActiveIndex(undefined);
-		toggleRemovePopup();
+		setRemoveOpen(false)
 	}
 
 	const TagBox = (text) => {
 		return (
-				<div style={textTagStyle}>
+				<Box sx = {{ display: 'flex', alignItems: 'center' }}>
+					<Typography
+						sx={{
+						fontFamily: theme.typography.fontFamily,
+						fontSize: theme.typography.body1.fontSize,
+						fontWeight: 400,
+						whiteSpace: 'nowrap',
+						color: theme.palette.text.primary,
+					}}
+				>
 					{text}
-					<span>&times;</span>
-				</div>
-		);
+				</Typography>
+				<CloseIcon sx={{ marginLeft: 1,
+								cursor: 'pointer',
+								fontSize: 'small',
+								color: theme.palette.primary.light, }} />
+			</Box>
+		)
+	};
+
+	const tagList = {
+		container: {
+			width: '100%',
+			overflowY: 'auto',
+			height: '110px'
+		},
+		grid: {
+			display: 'flex',
+			flexWrap: 'wrap',
+			gap: '4px',
+			margin: '4px',
+		},
+		item: (index, active) => ({
+			backgroundColor: theme.palette.accent.light,
+			padding: '2px 10px',
+			borderRadius: '4px',
+			flexShrink: 0,
+			width: 'fit-content',
+			"&:hover": {
+				backgroundColor: theme.palette.background.default,
+			},
+		}),
 	}
 
 	return (
-			<>
-				<div style={cardPaneStyle.container} >
-					<div style={{ ...cardPaneStyle.front, ...((flipped && activeIndex !== undefined) ? cardPaneStyle.back : {}) }} onClick={(e) => {
-						e.stopPropagation()
-						setFlipped(!flipped)
+		<>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					width: '90%',
+					height: '80%',
+					cursor: 'default',
+					borderRadius: '20px',
+					border: `2px solid ${
+						theme.palette.secondary.main
+					}`,
+					backgroundColor: theme.palette.background.paper, 
+					boxSizing: 'border-box',
+					padding: '20px',
+				}}
+			>
+				<Box sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						borderRadius: '4px',
+						backgroundColor: theme.palette.background.default,
+						overflowY: 'auto',
+						overflowX: 'hidden',
+						marginBottom: '40px',
+						alignItems: 'flex-start',
+						height: '100%',
 					}}>
-						{(activeIndex === undefined) ?
-						 <div style={{ ...textPreviewStyle, ...{color: 'lightgrey'}}}>
-								Select a card for preview...
-						 </div> : <div style={textPreviewStyle}>
-							 {flipped ? cards[activeIndex].back : cards[activeIndex].front}
-						</div>}
-						{activeIndex !== undefined &&
-		 					<>
-								<button style={cardPaneStyle.editIconStyle} 
-									onClick={(e) => {
-										e.stopPropagation();
-										toggleEditPopup()
-									}}>
-									<FaEdit size={25} color="#555" />
-								</button>
-								<button style={cardPaneStyle.trashIconStyle} 
-									onClick={(e) => {
-										e.stopPropagation();
-										toggleRemovePopup()
-									}}>
-									<FaTrash size={25} color="#555" />
-								</button>
-							</>
-						}
-					</div>
-				</div>
-				{isEditOpen && (
-					<EditCard
-						togglePopup={toggleEditPopup}
-						card={cards[activeIndex]}
-					/>
-				)}
+					<Box sx={{
+							display: 'flex',
+							flexGrow: 1,
+							flexDirection: 'column',
+							justifyContent: 'center',
+							textAlign: 'center',
+							alignItems: 'center',
+							wordWrap: 'anywhere',
+							overflowWrap: 'anywhere',
+							hyphens: 'auto',
+							userSelect: 'none',
+							margin: 'auto',
+					}}>
+						{activeIndex !== undefined && (
+							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
+								{flipped ? "Back Side" : "Front Side"}
+							</Typography>
+						)}
+							<Typography variant="h1" sx={{
+								whiteSpace: 'pre-wrap',
+							}}>
+								{activeIndex === undefined
+							 	? "Select a card for preview."
+							 	: (flipped ? cards[activeIndex].back : cards[activeIndex].front)}
+							</Typography>
+					</Box>
+				</Box>
+				<Box
+					sx={{
+						height: '140px',
+					}}>
+				<Typography variant="h3">
+					Tags
+				</Typography>
+				{activeIndex !== undefined && <ClickList
+					list={cards[activeIndex].tags}
+					item={TagBox}
+					event={handleTagClick}
+					styles={tagList}
+				 />}
+				</Box>
+			</Box>
 
-				{isRemoveOpen && (
-					<ConfirmationPopup
-						onConfirm={handleRemoveCard}
-						onClose={toggleRemovePopup}
-						message="Are you sure you want to remove this flashcard?"
-					/>
-				)}
-			</>
+			<Box
+				sx={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					marginTop: 2,
+					width: '90%',
+				}}>
+				<Button
+					variant="contained"
+					startIcon={<RotateLeftIcon />}
+					disableRipple
+					sx={{ flex: '1 1 80%', marginRight: 2, }}
+					onClick={() => setFlipped(!flipped)}
+					disabled={activeIndex === undefined}
+				>
+					Flip
+				</Button>
+				<Button
+					variant="outlined"
+					disableRipple
+					sx={{ flex: '1 1 10%', marginRight: 2, }}
+					onClick={(e) => setOpen(true)}
+					disabled={activeIndex === undefined}
+				>
+					<EditIcon />
+				</Button>
+				<EditCard popupState={{open, setOpen}} card={cards[activeIndex]} />
+				<Button
+					variant="outlined"
+					disableRipple
+					sx={{ flex: '1 1 10%', }}
+					onClick={() => setRemoveOpen(true)}
+					disabled={activeIndex === undefined}
+				>
+					<DeleteIcon />
+				</Button>
+				<ConfirmationPopup
+					open={removeOpen}
+					onCancel={() => setRemoveOpen(false)}
+					onConfirm={() => handleRemoveConfirm()}
+					message={`Delete
+							${cards[activeIndex]?.front}?`}/>
+
+			</Box>
+		</>
 	)
-}
-
-
-const cardPaneStyle = {
-	container: {
-		height: '90%',
-		width: '80%',		
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'flex-start',
-		justifyContent: 'center',
-		cursor: 'default',
-		position: 'relative',
-	},
-	front: {
-		display: 'flex',
-		flexDirection: 'column',
-		height: '80%',
-		width: '100%',		
-		borderStyle: 'solid',
-		borderRadius: '6px',
-		background: '#fff',
-		textAlign: 'center',
-		marginBottom: '4px',
-		alignItems: 'center',
-		cursor: 'pointer',
-		overflowY: 'auto',
-		overflowX: 'hidden',
-		wordWrap: 'anywhere',
-		overflowWrap: 'anywhere',
-		hyphens: 'auto',
-		userSelect: 'none',
-		position: 'relative',
-	},
-	back: {
-		background: '#f0f0f0',
-		userSelect: 'none'
-	},
-	bar: {
-		position: 'absolute',
-		top: '95%',
-		left: '85%',
-	},
-
-	editIconStyle: {
-		position: 'absolute',
-		bottom: '10px',
-		right: '10px',
-		border: 'none',
-		backgroundColor: 'transparent',
-	},
-
-	trashIconStyle: {
-		position: 'absolute',
-		bottom: '10px',
-		right: '50px',
-		border: 'none',
-		backgroundColor: 'transparent',
-	}
-};
-
-const textPreviewStyle = {
-	fontSize: 'clamp(1rem, 5vw, 1.5rem)',
-	lineHeight: '1.2',
-	margin: 'auto',
-	whiteSpace: 'pre-wrap',
 }
 
 

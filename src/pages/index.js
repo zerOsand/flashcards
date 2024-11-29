@@ -1,167 +1,162 @@
-import { useState } from 'react'
-import { useCards } from '../state/CardProvider.js'
-import Searchbar from '../components/Searchbar'
-import ClickList from '../components/ClickList'
-import PreviewPane from './preview'
-import CustomButton from '../components/CustomButton'
+import { Box, Typography, Button } from "@mui/material";
+import ClickList from "../components/ClickList";
+import DownloadIcon from '@mui/icons-material/Download';
+import UploadIcon from '@mui/icons-material/Upload';
 import EditCard from './editCard.js'
+import Navbar from "../components/Navbar";
+import PreviewPane from './preview'
+import React, { useState } from "react";
+import Searchbar from '../components/Searchbar'
+import { useCards } from "../state/CardProvider";
+import { useTheme } from "@mui/material/styles";
 
-
-const Flashcard = (flashcard, active) => {
-	return (
-		<div>
-			<div style={{ ...textListStyle, ...(active && { color: 'white' })}}>{flashcard.front}</div>
-		</div>
-	)
-};
 
 const Home = () => {
+	const theme = useTheme();
+
 	const { cards, handleExportFlashcards } = useCards();
-	const [activeIndex, setActiveIndex] = useState(undefined)
+	const [activeIndex, setActiveIndex] = useState(undefined);
 	const [filteredCards, setFilteredCards] = useState(cards);
-	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [open, setOpen] = useState(false)
 
 	const convertIndex = (array, target) => {
-		return array.findIndex(item => {
+		return array.findIndex((item) => {
 			return item.id === target.id;
 		});
 	};
 
-	const togglePopup = () => setIsPopupOpen(!isPopupOpen);
+	const ListCard = (card, active) => {
+		return (
+			<Typography
+				sx={{
+					fontFamily: theme.typography.fontFamily,
+					fontSize: theme.typography.body1.fontSize,
+					fontWeight: active ? 600 : 400,
+					width: '100%',
+					overflow: 'hidden',
+					textOverflow: 'ellipsis',
+					whiteSpace: 'nowrap',
+					userSelect: 'none',
+					color:
+					active
+						? theme.palette.primary.main
+						: theme.palette.text.primary,
+				}}
+			>
+				{card.front}
+			</Typography>
+		)
+	};
+
+	const handleFilteredCardsChange = (newFilteredCards) => {
+		setFilteredCards(newFilteredCards);
+	};
 
 	const handleCardClick = (index) => {
 		// use the 'true' index
 		setActiveIndex(convertIndex(cards, filteredCards[index]));
 	};
 
-	const AddFlashcard = () => {
-		return (
-				<div style={{ ...previewStyles.item, ...{backgroundColor: '#6bc879', border: 'none', cursor: 'pointer'}}} 
-				onClick={togglePopup}>
-					<div style={{ ...textListStyle, ...{color: 'white'}}}>
-						{'+'}
-					</div>
-				</div>
-		);
-	}
-
-	const handleFilteredCardsChange = (newFilteredCards) => {
-		setFilteredCards(newFilteredCards);
-	};
-
 	return (
-		<div style={contentContainer}>
-			<div style={contentArea}>
-				<div style={searchBarStyle}>
-					<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
-					<CustomButton text="Export" event={() => handleExportFlashcards(filteredCards)} stylesOverride={{backgroundColor: '#c9c9c9'}} />
-					<CustomButton text="Practice" event={() => console.log("practice!")} stylesOverride={{backgroundColor: '#3366ff'}} />
-				</div>
-				<div style={container}>
-					<div style={leftContainer}>
-						<ClickList 
-							active={(activeIndex === undefined) ? activeIndex : convertIndex(filteredCards, cards[activeIndex])} 
-							list={filteredCards} 
-							item={Flashcard} 
-							event={handleCardClick} 
-							styles={previewStyles} 
-							prependItem={AddFlashcard}
-						/>
-					</div>
-					<div style={rightContainer}>
-						<PreviewPane index={{activeIndex, setActiveIndex}} />
-					</div>
-				</div>
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "column",
+				height: "calc(100vh - 16px)",
+			}}
+		>
+			{/* Navbar */}
+			<Box sx={{backgroundColor: "#fff" }}>
+				<Navbar />
+			</Box>
 
-				{isPopupOpen && (
-					<EditCard
-						togglePopup={togglePopup}
+			{/* Content Area */}
+			<Box
+				sx={{
+					display: "flex",
+					backgroundColor: "#fff",
+					flexGrow: 1,
+					overflow: "hidden",
+					}}
+			>
+
+				{/* Sidebar */}
+				<Box
+					sx={{
+						width: "35%",
+						backgroundColor: "#f4f4f4",
+						boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+						padding: "16px",
+						display: "flex",
+						flexGrow: 1,
+						flexDirection: 'column',
+					}}
+				>
+					{/* Sidebar content */}
+					<Box sx={{ display: 'flex', alignItems: 'center', gap: 1, marginBottom: '8px', }}>
+					    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30px', }}>
+					        <Button
+								size="small"
+								variant="standard"
+								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
+								disableRipple
+								onClick={() => console.log("import!")}
+							>
+								<UploadIcon fontSize="small" />
+							</Button>
+					        <Button
+								size="small"
+								variant="standard"
+								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
+								disableRipple
+								onClick={() => handleExportFlashcards(cards)}
+							>
+								<DownloadIcon fontSize="small" sx={{ color: theme.palette.accent.border }} />
+							</Button>
+					    </Box>
+						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
+						<Button disableRipple variant="outlined"
+								onClick={() => console.log("practice!")} >
+							Practice
+						</Button>
+						<Button disableRipple variant="contained"
+								onClick={(e) => setOpen(true)} >
+							+
+						</Button>
+					</Box>
+					<ClickList
+						active={(activeIndex === undefined) ?
+								activeIndex :
+								convertIndex(filteredCards, cards[activeIndex])} 
+						list={filteredCards}
+						item={ListCard}
+						event={handleCardClick}
+						styles={theme.cardsList}
 					/>
-				)}
 
-			</div>
-		</div>
-	)
+					 <EditCard popupState={{open, setOpen}} />
+
+				</Box>
+
+				{/* Main Content */}
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: "center",
+						justifyContent: "flex-start",
+						backgroundColor: "#fff",
+						flexDirection: "column",
+						height: "100%",
+						margin: '60px',
+						width: "55%",
+					}}
+				>
+					<PreviewPane index={{activeIndex, setActiveIndex}} />
+				</Box>
+			</Box>
+		</Box>
+	);
 };
-
-
-const contentArea = {
-	display: 'flex',
-	flexDirection: 'column',
-	margin: '20px',
-	marginTop: '20px',
-	borderStyle: 'solid',
-	borderRadius: '4px',
-	overflow: 'hidden',
-};
-
-const contentContainer = {
-	display: 'flex',
-	flexDirection: 'column',
-	height: 'calc(100vh - 60px)',
-	padding: 0,
-	overflow: 'hidden',
-};
-
-const searchBarStyle = {
-	margin: '3px',
-	display: 'flex',
-};
-
-const container = {
-	display: 'flex',
-	overflow: 'hidden',
-	backgroundColor: '#fff',
-};
-
-const leftContainer = {
-	flex: '1 0 40%',
-	overflow: 'auto',
-	padding: '10px',
-};
-
-const rightContainer = {
-	flex: '1 0 60%',
-	display: 'flex',
-	flexDirection: 'column',
-	backgroundColor: '#f8f8f8',
-	justifyContent: 'center',
-	alignItems: 'center',
-};
-
-const previewStyles = {
-	container: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-between',
-	},
-	item: {
-		flex: '0 0 calc(100% / 2 - 5px)', // items/spacing per row
-		marginBottom: '15px',
-		borderStyle: 'solid',
-		borderRadius: '4px',
-		borderWidth: 'thin',
-		background: '#e0e0e0',
-		textAlign: 'center',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		height: '75px',
-		overflow: 'hidden',
-		boxSizing: 'border-box',
-	},
-	active_item: {
-		background: '#3366ff',
-		color: '#000',
-		borderWidth: 'medium',
-	},
-};
-
-const textListStyle = {
-	fontSize: 'clamp(1rem, 5vw, 1.2rem)',
-	lineHeight: '1.2',
-	overflow: 'hidden',
-}
 
 
 export default Home
