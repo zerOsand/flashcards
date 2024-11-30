@@ -14,7 +14,7 @@ import { useTheme } from "@mui/material/styles";
 const Home = () => {
 	const theme = useTheme();
 
-	const { cards, handleExportFlashcards } = useCards();
+	const { cards, handleExportFlashcards, handleImportFlashcards } = useCards();
 	const [activeIndex, setActiveIndex] = useState(undefined);
 	const [filteredCards, setFilteredCards] = useState(cards);
 	const [open, setOpen] = useState(false)
@@ -95,15 +95,26 @@ const Home = () => {
 					{/* Sidebar content */}
 					<Box sx={{ display: 'flex', alignItems: 'center', gap: 1, marginBottom: '8px', }}>
 					    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30px', }}>
-					        <Button
+							
+							
+							<Button
 								size="small"
 								variant="standard"
 								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
 								disableRipple
 								onClick={() => console.log("import!")}
+								component = "label"	// Opens file upload prompt for input
 							>
 								<UploadIcon fontSize="small" />
+								<input
+									type="file"
+									accept="application/json"
+									hidden
+									onChange={handleImportFlashcards} 
+								/>
 							</Button>
+
+							
 					        <Button
 								size="small"
 								variant="standard"
