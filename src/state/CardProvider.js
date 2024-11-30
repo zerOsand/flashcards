@@ -127,6 +127,24 @@ export const CardProvider = ({children}) => {
 		URL.revokeObjectURL(link.href);
 	};
 
+	const handleImportFlashcards = ( event ) => {
+		const file = event.target.files[0];
+
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = ( e ) => {
+				try {
+					const data = JSON.parse(e.target.result);
+					console.log("Imported JSON data")
+					// can process the imported json data here
+				} catch (error) {
+					console.error("Error parsing JSON file:", error);
+				}
+			};
+			reader.readAsText(file);
+		}
+	};
+
 	const removeTag = (cardIndex, tagIndex) => {
 		setCards(prevCards =>
 			prevCards.map((card, i) => i === cardIndex
@@ -161,7 +179,7 @@ export const CardProvider = ({children}) => {
 	}
 
 	return (
-			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards, forceCards }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards, handleImportFlashcards, forceCards }}>
 				{children}
 			</CardContext.Provider>
 	);
