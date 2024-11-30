@@ -136,13 +136,33 @@ export const CardProvider = ({children}) => {
 				try {
 					const data = JSON.parse(e.target.result);
 					console.log("Imported JSON data")
-					// can process the imported json data here
+
+					if (validateFlashcardData(data)) {
+						console.log("Valid JSON data:", data);
+						// Do stuff with correct format of JSON data here
+					} else {
+						console.error("Invalid JSON format.");
+						alert("Invalid JSON format.");
+					}
+					
 				} catch (error) {
 					console.error("Error parsing JSON file:", error);
 				}
 			};
 			reader.readAsText(file);
 		}
+	};
+
+	const validateFlashcardData = (data) => {
+		if (!Array.isArray(data)) return false;
+	
+		return data.every((item) =>
+			typeof item.id === "number" &&
+			typeof item.front === "string" &&
+			typeof item.back === "string" &&
+			Array.isArray(item.tags) &&
+			item.tags.every((tag) => typeof tag === "string")
+		);
 	};
 
 	const removeTag = (cardIndex, tagIndex) => {
