@@ -6,6 +6,8 @@
 
 *** addCard
 
+**** ISP
+
 | Input Space Partitioning |                |              |                                  |
 |--------------------------+----------------+--------------+----------------------------------|
 | Variable                 | Characteristic | Partition    | Value                            |
@@ -35,6 +37,8 @@
 |                          |                | C2) 1        | ['ainur']                        |
 |                          |                | C3*) >1      | ['ainur', 'immortal', 'immoral'] |
 
+**** BCC
+
 | Base Choice Coverage Test Set |          |          |         |         |        |
 | Test                          |          |          |         |         | Throw? |
 |-------------------------------+----------+----------+---------+---------+--------|
@@ -52,6 +56,8 @@
 | addCard-tags-single           | cards:B3 | front:B1 | back:B1 | tags:C2 |        |
 
 *** removeCard
+
+**** ISP
 
 | Input Space Partitioning |                  |                  |                |
 |--------------------------+------------------+------------------+----------------|
@@ -74,6 +80,8 @@
 |                          | C) type          | C1*) number      | 0              |
 |                          |                  | C2) other        | string:'beren' |
 
+**** BCC
+
 | Base Choice Coverage Test Set |          |          |        |
 | Test                          |          |          | Throw? |
 |-------------------------------+----------+----------+--------|
@@ -89,6 +97,8 @@
 | removeCard-index-string       | cards:B3 | index:C2 | Y      |
 
 *** editCard
+
+**** ISP
 
 | Input Space Partitioning |                |                    |                                  |
 |--------------------------+----------------+--------------------+----------------------------------|
@@ -130,6 +140,8 @@
 |                          |                | C3*) >1            | ['ainur', 'immortal', 'immoral'] |
 |                          |                |                    |                                  |
 
+**** BCC
+
 | Base Choice Coverage Test Set |          |        |          |         |         |        |
 | Test                          |          |        |          |         |         | Throw? |
 |-------------------------------+----------+--------+----------+---------+---------+--------|
@@ -154,6 +166,8 @@
 
 *** getTags
 
+**** ISP
+
 | Input Space Partitioning |                |                    |                                  |
 |--------------------------+----------------+--------------------+----------------------------------|
 | Variable                 | Characteristic | Partition          | Value                            |
@@ -165,6 +179,8 @@
 |                          |                | B2) 1              | ['manwe'...]                     |
 |                          |                | B3*) >1            | [{size 7}]                       |
 
+**** BCC
+
 | Base Choice Coverage Test Set |          |        |
 | Test                          |          | Throw? |
 |-------------------------------+----------+--------|
@@ -173,5 +189,35 @@
 | getTags-cards-empty           | cards:B1 |        |
 | getTags-cards-single          | cards:B2 |        |
 
+** searchbar
+
+(many combinations are impossible here, so it was tested loosely adhering to this)
+
+**** ISP
+
+| Input Space Partitioning |                |             |
+|--------------------------+----------------+-------------|
+| Variable                 | Characteristic | Partition   |
+|--------------------------+----------------+-------------|
+|--------------------------+----------------+-------------|
+| words                    | A) number      | AaaA1) 0      |
+|                          |                | A2*) 1      |
+|                          |                | A3) 2       |
+|                          |                | A4) > 2     |
+|                          | B) validity    | VBVBBB1*) valid |
+|                          |                | B2) invalid |
+|                          |                | B3) mixed   |
+| operators                | C) and         | C1*) none   |
+|                          |                | C2) 1       |
+|                          |                | C3) >1      |
+|                          | D) or          | D1*) none   |
+|                          |                | D2) 1       |
+|                          |                | D3) >1      |
+|                          | E) and+or      | E1) Y       |
+|                          |                | E2*) N      |
+
 * Files tested using Workflows:
 
+* Simple Tests
+
+- cookie.js

@@ -5,29 +5,32 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const Searchbar = ({ onFilteredCardsChange }) => {
 	const { cards } = useCards();
-	const [searchTerm, setSearchTerm] = useState([''])
+	const [searchTerm, setSearchTerm] = useState('')
 
 	const handleSearchChange = (e) => {
-		setSearchTerm(e.target.value.toLowerCase().split(","))
+		setSearchTerm(e.target.value.toLowerCase())
 	}
 	
 	const sortedAndFilteredCards = useMemo(() => {
-		return (searchTerm.length === 1 && searchTerm[0].length === 0) ?
-			cards :
-			cards.filter(card =>
-				card.tags.some(tag =>
-					searchTerm.some(term =>
-						tag.toLowerCase().includes(term)))
-			)
+		if (searchTerm.length === 0)
+			return cards
+
+		const or = searchTerm.split('||').map(t => t.trim())
+
+		return cards.filter(card => or.some(g => {
+			const and = g.split('&&').map(t => t.trim())
+			return and.every(t => card.tags.some(tag =>
+				tag.toLowerCase() === t))
+		}))
 	}, [cards, searchTerm]);
-	
+
 	useEffect(() => {
 		onFilteredCardsChange(sortedAndFilteredCards);
 	}, [sortedAndFilteredCards, onFilteredCardsChange]);
 
 	return (
 		<TextField
-			placeholder="tag1,tag2,tag3"
+			placeholder="tag1 && tag2 || tag3"
 			value={searchTerm}
 			onChange={handleSearchChange}
 			variant="standard"
