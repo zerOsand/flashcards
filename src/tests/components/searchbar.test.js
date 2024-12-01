@@ -175,6 +175,20 @@ describe('Searchbar', () => {
 		])
 	})
 
+	test('complex and + or four', async () => {
+		fireEvent.change(input, { target: { value: 'elf && mortal || ainur && immoral' } });
+		await waitFor (() => {
+			expect(mockChanged).toHaveBeenCalled();
+		})
+
+		expect(mockChanged.mock.calls[mockChanged.mock.calls.length -1][0]).toEqual([
+			{ id: 2, front: 'thingol', back: 'king of doriath', tags: ['elf', 'mortal', 'moral'] },
+			{ id: 5, front: 'mablung', back: 'captian of doriath', tags: ['elf', 'mortal', 'moral'] },
+			{ id: 6, front: 'beleg', back: 'the archer', tags: ['elf', 'mortal', 'moral'] },
+			{ id: 8, front: 'sauron', back: 'lord of the rings', tags: ['ainur', 'immortal', 'immoral'] },
+		])
+	})
+
 })
 
 		 
