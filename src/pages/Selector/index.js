@@ -1,6 +1,6 @@
 import ClickList from '../../components/ClickList'
 import SearchIcon from '@mui/icons-material/Search';
-import { Box, TextField, InputAdornment, Typography, ListItem } from "@mui/material";
+import { Box, TextField, InputAdornment, Typography, ListItem, Button } from "@mui/material";
 import { useCards } from '../../state/CardProvider.js'
 import { useState, useEffect } from 'react'
 import { useTheme } from "@mui/material/styles";
@@ -36,7 +36,11 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	}
 
 	const handleRemove = (index) => {
-		onRemove(tags[index])
+		onRemove([tags[index]])
+	}
+
+	const handleClear = () => {
+		onRemove(tags)
 	}
 
 	const ListTagSx = (color) => ({
@@ -112,7 +116,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 						display: 'flex',
 						flexDirection: 'column',
 						height: '100%' }}>
-				<Box sx={{ display: 'flex' }}>
+					<Box sx={{ display: 'flex'}}>
 					<TextField
 						placeholder='Filter...'
 						value={inputValue}
@@ -132,7 +136,17 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							width: '50%',
 						}}
 					/>
-					<Box sx={{ width: '50%' }} />
+			<Box sx={{ width: '50%', }} >
+						<Button
+							size="small"
+							variant="standard"
+							sx={{ fontSize: '0.65rem', width: '90%', color: '#800000', "&:hover": { textDecoration: 'underline'} }}
+							disableRipple
+							onClick={() => handleClear()}
+							>
+							Clear
+						</Button>
+					</Box>
 				</Box>
 				<Box sx={{ display: 'flex', overflowY: 'auto' }} >
 					<Box sx={{ overflowY: 'auto', height: '98%', width:'50%', }}>
