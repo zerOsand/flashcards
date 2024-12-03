@@ -135,11 +135,24 @@ export const CardProvider = ({children}) => {
 			reader.onload = (e) => {
 				try {
 					const data = JSON.parse(e.target.result);
-					console.log("Imported JSON data");
-	
+					
 					if (validateFlashcardData(data)) {
 						console.log("Valid JSON data:", data);
-						// Do stuff with correct format of JSON data here
+
+						// Handle ids; just reassign imported cards' ids
+						const maxId = cards.reduce((max, card) => Math.max(max, card.id), 0);
+
+						const newCards = data.map((card, index) => ({
+							...card,
+							id: maxId + index + 1,
+						}));
+						
+						// Add imporetd cards into current list of cards
+						setCards((prevCards) => [...prevCards, ...newCards]);
+
+						console.log("Flashcards imported successfully!");
+						alert("Flashcards imported successfully!");
+						
 					} else {
 						console.error("Invalid JSON format.");
 						alert("Invalid JSON format.");
