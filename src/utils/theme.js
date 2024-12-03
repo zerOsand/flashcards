@@ -104,5 +104,29 @@ theme.cardsList = {
 	}),
 };
 
+theme.tagList = {
+	container: {
+		width: '100%',
+		overflowY: 'auto',
+		height: '110px'
+	},
+	grid: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		gap: '4px',
+		margin: '4px',
+	},
+	item: (index, active) => ({
+		backgroundColor: theme.palette.accent.light,
+		padding: '2px 10px',
+		borderRadius: '4px',
+		flexShrink: 0,
+		width: 'fit-content',
+		"&:hover": {
+			backgroundColor: theme.palette.background.default,
+		},
+	}),
+}
+
 
 export default theme;

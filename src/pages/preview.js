@@ -56,30 +56,6 @@ const PreviewPane = ({ index })  => {
 		)
 	};
 
-	const tagList = {
-		container: {
-			width: '100%',
-			overflowY: 'auto',
-			height: '110px'
-		},
-		grid: {
-			display: 'flex',
-			flexWrap: 'wrap',
-			gap: '4px',
-			margin: '4px',
-		},
-		item: (index, active) => ({
-			backgroundColor: theme.palette.accent.light,
-			padding: '2px 10px',
-			borderRadius: '4px',
-			flexShrink: 0,
-			width: 'fit-content',
-			"&:hover": {
-				backgroundColor: theme.palette.background.default,
-			},
-		}),
-	}
-
 	return (
 		<>
 			<Box
@@ -147,7 +123,7 @@ const PreviewPane = ({ index })  => {
 					list={cards[activeIndex].tags}
 					item={TagBox}
 					event={handleTagClick}
-					styles={tagList}
+					styles={theme.tagList}
 				 />}
 				</Box>
 			</Box>

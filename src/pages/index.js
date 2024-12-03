@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import ClickList from "../components/ClickList";
 import DownloadIcon from '@mui/icons-material/Download';
@@ -12,6 +13,7 @@ import { useTheme } from "@mui/material/styles";
 
 
 const Home = () => {
+	const navigate = useNavigate()
 	const theme = useTheme();
 
 	const { cards, handleExportFlashcards, handleImportFlashcards } = useCards();
@@ -56,6 +58,10 @@ const Home = () => {
 		// use the 'true' index
 		setActiveIndex(convertIndex(cards, filteredCards[index]));
 	};
+
+	const handlePractice = () => {
+		navigate('/practice', { state: {cards: filteredCards} })
+	}
 
 	return (
 		<Box
@@ -127,7 +133,7 @@ const Home = () => {
 					    </Box>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
 						<Button disableRipple variant="outlined"
-								onClick={() => console.log("practice!")} >
+								onClick={() => handlePractice()} >
 							Practice
 						</Button>
 						<Button disableRipple variant="contained"
