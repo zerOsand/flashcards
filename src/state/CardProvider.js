@@ -128,6 +128,11 @@ export const CardProvider = ({children}) => {
 		link.download = "Flashcards.json"; 
 		link.click();
 
+		// bam, success alert
+		setSnackbarMessage('Flashcards exported successfully!');
+		setSnackbarSeverity('success');
+		setOpenSnackbar(true);
+
 		// frees blob memory
 		URL.revokeObjectURL(link.href);
 	};
