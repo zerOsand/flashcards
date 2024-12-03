@@ -127,16 +127,16 @@ export const CardProvider = ({children}) => {
 		URL.revokeObjectURL(link.href);
 	};
 
-	const handleImportFlashcards = ( event ) => {
+	const handleImportFlashcards = (event) => {
 		const file = event.target.files[0];
-
+	
 		if (file) {
 			const reader = new FileReader();
-			reader.onload = ( e ) => {
+			reader.onload = (e) => {
 				try {
 					const data = JSON.parse(e.target.result);
-					console.log("Imported JSON data")
-
+					console.log("Imported JSON data");
+	
 					if (validateFlashcardData(data)) {
 						console.log("Valid JSON data:", data);
 						// Do stuff with correct format of JSON data here
@@ -144,9 +144,9 @@ export const CardProvider = ({children}) => {
 						console.error("Invalid JSON format.");
 						alert("Invalid JSON format.");
 					}
-					
 				} catch (error) {
 					console.error("Error parsing JSON file:", error);
+					alert("Error parsing JSON file.");
 				}
 			};
 			reader.readAsText(file);
@@ -154,15 +154,26 @@ export const CardProvider = ({children}) => {
 	};
 
 	const validateFlashcardData = (data) => {
-		if (!Array.isArray(data)) return false;
+		if (!Array.isArray(data)) return false; // Ensure the data is an array
 	
-		return data.every((item) =>
-			typeof item.id === "number" &&
-			typeof item.front === "string" &&
-			typeof item.back === "string" &&
-			Array.isArray(item.tags) &&
-			item.tags.every((tag) => typeof tag === "string")
-		);
+		return data.every((item) => {
+			// check extraneous fields
+			const allowedKeys = ["id", "front", "back", "tags"];
+			const itemKeys = Object.keys(item);
+	
+			if (!itemKeys.every((key) => allowedKeys.includes(key))) {
+				console.error("Extraneous fields found:", itemKeys.filter((key) => !allowedKeys.includes(key)));
+				return false;
+			}
+	
+			return (
+				typeof item.id === "number" &&
+				typeof item.front === "string" &&
+				typeof item.back === "string" &&
+				Array.isArray(item.tags) &&
+				item.tags.every((tag) => typeof tag === "string")
+			);
+		});
 	};
 
 	const removeTag = (cardIndex, tagIndex) => {
