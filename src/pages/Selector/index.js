@@ -97,15 +97,27 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	}
 
 	const AddNew = () => {
+		const inputInTags = tags.includes(inputValue)
 		return (
 			<ListItem
 				onClick={(e) => {
-					e.stopPropagation()
-					onAdd(inputValue)
-					setInputValue('')}
-				}
-			sx={{ ...selectorList.item(undefined, true), cursor: 'pointer', }}
-			>
+					if (!inputInTags) {
+						e.stopPropagation()
+						onAdd(inputValue)
+						setInputValue('')
+					}
+				}}
+				sx={{
+					...selectorList.item(undefined, true),
+					cursor: inputInTags ? 'not-allowed' : 'pointer',
+					opacity: inputInTags ? 0.5 : 1,
+					...(inputInTags && {
+						"&:hover": {
+							pointerEvents: 'none',
+						},
+					}),
+				}}
+				>
 				{FilteredTags('+ '.concat(inputValue))}
 			</ListItem>
 		)
@@ -155,7 +167,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							list={matchedTags}
 							item={FilteredTags}
 							event={handleAdd}
-							prependItem={(inputValue !== '' && matchedTags.length === 0)
+					prependItem={(inputValue !== '' && !matchedTags.includes(inputValue))
 								? AddNew : undefined} />
 					</Box>
 					<Box sx={{ overflowY: 'auto', height: '98%', width:'50%', }}>
