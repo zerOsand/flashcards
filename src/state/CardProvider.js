@@ -30,20 +30,21 @@ export const CardProvider = ({children}) => {
 		return cookieValue !== undefined ?
 			JSON.parse(cookieValue) : initialCard
 	});
+	
 	const [id, sid] = useState(undefined);
-
-	useEffect(() => {
-		sid(cards?.[0]?.id || 0);
-		if (cards?.length > 0) {
-			cookie.set('cards', JSON.stringify(cards), 90);
-		} else {
-			cookie.remove('cards');
-		}
-	}, [cards]);
-
 	const [openSnackbar, setOpenSnackbar] = useState(false);  
 	const [snackbarMessage, setSnackbarMessage] = useState(""); 
 	const [snackbarSeverity, setSnackbarSeverity] = useState("success"); 
+
+	useEffect(() => {
+		if (cards?.length > 0) {
+			sid(cards.reduce((max, card) => Math.max(max, card.id), 0));
+			cookie.set('cards', JSON.stringify(cards), 90);
+		} else {
+			sid(0);
+			cookie.remove('cards');
+		}
+	}, [cards]);
 
 	const addCard = (front, back, tags) => {
 		assertValidCard(front, back, tags)
@@ -113,17 +114,13 @@ export const CardProvider = ({children}) => {
 					if (validateFlashcardData(data)) {
 						console.log("Valid JSON data:", data);
 
-						// Handle ids; just reassign imported cards' ids
-						const maxId = cards.reduce((max, card) => Math.max(max, card.id), 0);
-
 						const newCards = data.map((card, index) => ({
 							...card,
-							id: maxId + index + 1,
+							id: id + index + 1,
 						}));
-						
-						// Add imporetd cards into current list of cards
-						setCards((prevCards) => [...prevCards, ...newCards]);
 
+						setCards((prevCards) => [...newCards.reverse(), ...prevCards]);
+						
 						// Alert success import
 						console.log("Flashcards imported successfully!");
 						setSnackbarMessage("Flashcards imported successfully!");
