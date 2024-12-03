@@ -1,6 +1,5 @@
 import { useState, useEffect, } from 'react'
 import DefaultPopup from '../components/Popup'
-import ConfirmationPopup from './confirmPopup'
 import Selector from './Selector'
 import { useCards } from '../state/CardProvider.js'
 import { Button, TextField, Typography, Box } from '@mui/material';
@@ -8,7 +7,6 @@ import { useTheme } from "@mui/material/styles";
 
 const EditCard = ({popupState, card}) => {
 	const {open, setOpen} = popupState
-	const [copen, setCopen] = useState(false)
 	const theme = useTheme(); 
 
 	const { addCard, editCard } = useCards();
@@ -43,16 +41,13 @@ const EditCard = ({popupState, card}) => {
 				addCard(front, back, cardState.tags)
 			setOpen(false)
 		}
-	};
-	const handleCancelConfirm = () => {
-		setCopen(false)
-		setOpen(false)
+		setCardState({ id: null, front: '', back: '', tags: cardState.tags})
 	};
 
 	return (
 		<DefaultPopup
 			open={open}
-			onClose={(e) => {setCopen(true)}}
+			onClose={(e) => {setOpen(false)}}
 		>
 			<Box
 				sx={{
@@ -118,7 +113,7 @@ const EditCard = ({popupState, card}) => {
 						<Box sx={{ backgroundColor: "#f4f4f4", borderRadius: '8px', height: '100%', }}>
 							<Selector
 								onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
-								onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => tag !== e)}))}}
+								onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => !e.includes(tag))}))}}
 								tags={cardState.tags}
 							/>
 						</Box>
@@ -126,14 +121,9 @@ const EditCard = ({popupState, card}) => {
 				</Box>
 
 				<Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems:'center', mt:2}}>
-					<Button disableRipple variant="outlined" onClick={() => setCopen(true)} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px', }}> Cancel </Button>
+					<Button disableRipple variant="outlined" onClick={() => setOpen(false)} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px', }}> Cancel </Button>
 					<Button disableRipple variant="contained" onClick={() => handleSave()} disabled={!isSaveEnabled} sx={{fontSize: '0.875rem',padding: '6px 12px', marginRight: '8px'}}> Save </Button>
 				</Box>	
-				<ConfirmationPopup
-					open={copen}
-					onCancel={() => setCopen(false)}
-					onConfirm={() => handleCancelConfirm()}
-					message='Discard Edits?'/>
 			</Box>
         </DefaultPopup>
 	)
