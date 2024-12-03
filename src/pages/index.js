@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import Searchbar from '../components/Searchbar'
 import { useCards } from "../state/CardProvider";
 import { useTheme } from "@mui/material/styles";
+import { Tooltip } from '@mui/material';
 
 
 const Home = () => {
@@ -103,33 +104,49 @@ const Home = () => {
 					    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30px', }}>
 							
 							
-							<Button
-								size="small"
-								variant="standard"
-								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
-								disableRipple
-								onClick={() => console.log("import!")}
-								component = "label"	// Opens file upload prompt for input
-							>
-								<UploadIcon fontSize="small" />
-								<input
-									type="file"
-									accept="application/json"
-									hidden
-									onChange={handleImportFlashcards} 
-								/>
-							</Button>
+							<Tooltip title="Import Flashcards" arrow>
+								<Button
+									size="small"
+									variant="standard"
+									sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px' }}
+									disableRipple
+									onClick={() => console.log("import!")}
+									component = "label"	// Opens file upload prompt for input
+								>
+									<UploadIcon fontSize="small" sx={{
+											color: 'black',
+											transition: 'color 0.3s ease, color 0.3s ease',
+											'&:hover': {
+												color: theme.palette.accent.border
+											},
+										}} />
+									<input
+										type="file"
+										accept="application/json"
+										hidden
+										onChange={handleImportFlashcards} 
+									/>
+								</Button>
+							</Tooltip>
 
+							<Tooltip title="Export Flashcards" arrow>
+								<Button
+									size="small"
+									variant="standard"
+									sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
+									disableRipple
+									onClick={() => handleExportFlashcards(filteredCards)}
+								>
+									<DownloadIcon fontSize="small" sx={{ 
+											color: 'black',
+											transition: 'color 0.3s ease, color 0.3s ease',
+											'&:hover': {
+												color: theme.palette.accent.border,
+											},
+										}} />
+								</Button>
+							</Tooltip>
 							
-					        <Button
-								size="small"
-								variant="standard"
-								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
-								disableRipple
-								onClick={() => handleExportFlashcards(filteredCards)}
-							>
-								<DownloadIcon fontSize="small" sx={{ color: theme.palette.accent.border }} />
-							</Button>
 					    </Box>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
 						<Button disableRipple variant="outlined"
