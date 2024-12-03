@@ -106,12 +106,18 @@ const Home = () => {
 							<Button
 								size="small"
 								variant="standard"
-								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
+								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px' }}
 								disableRipple
 								onClick={() => console.log("import!")}
 								component = "label"	// Opens file upload prompt for input
 							>
-								<UploadIcon fontSize="small" />
+								<UploadIcon fontSize="small" sx={{
+										color: 'black',
+										transition: 'color 0.3s ease, color 0.3s ease',
+										'&:hover': {
+											color: theme.palette.accent.border
+										},
+								 	}} />
 								<input
 									type="file"
 									accept="application/json"
@@ -120,7 +126,6 @@ const Home = () => {
 								/>
 							</Button>
 
-							
 					        <Button
 								size="small"
 								variant="standard"
@@ -128,7 +133,13 @@ const Home = () => {
 								disableRipple
 								onClick={() => handleExportFlashcards(filteredCards)}
 							>
-								<DownloadIcon fontSize="small" sx={{ color: theme.palette.accent.border }} />
+								<DownloadIcon fontSize="small" sx={{ 
+										color: 'black',
+										transition: 'color 0.3s ease, color 0.3s ease',
+										'&:hover': {
+											color: theme.palette.accent.border,
+										},
+									}} />
 							</Button>
 					    </Box>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
