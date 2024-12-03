@@ -8,7 +8,7 @@ const initialCard = [
 	{ id: 1, front: 'SELECT and press flip',
 	  back: `This is a tag-based flashcard app.
 
-There are no 'sets' or 'decks'. by using the search bar on the top left, you can filter which cards you want to review, and then press 'Practice'. Try searching for 'foo', and see that no cards are matched, as this card does not have the 'foo' tag (listed below this text).
+There are no 'sets' or 'decks'. By using the search bar on the top left, you can filter which cards you want to review, and then press 'Practice'. Try searching for 'foo', and see that no cards are matched, as this card does not have the 'foo' tag (listed below this text).
 
 To add a card, press the red plus button, also on the top left.
 New tags can be created by searching for a tag that does not exist in the menu that appears.
