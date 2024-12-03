@@ -37,7 +37,7 @@ const Practice = () => {
 		setIndex(i)
 	}
 
-	const handleBack = () => {
+	const handleHome = () => {
 		navigate('/')
 	}
 
@@ -83,18 +83,17 @@ const Practice = () => {
 						{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
 					</Typography>					
 				</Box>
-				<Button disableRipple variant="outlined"
-					onClick={() => handleBack()} >
-					Back
-				</Button>
-				<Button disableRipple variant="outlined"
-					onClick={() => advance(-1)} >
-					Prev
-				</Button>
-				<Button disableRipple variant="outlined"
-					onClick={() => advance(1)} >
-					Next
-				</Button>
+				<Box sx={{ display: "flex", justifyContent: "center", gap: "16px", }}>
+					<Button variant="outlined" onClick={handleHome}>
+						Home
+					</Button>
+					<Button variant="contained" onClick={() => advance(-1)}>
+						Prev
+					</Button>
+					<Button variant="contained" onClick={() => advance(1)}>
+						Next
+					</Button>
+				</Box>
 			</Box>
 		</Box>
 	)
