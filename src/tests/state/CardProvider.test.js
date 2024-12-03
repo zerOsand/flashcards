@@ -1,10 +1,10 @@
 import { act } from 'react'
-import { beforeEach, describe, expect, test, jest } from '@jest/globals';
+import { beforeEach, describe, expect, test, mock } from '@jest/globals';
 import { renderHook, waitFor } from '@testing-library/react';
 import { CardProvider, useCards } from '../../state/CardProvider.js';
 
+
 describe('CardProvider', () => {
-	// Note, id indexing must start at 1
 	const testCards = [
 		{ id: 1, front: 'beren', back: 'the empty-handed', tags: ['human', 'outlaw', 'mortal'] },
 		{ id: 2, front: 'thingol', back: 'king of doriath', tags: ['elf', 'mortal'] },
