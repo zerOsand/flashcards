@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { Alert, Snackbar } from '@mui/material';
 
 const CardContext = createContext();
 
@@ -75,6 +76,10 @@ export const CardProvider = ({children}) => {
 	const [cards, setCards] = useState(initialCards);
 	const [id, sid] = useState(initialCards.length);
 
+	const [openSnackbar, setOpenSnackbar] = useState(false);  
+	const [snackbarMessage, setSnackbarMessage] = useState(""); 
+	const [snackbarSeverity, setSnackbarSeverity] = useState("success"); 
+
 	const addCard = (front, back, tags) => {
 		assertValidCard(front, back, tags)
 		const newCard = { id: id + 1, front, back, tags: tags.sort() };
@@ -150,16 +155,24 @@ export const CardProvider = ({children}) => {
 						// Add imporetd cards into current list of cards
 						setCards((prevCards) => [...prevCards, ...newCards]);
 
+						// Alert success import
 						console.log("Flashcards imported successfully!");
-						alert("Flashcards imported successfully!");
-						
+						setSnackbarMessage("Flashcards imported successfully!");
+						setSnackbarSeverity("success");
+						setOpenSnackbar(true);
 					} else {
+						// Alert error import
 						console.error("Invalid JSON format.");
-						alert("Invalid JSON format.");
+						setSnackbarMessage("Invalid JSON format.");
+						setSnackbarSeverity("error");
+						setOpenSnackbar(true);
 					}
 				} catch (error) {
+					// Alert error import
 					console.error("Error parsing JSON file:", error);
-					alert("Error parsing JSON file.");
+					setSnackbarMessage("Error parsing JSON file.");
+					setSnackbarSeverity("error");
+					setOpenSnackbar(true);
 				}
 			};
 			reader.readAsText(file);
@@ -225,6 +238,22 @@ export const CardProvider = ({children}) => {
 	return (
 			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards, handleImportFlashcards, forceCards }}>
 				{children}
+
+				<Snackbar
+					open={openSnackbar}
+					autoHideDuration={3000} // message will disappear after 3 seconds (change ? longer ?)
+					onClose={() => setOpenSnackbar(false)}
+					anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+				>
+					<Alert
+					onClose={() => setOpenSnackbar(false)}
+					severity={snackbarSeverity}
+					sx={{ width: '100%' }}
+					>
+					{snackbarMessage}
+					</Alert>
+				</Snackbar>
+
 			</CardContext.Provider>
 	);
 };
