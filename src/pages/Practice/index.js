@@ -42,24 +42,22 @@ const Practice = () => {
 	}
 
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				height: "calc(100vh - 16px)",
-			}}>
+		<Box sx={{ display: "flex", flexDirection: "column", height: "calc(100vh - 16px)", }}>
 			<Box sx={{backgroundColor: "#fff" }}>
 				<Navbar />
 			</Box>
 			<Box sx={{
 					display: 'flex',
 					alignItems: "center",
-					justifyContent: "flex-start",
-					backgroundColor: "#fff",
 					flexDirection: "column",
-					height: "100%",
-					margin: '60px',
-					width: "55%",
+					justifyContent: "center",
+					height: "80%",
+					margin: 'auto',
+					width: "60%",
+					borderRadius: '20px',
+					boxSizing: 'border-box',
+					boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+					padding: '20px',
 				}}>
 				<Box sx={{
 						display: 'flex',
@@ -73,16 +71,24 @@ const Practice = () => {
 						hyphens: 'auto',
 						userSelect: 'none',
 						margin: 'auto',
+						backgroundColor: theme.palette.background.default,
+						borderRadius: '8px',
+						height: '600px',
+						width: '100%',
+						overflowY: 'auto',
+						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+						marginBottom: '20px',
 					}}>
+
 					<Typography variant="body4" sx={{ marginBottom: '15px', }}>
-					{(index % 2 !== 0) ? "Back Side" : "Front Side"}
+						{(index % 2 !== 0) ? "Back Side" : "Front Side"}
 					</Typography>
-					<Typography variant="h1" sx={{
-						whiteSpace: 'pre-wrap',
-					}}>
+					
+					<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
 						{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
 					</Typography>					
 				</Box>
+
 				<Box sx={{ display: "flex", justifyContent: "center", gap: "16px", }}>
 					<Button variant="outlined" onClick={handleHome}>
 						Home
@@ -94,6 +100,7 @@ const Practice = () => {
 						Next
 					</Button>
 				</Box>
+				
 			</Box>
 		</Box>
 	)
