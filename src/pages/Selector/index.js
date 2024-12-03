@@ -167,7 +167,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 							list={matchedTags}
 							item={FilteredTags}
 							event={handleAdd}
-					prependItem={(inputValue !== '' && !matchedTags.includes(inputValue))
+							prependItem={(inputValue !== '' && !matchedTags.includes(inputValue))
 								? AddNew : undefined} />
 					</Box>
 					<Box sx={{ overflowY: 'auto', height: '98%', width:'50%', }}>
