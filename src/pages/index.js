@@ -120,7 +120,7 @@ const Home = () => {
 								variant="standard"
 								sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px', }}
 								disableRipple
-								onClick={() => handleExportFlashcards(cards)}
+								onClick={() => handleExportFlashcards(filteredCards)}
 							>
 								<DownloadIcon fontSize="small" sx={{ color: theme.palette.accent.border }} />
 							</Button>
