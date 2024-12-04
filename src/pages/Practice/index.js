@@ -47,6 +47,7 @@ const Practice = () => {
 				display: "flex",
 				flexDirection: "column",
 				height: "calc(100vh - 16px)",
+				position: "relative",
 			}}>
 			<Box sx={{backgroundColor: "#fff" }}>
 				<Navbar />
@@ -58,8 +59,11 @@ const Practice = () => {
 					backgroundColor: "#fff",
 					flexDirection: "column",
 					height: "100%",
+					flexGrow: 1,
 					margin: '60px',
 					width: "55%",
+					overflowY: "auto", 
+					padding: "40px",
 				}}>
 				<Box sx={{
 						display: 'flex',
@@ -109,6 +113,17 @@ const Practice = () => {
           )}
 
 				</Box>
+			</Box>
+			<Box
+			sx={{
+				display: "flex",
+				justifyContent: "center",
+				gap: "10px",
+				backgroundColor: "#fff",
+				padding: "10px",
+			  }}
+		
+			>
 				<Button disableRipple variant="outlined"
 					onClick={() => handleBack()} >
 					Back
