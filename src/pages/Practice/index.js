@@ -45,6 +45,9 @@ const Practice = () => {
 		if (i > cards.length * 2 - 1)
 			i = cards.length * 2 - 1
 		
+		console.log(i)
+		console.log(cards)
+
 		setIndex(i)
 		setFlipped((prev) => !prev);
 	}
@@ -119,7 +122,7 @@ const Practice = () => {
 								Front Side
 							</Typography>
 							<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
-								{cards[index]?.front || ""}
+								{cards[Math.floor(index/2)].front || ""}
 							</Typography>
 						</Box>
 					</Box>
@@ -155,7 +158,7 @@ const Practice = () => {
 								Back Side
 							</Typography>
 							<Typography variant="h1" sx={{ whiteSpace: "pre-wrap" }}>
-								{cards[index]?.back || ""}
+								{cards[Math.floor(index/2)].back || ""}
 							</Typography>
 						</Box>
 					</Box>
