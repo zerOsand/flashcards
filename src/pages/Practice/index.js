@@ -97,10 +97,10 @@ const Practice = () => {
 					</Box>
 
 					<Box sx={{ position: "absolute", right: 0, display: 'flex', gap: 2 }}>
-						<Button variant="contained" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>}>
+						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>}>
 							Again
 						</Button>
-						<Button variant="contained" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>}>
+						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>}>
 							Good 
 						</Button>
 					</Box>
