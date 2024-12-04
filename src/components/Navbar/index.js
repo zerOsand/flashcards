@@ -16,6 +16,7 @@ const Navbar = () => {
 						color="inherit"
 						aria-label="menu"
 						sx={{ mr: 2 }}
+						disabled={ true }
 					>
 						<UmassLogo />
 					</IconButton>

@@ -104,7 +104,7 @@ const Home = () => {
 					    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30px', }}>
 							
 							
-							<Tooltip title="Import Flashcards" arrow>
+							<Tooltip title="Import Flashcards" arrow placement="top">
 								<Button
 									size="small"
 									variant="standard"

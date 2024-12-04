@@ -4,7 +4,7 @@ import { useState, useEffect, } from 'react'
 import Navbar from "../../components/Navbar";
 import ClickList from '../../components/ClickList'
 import { useTheme } from "@mui/material/styles";
-
+import { RotateLeft, ThumbUp, ThumbDown, Home } from "@mui/icons-material";
 
 const Practice = () => {
 	const navigate = useNavigate()
@@ -37,64 +37,85 @@ const Practice = () => {
 		setIndex(i)
 	}
 
-	const handleBack = () => {
+	const handleHome = () => {
 		navigate('/')
 	}
 
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				height: "calc(100vh - 16px)",
-			}}>
+		<Box sx={{ display: "flex", flexDirection: "column", height: "calc(100vh - 16px)", }}>
 			<Box sx={{backgroundColor: "#fff" }}>
 				<Navbar />
 			</Box>
 			<Box sx={{
 					display: 'flex',
 					alignItems: "center",
-					justifyContent: "flex-start",
-					backgroundColor: "#fff",
 					flexDirection: "column",
-					height: "100%",
-					margin: '60px',
-					width: "55%",
+					justifyContent: "center",
+					height: "80%",
+					margin: 'auto',
+					width: "60%",
+					borderRadius: '20px',
+					boxSizing: 'border-box',
+					boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+					padding: '20px',
 				}}>
 				<Box sx={{
 						display: 'flex',
-						flexGrow: 1,
-						flexDirection: 'column',
 						justifyContent: 'center',
-						textAlign: 'center',
-						alignItems: 'center',
-						wordWrap: 'anywhere',
-						overflowWrap: 'anywhere',
-						hyphens: 'auto',
-						userSelect: 'none',
-						margin: 'auto',
+						backgroundColor: theme.palette.background.default,
+						borderRadius: '4px',
+						overflowY: 'auto',
+						overflowX: 'hidden',
+						alignItems: 'flex-start',
+						height: '100%',
+						width: '100%',
+						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+						marginBottom: '20px',
 					}}>
-					<Typography variant="body4" sx={{ marginBottom: '15px', }}>
-					{(index % 2 !== 0) ? "Back Side" : "Front Side"}
-					</Typography>
-					<Typography variant="h1" sx={{
-						whiteSpace: 'pre-wrap',
-					}}>
-						{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
-					</Typography>					
+						<Box sx={{
+							display: 'flex',
+							flexGrow: 1,
+							flexDirection: 'column',
+							justifyContent: 'center',
+							textAlign: 'center',
+							alignItems: 'center',
+							wordWrap: 'anywhere',
+							overflowWrap: 'anywhere',
+							hyphens: 'auto',
+							userSelect: 'none',
+							margin: 'auto',
+						}}>
+							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
+								{(index % 2 !== 0) ? "Back Side" : "Front Side"}
+							</Typography>
+							<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
+								{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
+							</Typography>
+						</Box>	
 				</Box>
-				<Button disableRipple variant="outlined"
-					onClick={() => handleBack()} >
-					Back
-				</Button>
-				<Button disableRipple variant="outlined"
-					onClick={() => advance(-1)} >
-					Prev
-				</Button>
-				<Button disableRipple variant="outlined"
-					onClick={() => advance(1)} >
-					Next
-				</Button>
+
+				<Box sx={{ display: "flex", width: "100%", gap: 2}}>
+					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-start" }}> 
+						<Button variant="outlined" onClick={handleHome} startIcon={<Home/>} sx={{ width: "50%" }}>
+							Home
+						</Button>
+					</Box>
+
+					<Box sx={{ width: "70%", flex: 2, display: "flex", justifyContent: "center" }}>
+						<Button variant="contained" onClick={() => advance(1)} sx={{ width: "60%" }} startIcon={ <RotateLeft/> }>
+							Flip
+						</Button>
+					</Box>
+
+					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-end", gap: 2 }}>
+						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>} sx={{ width: "40%" }}>
+							Again
+						</Button>
+						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>} sx={{ width: "40%"}}>
+							Good 
+						</Button>
+					</Box>
+				</Box>
 			</Box>
 		</Box>
 	)
