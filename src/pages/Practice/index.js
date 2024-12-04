@@ -4,7 +4,7 @@ import { useState, useEffect, } from 'react'
 import Navbar from "../../components/Navbar";
 import ClickList from '../../components/ClickList'
 import { useTheme } from "@mui/material/styles";
-import { RotateLeft, ThumbUp, ThumbDown } from "@mui/icons-material";
+import { RotateLeft, ThumbUp, ThumbDown, Home } from "@mui/icons-material";
 
 const Practice = () => {
 	const navigate = useNavigate()
@@ -91,7 +91,7 @@ const Practice = () => {
 
 				<Box sx={{ position: "relative", width: "100%" }}>
 					<Box sx={{ position: "absolute", left: 0 }}> 
-						<Button variant="outlined" onClick={handleHome}>
+						<Button variant="outlined" onClick={handleHome} startIcon={<Home></Home>}>
 							Home
 						</Button>
 					</Box>
