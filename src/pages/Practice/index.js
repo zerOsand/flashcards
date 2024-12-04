@@ -76,6 +76,7 @@ const Practice = () => {
 						height: '600px',
 						width: '100%',
 						overflowY: 'auto',
+						overflowX: 'hidden',
 						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 						marginBottom: '20px',
 					}}>
