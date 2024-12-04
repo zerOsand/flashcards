@@ -88,7 +88,8 @@ const Practice = () => {
 					boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 					padding: '20px',
 				}}>
-				<Box sx={{
+				{cards.length > 0 && (
+					<Box sx={{
 						display: 'flex',
 						justifyContent: 'center',
 						backgroundColor: theme.palette.background.default,
@@ -100,7 +101,7 @@ const Practice = () => {
 						width: '100%',
 						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 						marginBottom: '20px',
-					}}>
+					}}> 
 						<Box sx={{
 							display: 'flex',
 							flexGrow: 1,
@@ -113,15 +114,52 @@ const Practice = () => {
 							hyphens: 'auto',
 							userSelect: 'none',
 							margin: 'auto',
-						}}>
+						}}> 
 							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
-								{(index % 2 !== 0) ? "Back Side" : "Front Side"}
+								Front Side
 							</Typography>
 							<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
-								{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
+								{cards[index]?.front || ""}
 							</Typography>
-						</Box>	
-				</Box>
+						</Box>
+					</Box>
+				)}
+				{cards.length > 0 && flipped && (
+					<Box sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						backgroundColor: theme.palette.background.default,
+						borderRadius: '4px',
+						overflowY: 'auto',
+						overflowX: 'hidden',
+						alignItems: 'flex-start',
+						height: '100%',
+						width: '100%',
+						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+						marginBottom: '20px',
+					}}> 
+						<Box sx={{
+							display: 'flex',
+							flexGrow: 1,
+							flexDirection: 'column',
+							justifyContent: 'center',
+							textAlign: 'center',
+							alignItems: 'center',
+							wordWrap: 'anywhere',
+							overflowWrap: 'anywhere',
+							hyphens: 'auto',
+							userSelect: 'none',
+							margin: 'auto',
+						}}> 
+							<Typography variant="body4" sx={{ marginBottom: "15px" }}>
+								Back Side
+							</Typography>
+							<Typography variant="h1" sx={{ whiteSpace: "pre-wrap" }}>
+								{cards[index]?.back || ""}
+							</Typography>
+						</Box>
+					</Box>
+				)}
 
 				<Box sx={{ display: "flex", width: "100%", gap: 2}}>
 					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-start" }}> 
