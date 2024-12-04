@@ -150,7 +150,8 @@ const Home = () => {
 					    </Box>
 						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
 						<Button disableRipple variant="outlined"
-								onClick={() => handlePractice()} >
+								onClick={() => handlePractice()}
+								disabled={filteredCards.length === 0} >
 							Practice
 						</Button>
 						<Button disableRipple variant="contained"
