@@ -58,7 +58,8 @@ const Practice = () => {
 					boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 					padding: '20px',
 				}}>
-				<Box sx={{
+				{cards.length > 0 && (
+					<Box sx={{
 						display: 'flex',
 						justifyContent: 'center',
 						backgroundColor: theme.palette.background.default,
@@ -70,33 +71,20 @@ const Practice = () => {
 						width: '100%',
 						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 						marginBottom: '20px',
-					}}>
-					{cards.length > 0 && (
-					<Box sx={{
-						display: 'flex',
-						flexGrow: 1,
-						flexDirection: flipped ? 'row' : 'column',
-						justifyContent: 'center',
-						textAlign: 'center',
-						alignItems: 'center',
-						wordWrap: 'anywhere',
-						overflowWrap: 'anywhere',
-						hyphens: 'auto',
-						userSelect: 'none',
-						margin: 'auto',
-						gap: 2,
-					}}>
+					}}> 
 						<Box sx={{
 							display: 'flex',
+							flexGrow: 1,
 							flexDirection: 'column',
 							justifyContent: 'center',
-							alignItems: 'center', 
-							width: flipped ? '50%' : '100%',
-							padding: '10px',
-							overflowY: 'auto',
-							maxHeight: '100%',
-						}}
-						>
+							textAlign: 'center',
+							alignItems: 'center',
+							wordWrap: 'anywhere',
+							overflowWrap: 'anywhere',
+							hyphens: 'auto',
+							userSelect: 'none',
+							margin: 'auto',
+						}}> 
 							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
 								Front Side
 							</Typography>
@@ -104,29 +92,44 @@ const Practice = () => {
 								{cards[index]?.front || ""}
 							</Typography>
 						</Box>
-						{flipped && (
-							<Box sx={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'center',
-								alignItems: 'center', 
-								width: '50%',
-								padding: '10px',
-								overflowY: 'auto',
-								maxHeight: '100%',
-							}}
-							>
-								<Typography variant="body4" sx={{ marginBottom: "15px" }}>
-									Back Side
-								</Typography>
-								<Typography variant="h1" sx={{ whiteSpace: "pre-wrap" }}>
-									{cards[index]?.back || ""}
-								</Typography>
-							</Box>
-						)}
 					</Box>
-					)}	
-				</Box>
+				)}
+				{cards.length > 0 && flipped && (
+					<Box sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						backgroundColor: theme.palette.background.default,
+						borderRadius: '4px',
+						overflowY: 'auto',
+						overflowX: 'hidden',
+						alignItems: 'flex-start',
+						height: '100%',
+						width: '100%',
+						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+						marginBottom: '20px',
+					}}> 
+						<Box sx={{
+							display: 'flex',
+							flexGrow: 1,
+							flexDirection: 'column',
+							justifyContent: 'center',
+							textAlign: 'center',
+							alignItems: 'center',
+							wordWrap: 'anywhere',
+							overflowWrap: 'anywhere',
+							hyphens: 'auto',
+							userSelect: 'none',
+							margin: 'auto',
+						}}> 
+							<Typography variant="body4" sx={{ marginBottom: "15px" }}>
+								Back Side
+							</Typography>
+							<Typography variant="h1" sx={{ whiteSpace: "pre-wrap" }}>
+								{cards[index]?.back || ""}
+							</Typography>
+						</Box>
+					</Box>
+				)}
 
 				<Box sx={{ display: "flex", width: "100%", gap: 2}}>
 					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-start" }}> 
