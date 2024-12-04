@@ -74,14 +74,40 @@ const Practice = () => {
 						userSelect: 'none',
 						margin: 'auto',
 					}}>
-					<Typography variant="body4" sx={{ marginBottom: '15px', }}>
+					<Typography variant="body4" sx={{ marginBottom: '15px' }}>
 					{(index % 2 !== 0) ? "Back Side" : "Front Side"}
 					</Typography>
+					{cards.length > 0 && (index % 2 === 0) && (
 					<Typography variant="h1" sx={{
 						whiteSpace: 'pre-wrap',
 					}}>
-						{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
-					</Typography>					
+						{cards[Math.floor(index / 2)].front}
+					</Typography>
+					)}
+					
+					{cards.length > 0 && (index % 2 !== 0) && (
+						<>
+						<Typography
+						variant="h1"
+						sx={{
+							whiteSpace: "pre-wrap",
+							marginBottom: "30px",
+							color: theme.palette.primary.main,
+						}}
+						>
+					{cards[Math.floor(index / 2)].front}
+					</Typography>
+				    <Typography
+					variant="h1"
+					sx={{
+						whiteSpace: "pre-wrap",
+					}}
+					>
+					{cards[Math.floor(index / 2)].back}
+              </Typography>
+            </>
+          )}
+
 				</Box>
 				<Button disableRipple variant="outlined"
 					onClick={() => handleBack()} >
