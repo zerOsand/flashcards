@@ -13,6 +13,7 @@ const Practice = () => {
 	const [cards, setCards] = useState([])
 	const [index, setIndex] = useState(0)
 	const [flipped, setFlipped] = useState(false);
+	const [finished, setFinished] = useState(false);
 	const { modifyMastery } = useCards();
 
 	const shuffle = (array) => {
@@ -32,11 +33,18 @@ const Practice = () => {
 	 * updates the INDEX.
 	 */
 	const advance = (num) => {
-		let i = index + num
+		let i = index + num;
+
+		// first check if we are finished
+		if (i === cards.length * 2)
+			setFinished(true)
+		// set i as min = 0
 		if (i < 0)
 			i = 0
-		if (i > cards.length * 2 -1)
+		// set i as max = cards.length * 2 - 1
+		if (i > cards.length * 2 - 1)
 			i = cards.length * 2 - 1
+		
 		setIndex(i)
 		setFlipped((prev) => !prev);
 	}
@@ -47,7 +55,19 @@ const Practice = () => {
 
 	const handleFeedback = (points) => {
 		modifyMastery(cards[Math.floor(index/2)].id, points);
-		advance(1);
+		if (points === -2) {
+			const cardIndex = Math.floor(index / 2);  
+			const currentCard = cards[cardIndex];
+			setCards((prevCards) => {
+				const newCards = [...prevCards];
+				newCards.splice(cardIndex, 1);
+				newCards.push(currentCard);
+				return newCards;
+			});
+			advance(-1);
+		} else {
+			advance(1);
+		}
 	}
 
 	return (
@@ -111,7 +131,7 @@ const Practice = () => {
 					</Box>
 
 					<Box sx={{ width: "70%", flex: 2, display: "flex", justifyContent: "center" }}>
-						<Button variant="contained" onClick={() => advance(1)} disabled={flipped ? true : false} sx={{ width: "60%" }} startIcon={ <RotateLeft/> }>
+						<Button variant="contained" onClick={() => advance(1)} disabled={(flipped || finished) ? true : false} sx={{ width: "60%" }} startIcon={ <RotateLeft/> }>
 							Flip
 						</Button>
 					</Box>
