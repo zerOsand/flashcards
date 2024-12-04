@@ -61,60 +61,61 @@ const Practice = () => {
 				}}>
 				<Box sx={{
 						display: 'flex',
-						flexGrow: 1,
-						flexDirection: 'column',
 						justifyContent: 'center',
-						textAlign: 'center',
-						alignItems: 'center',
-						wordWrap: 'anywhere',
-						overflowWrap: 'anywhere',
-						hyphens: 'auto',
-						userSelect: 'none',
-						margin: 'auto',
 						backgroundColor: theme.palette.background.default,
-						borderRadius: '8px',
-						height: '600px',
-						width: '100%',
+						borderRadius: '4px',
 						overflowY: 'auto',
+						overflowX: 'hidden',
+						alignItems: 'flex-start',
+						height: '100%',
+						width: '100%',
 						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 						marginBottom: '20px',
 					}}>
-
-					<Typography variant="body4" sx={{ marginBottom: '15px', }}>
-						{(index % 2 !== 0) ? "Back Side" : "Front Side"}
-					</Typography>
-					
-					<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
-						{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
-					</Typography>					
+						<Box sx={{
+							display: 'flex',
+							flexGrow: 1,
+							flexDirection: 'column',
+							justifyContent: 'center',
+							textAlign: 'center',
+							alignItems: 'center',
+							wordWrap: 'anywhere',
+							overflowWrap: 'anywhere',
+							hyphens: 'auto',
+							userSelect: 'none',
+							margin: 'auto',
+						}}>
+							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
+								{(index % 2 !== 0) ? "Back Side" : "Front Side"}
+							</Typography>
+							<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
+								{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
+							</Typography>
+						</Box>	
 				</Box>
 
-				<Box sx={{ position: "relative", width: "100%" }}>
-					<Box sx={{ position: "absolute", left: 0 }}> 
-						<Button variant="outlined" onClick={handleHome} startIcon={<Home/>}>
+				<Box sx={{ display: "flex", width: "100%", gap: 2}}>
+					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-start" }}> 
+						<Button variant="outlined" onClick={handleHome} startIcon={<Home/>} sx={{ width: "50%" }}>
 							Home
 						</Button>
 					</Box>
 
-					<Box sx={{ position: "absolute", right: 0, display: 'flex', gap: 2 }}>
-						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>}>
-							Again
-						</Button>
-						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>}>
-							Good 
-						</Button>
-					</Box>
-
-					<Box sx={{ display: "flex", justifyContent: "center", gap: "16px", }}>
-						<Button variant="contained" onClick={() => advance(1)} sx={{ minWidth:"200px" }} startIcon={ <RotateLeft/> }>
+					<Box sx={{ width: "70%", flex: 2, display: "flex", justifyContent: "center" }}>
+						<Button variant="contained" onClick={() => advance(1)} sx={{ width: "60%" }} startIcon={ <RotateLeft/> }>
 							Flip
 						</Button>
 					</Box>
 
-
-
+					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-end", gap: 2 }}>
+						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>} sx={{ width: "40%" }}>
+							Again
+						</Button>
+						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>} sx={{ width: "40%"}}>
+							Good 
+						</Button>
+					</Box>
 				</Box>
-				
 			</Box>
 		</Box>
 	)
