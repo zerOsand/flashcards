@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { Alert, Snackbar } from '@mui/material';
 import cookie from '../utils/cookie.js'
-
 
 const CardContext = createContext();
 
@@ -30,13 +30,18 @@ export const CardProvider = ({children}) => {
 		return cookieValue !== undefined ?
 			JSON.parse(cookieValue) : initialCard
 	});
+	
 	const [id, sid] = useState(undefined);
+	const [openSnackbar, setOpenSnackbar] = useState(false);  
+	const [snackbarMessage, setSnackbarMessage] = useState(""); 
+	const [snackbarSeverity, setSnackbarSeverity] = useState("success"); 
 
 	useEffect(() => {
-		sid(cards?.[0]?.id || 0);
 		if (cards?.length > 0) {
+			sid(cards.reduce((max, card) => Math.max(max, card.id), 0));
 			cookie.set('cards', JSON.stringify(cards), 90);
 		} else {
+			sid(0);
 			cookie.remove('cards');
 		}
 	}, [cards]);
@@ -88,6 +93,11 @@ export const CardProvider = ({children}) => {
 		link.download = "Flashcards.json"; 
 		link.click();
 
+		// bam, success alert
+		setSnackbarMessage('Flashcards exported successfully!');
+		setSnackbarSeverity('success');
+		setOpenSnackbar(true);
+
 		// frees blob memory
 		URL.revokeObjectURL(link.href);
 	};
@@ -100,18 +110,35 @@ export const CardProvider = ({children}) => {
 			reader.onload = (e) => {
 				try {
 					const data = JSON.parse(e.target.result);
-					console.log("Imported JSON data");
-	
+					
 					if (validateFlashcardData(data)) {
 						console.log("Valid JSON data:", data);
-						// Do stuff with correct format of JSON data here
+
+						const newCards = data.map((card, index) => ({
+							...card,
+							id: id + index + 1,
+						}));
+
+						setCards((prevCards) => [...newCards, ...prevCards]);
+						
+						// Alert success import
+						console.log("Flashcards imported successfully!");
+						setSnackbarMessage("Flashcards imported successfully!");
+						setSnackbarSeverity("success");
+						setOpenSnackbar(true);
 					} else {
+						// Alert error import
 						console.error("Invalid JSON format.");
-						alert("Invalid JSON format.");
+						setSnackbarMessage("Invalid JSON format.");
+						setSnackbarSeverity("error");
+						setOpenSnackbar(true);
 					}
 				} catch (error) {
+					// Alert error import
 					console.error("Error parsing JSON file:", error);
-					alert("Error parsing JSON file.");
+					setSnackbarMessage("Error parsing JSON file.");
+					setSnackbarSeverity("error");
+					setOpenSnackbar(true);
 				}
 			};
 			reader.readAsText(file);
@@ -177,6 +204,22 @@ export const CardProvider = ({children}) => {
 	return (
 			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards, handleImportFlashcards, forceCards }}>
 				{children}
+
+				<Snackbar
+					open={openSnackbar}
+					autoHideDuration={3000} // message will disappear after 3 seconds (change ? longer ?)
+					onClose={() => setOpenSnackbar(false)}
+					anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+				>
+					<Alert
+					onClose={() => setOpenSnackbar(false)}
+					severity={snackbarSeverity}
+					sx={{ width: '100%' }}
+					>
+					{snackbarMessage}
+					</Alert>
+				</Snackbar>
+
 			</CardContext.Provider>
 	);
 };
