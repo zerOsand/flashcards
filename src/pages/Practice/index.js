@@ -4,7 +4,7 @@ import { useState, useEffect, } from 'react'
 import Navbar from "../../components/Navbar";
 import ClickList from '../../components/ClickList'
 import { useTheme } from "@mui/material/styles";
-
+import { RotateLeft, ThumbUp, ThumbDown, Home } from "@mui/icons-material";
 
 const Practice = () => {
 	const navigate = useNavigate()
@@ -37,29 +37,27 @@ const Practice = () => {
 		setIndex(i)
 	}
 
-	const handleBack = () => {
+	const handleHome = () => {
 		navigate('/')
 	}
 
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				height: "calc(100vh - 16px)",
-			}}>
+		<Box sx={{ display: "flex", flexDirection: "column", height: "calc(100vh - 16px)", }}>
 			<Box sx={{backgroundColor: "#fff" }}>
 				<Navbar />
 			</Box>
 			<Box sx={{
 					display: 'flex',
 					alignItems: "center",
-					justifyContent: "flex-start",
-					backgroundColor: "#fff",
 					flexDirection: "column",
-					height: "100%",
-					margin: '60px',
-					width: "55%",
+					justifyContent: "center",
+					height: "80%",
+					margin: 'auto',
+					width: "60%",
+					borderRadius: '20px',
+					boxSizing: 'border-box',
+					boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+					padding: '20px',
 				}}>
 				<Box sx={{
 						display: 'flex',
@@ -73,28 +71,50 @@ const Practice = () => {
 						hyphens: 'auto',
 						userSelect: 'none',
 						margin: 'auto',
+						backgroundColor: theme.palette.background.default,
+						borderRadius: '8px',
+						height: '600px',
+						width: '100%',
+						overflowY: 'auto',
+						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+						marginBottom: '20px',
 					}}>
+
 					<Typography variant="body4" sx={{ marginBottom: '15px', }}>
-					{(index % 2 !== 0) ? "Back Side" : "Front Side"}
+						{(index % 2 !== 0) ? "Back Side" : "Front Side"}
 					</Typography>
-					<Typography variant="h1" sx={{
-						whiteSpace: 'pre-wrap',
-					}}>
+					
+					<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
 						{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
 					</Typography>					
 				</Box>
-				<Button disableRipple variant="outlined"
-					onClick={() => handleBack()} >
-					Back
-				</Button>
-				<Button disableRipple variant="outlined"
-					onClick={() => advance(-1)} >
-					Prev
-				</Button>
-				<Button disableRipple variant="outlined"
-					onClick={() => advance(1)} >
-					Next
-				</Button>
+
+				<Box sx={{ position: "relative", width: "100%" }}>
+					<Box sx={{ position: "absolute", left: 0 }}> 
+						<Button variant="outlined" onClick={handleHome} startIcon={<Home/>}>
+							Home
+						</Button>
+					</Box>
+
+					<Box sx={{ position: "absolute", right: 0, display: 'flex', gap: 2 }}>
+						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>}>
+							Again
+						</Button>
+						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>}>
+							Good 
+						</Button>
+					</Box>
+
+					<Box sx={{ display: "flex", justifyContent: "center", gap: "16px", }}>
+						<Button variant="contained" onClick={() => advance(1)} sx={{ minWidth:"200px" }} startIcon={ <RotateLeft/> }>
+							Flip
+						</Button>
+					</Box>
+
+
+
+				</Box>
+				
 			</Box>
 		</Box>
 	)
