@@ -93,6 +93,8 @@ const Practice = () => {
 							alignItems: 'center', 
 							width: flipped ? '50%' : '100%',
 							padding: '10px',
+							overflowY: 'auto',
+							maxHeight: '100%',
 						}}
 						>
 							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
@@ -110,6 +112,8 @@ const Practice = () => {
 								alignItems: 'center', 
 								width: '50%',
 								padding: '10px',
+								overflowY: 'auto',
+								maxHeight: '100%',
 							}}
 							>
 								<Typography variant="body4" sx={{ marginBottom: "15px" }}>
