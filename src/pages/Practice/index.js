@@ -137,6 +137,7 @@ const Practice = () => {
 							onClick={ advance } 
 							sx={{ width: "60%" }} 
 							startIcon={ <RotateLeft/> }
+							disabled={index === cards.length - 1 && flipped}
 						>
 							{flipped ? "Next Card" : "Flip"}
 						</Button>
