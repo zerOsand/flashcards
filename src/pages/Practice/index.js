@@ -2,15 +2,19 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import { useState, useEffect, } from 'react'
 import Navbar from "../../components/Navbar";
-import ClickList from '../../components/ClickList'
 import { useTheme } from "@mui/material/styles";
 import { RotateLeft, ThumbUp, ThumbDown, Home } from "@mui/icons-material";
+import { useCards } from '../../state/CardProvider.js'
 
 const Practice = () => {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const theme = useTheme()
 	const [cards, setCards] = useState([])
+	const [index, setIndex] = useState(0)
+	const [flipped, setFlipped] = useState(false);
+	const { modifyMastery } = useCards();
+
 	const shuffle = (array) => {
 		for (let i = array.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
@@ -18,7 +22,6 @@ const Practice = () => {
 		}
 		return array;
 	}
-	const [index, setIndex] = useState(0)
 
 	useEffect(() => {
 		setCards(shuffle([...location.state?.cards || []]))
@@ -35,10 +38,16 @@ const Practice = () => {
 		if (i > cards.length * 2 -1)
 			i = cards.length * 2 - 1
 		setIndex(i)
+		setFlipped((prev) => !prev);
 	}
 
 	const handleHome = () => {
 		navigate('/')
+	}
+
+	const handleFeedback = (points) => {
+		modifyMastery(cards[Math.floor(index/2)].id, points);
+		advance(1);
 	}
 
 	return (
@@ -102,16 +111,16 @@ const Practice = () => {
 					</Box>
 
 					<Box sx={{ width: "70%", flex: 2, display: "flex", justifyContent: "center" }}>
-						<Button variant="contained" onClick={() => advance(1)} sx={{ width: "60%" }} startIcon={ <RotateLeft/> }>
+						<Button variant="contained" onClick={() => advance(1)} disabled={flipped ? true : false} sx={{ width: "60%" }} startIcon={ <RotateLeft/> }>
 							Flip
 						</Button>
 					</Box>
 
 					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-end", gap: 2 }}>
-						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>} sx={{ width: "40%" }}>
+						<Button variant="outlined" onClick={() => handleFeedback(-2) } disabled={flipped ? false : true} startIcon={<ThumbDown/>} sx={{ width: "40%" }}>
 							Again
 						</Button>
-						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>} sx={{ width: "40%"}}>
+						<Button variant="outlined" onClick={() => handleFeedback(1)} disabled={flipped ? false : true} startIcon={<ThumbUp/>} sx={{ width: "40%"}}>
 							Good 
 						</Button>
 					</Box>
