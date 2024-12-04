@@ -90,32 +90,28 @@ const Practice = () => {
 					</Typography>					
 				</Box>
 
-				<Box sx={{ position: "relative", width: "100%" }}>
-					<Box sx={{ position: "absolute", left: 0 }}> 
-						<Button variant="outlined" onClick={handleHome} startIcon={<Home/>}>
+				<Box sx={{ display: "flex", width: "100%", gap: 2}}>
+					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-start" }}> 
+						<Button variant="outlined" onClick={handleHome} startIcon={<Home/>} sx={{ width: "50%" }}>
 							Home
 						</Button>
 					</Box>
 
-					<Box sx={{ position: "absolute", right: 0, display: 'flex', gap: 2 }}>
-						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>}>
-							Again
-						</Button>
-						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>}>
-							Good 
-						</Button>
-					</Box>
-
-					<Box sx={{ display: "flex", justifyContent: "center", gap: "16px", }}>
-						<Button variant="contained" onClick={() => advance(1)} sx={{ minWidth:"200px" }} startIcon={ <RotateLeft/> }>
+					<Box sx={{ width: "70%", flex: 2, display: "flex", justifyContent: "center" }}>
+						<Button variant="contained" onClick={() => advance(1)} sx={{ width: "60%" }} startIcon={ <RotateLeft/> }>
 							Flip
 						</Button>
 					</Box>
 
-
-
+					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-end", gap: 2 }}>
+						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>} sx={{ width: "40%" }}>
+							Again
+						</Button>
+						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>} sx={{ width: "40%"}}>
+							Good 
+						</Button>
+					</Box>
 				</Box>
-				
 			</Box>
 		</Box>
 	)
