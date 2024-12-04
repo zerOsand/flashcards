@@ -61,33 +61,37 @@ const Practice = () => {
 				}}>
 				<Box sx={{
 						display: 'flex',
-						flexGrow: 1,
-						flexDirection: 'column',
 						justifyContent: 'center',
-						textAlign: 'center',
-						alignItems: 'center',
-						wordWrap: 'anywhere',
-						overflowWrap: 'anywhere',
-						hyphens: 'auto',
-						userSelect: 'none',
-						margin: 'auto',
 						backgroundColor: theme.palette.background.default,
-						borderRadius: '8px',
-						height: '600px',
-						width: '100%',
+						borderRadius: '4px',
 						overflowY: 'auto',
 						overflowX: 'hidden',
+						alignItems: 'flex-start',
+						height: '100%',
+						width: '100%',
 						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 						marginBottom: '20px',
 					}}>
-
-					<Typography variant="body4" sx={{ marginBottom: '15px', }}>
-						{(index % 2 !== 0) ? "Back Side" : "Front Side"}
-					</Typography>
-					
-					<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
-						{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
-					</Typography>					
+						<Box sx={{
+							display: 'flex',
+							flexGrow: 1,
+							flexDirection: 'column',
+							justifyContent: 'center',
+							textAlign: 'center',
+							alignItems: 'center',
+							wordWrap: 'anywhere',
+							overflowWrap: 'anywhere',
+							hyphens: 'auto',
+							userSelect: 'none',
+							margin: 'auto',
+						}}>
+							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
+								{(index % 2 !== 0) ? "Back Side" : "Front Side"}
+							</Typography>
+							<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
+								{cards.length > 0 && ((index % 2 !== 0) ? cards[Math.floor(index/2)].back : cards[Math.floor(index/2)].front)}
+							</Typography>
+						</Box>	
 				</Box>
 
 				<Box sx={{ display: "flex", width: "100%", gap: 2}}>
