@@ -119,7 +119,7 @@ export const CardProvider = ({children}) => {
 							id: id + index + 1,
 						}));
 
-						setCards((prevCards) => [...newCards.reverse(), ...prevCards]);
+						setCards((prevCards) => [...newCards, ...prevCards]);
 						
 						// Alert success import
 						console.log("Flashcards imported successfully!");
