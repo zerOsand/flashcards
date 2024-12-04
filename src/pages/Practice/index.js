@@ -91,7 +91,7 @@ const Practice = () => {
 
 				<Box sx={{ position: "relative", width: "100%" }}>
 					<Box sx={{ position: "absolute", left: 0 }}> 
-						<Button variant="outlined" onClick={handleHome} startIcon={<Home></Home>}>
+						<Button variant="outlined" onClick={handleHome} startIcon={<Home/>}>
 							Home
 						</Button>
 					</Box>
@@ -106,8 +106,8 @@ const Practice = () => {
 					</Box>
 
 					<Box sx={{ display: "flex", justifyContent: "center", gap: "16px", }}>
-						<Button variant="contained" onClick={() => advance(1)} sx={{ minWidth:"200px" }}>
-							<RotateLeft/> 
+						<Button variant="contained" onClick={() => advance(1)} sx={{ minWidth:"200px" }} startIcon={ <RotateLeft/> }>
+							Flip
 						</Button>
 					</Box>
 
