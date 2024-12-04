@@ -4,7 +4,7 @@ import { useState, useEffect, } from 'react'
 import Navbar from "../../components/Navbar";
 import ClickList from '../../components/ClickList'
 import { useTheme } from "@mui/material/styles";
-
+import { RotateLeft, ThumbUp, ThumbDown } from "@mui/icons-material";
 
 const Practice = () => {
 	const navigate = useNavigate()
@@ -89,16 +89,30 @@ const Practice = () => {
 					</Typography>					
 				</Box>
 
-				<Box sx={{ display: "flex", justifyContent: "center", gap: "16px", }}>
-					<Button variant="outlined" onClick={handleHome}>
-						Home
-					</Button>
-					<Button variant="contained" onClick={() => advance(-1)}>
-						Prev
-					</Button>
-					<Button variant="contained" onClick={() => advance(1)}>
-						Next
-					</Button>
+				<Box sx={{ position: "relative", width: "100%" }}>
+					<Box sx={{ position: "absolute", left: 0 }}> 
+						<Button variant="outlined" onClick={handleHome}>
+							Home
+						</Button>
+					</Box>
+
+					<Box sx={{ position: "absolute", right: 0, display: 'flex', gap: 2 }}>
+						<Button variant="contained" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>}>
+							Again
+						</Button>
+						<Button variant="contained" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>}>
+							Good 
+						</Button>
+					</Box>
+
+					<Box sx={{ display: "flex", justifyContent: "center", gap: "16px", }}>
+						<Button variant="contained" onClick={() => advance(1)} sx={{ minWidth:"200px" }}>
+							<RotateLeft/> 
+						</Button>
+					</Box>
+
+
+
 				</Box>
 				
 			</Box>
