@@ -189,6 +189,73 @@
 | getTags-cards-empty           | cards:B1 |        |
 | getTags-cards-single          | cards:B2 |        |
 
+*** modifyMastery
+
+**** ISP
+
+| Input Space Partitioning |                |                    |                |
+|--------------------------+----------------+--------------------+----------------|
+| Variable                 | Characteristic | Partition          |          Value |
+|--------------------------+----------------+--------------------+----------------|
+|--------------------------+----------------+--------------------+----------------|
+| cards                    | A) undefined?  | A1) T              |      undefined |
+|                          |                | A2*) F             |      array obj |
+|                          | B) size        | B1) 0              |             [] |
+|                          |                | B2) 1              |   ['manwe'...] |
+|                          |                | B3*) >1            |     [{size 7}] |
+|--------------------------+----------------+--------------------+----------------|
+| cards.mastery            | A) magnitude   | A1) < -3           |             -5 |
+|                          |                | A2) < 0            |             -1 |
+|                          |                | A3*) = 0           |              0 |
+|                          |                | A4) > 0            |              1 |
+|                          |                | A5) > 3            |              5 |
+|--------------------------+----------------+--------------------+----------------|
+| modifyMastery.id         | A) undefined?  | A1) T              |      undefined |
+|                          |                | A2*) F             |              1 |
+|                          | B) value       | B1) negative       |             -1 |
+|                          |                | B2) zero           |              0 |
+|                          |                | B3*) lowest card   |              1 |
+|                          |                | B4) highest card   |              7 |
+|                          |                | B5) > highest card |              8 |
+|                          | C) type        | C1*) number        |              1 |
+|                          |                | C2) string         |   string:beren |
+|--------------------------+----------------+--------------------+----------------|
+| modifyMastery.num        | A) undefined?  | A1) T              |      undefined |
+|                          |                | A2*) F             |              1 |
+|                          | B) magnitude   | B1) < -3           |             -5 |
+|                          |                | B2*) < 0           |             -1 |
+|                          |                | B3) = 0            |              0 |
+|                          |                | B4) > 0            |              1 |
+|                          |                | B5) > 3            |              5 |
+|                          | C) type        | C1*) number        |              1 |
+|                          |                | C2) other          | string:'beren' |
+
+**** BCC
+
+| Base Choice Coverage Test Set |          |            |        |        |   |
+| Test                          |          |            |        | Throw? |   |
+|-------------------------------+----------+------------+--------+--------+---|
+| modifyMastery-base            | cards:B3 | mastery:A3 | id: B3 | num:B2 |   |
+| modifyMastery-cards-undefined | cards:A1 | mastery:A3 | id: B3 | num:B2 | Y |
+| modifyMastery-cards-empty     | cards:B1 | mastery:A3 | id: B3 | num:B2 | Y |
+| modifyMastery-cards-single    | cards:B2 | mastery:A3 | id: B3 | num:B2 |   |
+| modifyMastery-mastery-neg-5   | cards:B2 | mastery:A1 | id: B3 | num:B4 |   |
+| modifyMastery-mastery-neg-1   | cards:B2 | mastery:A2 | id: B3 | num:B4 |   |
+| modifyMastery-mastery-1       | cards:B2 | mastery:A4 | id: B3 | num:B4 |   |
+| modifyMastery-mastery-5       | cards:B2 | mastery:A5 | id: B3 | num:B4 |   |
+| editCard-id-undefined         | cards:B3 | mastery:A3 | id: A1 | num:B2 | Y |
+| editCard-id-negative          | cards:B3 | mastery:A3 | id: B1 | num:B2 | Y |
+| editCard-id-zero              | cards:B3 | mastery:A3 | id: B2 | num:B2 | Y |
+| editCard-id-maximum           | cards:B3 | mastery:A3 | id: B4 | num:B2 |   |
+| editCard-id-too-high          | cards:B3 | mastery:A3 | id: B5 | num:B2 | Y |
+| editCard-id-string            | cards:B3 | mastery:A3 | id: C2 | num:B2 | Y |
+| modifyMastery-num-undefined   | cards:B3 | mastery:A3 | id: B3 | num:A1 | Y |
+| modifyMastery-num-neg-5       | cards:B3 | mastery:A3 | id: B3 | num:B1 |   |
+| modifyMastery-num-zero        | cards:B3 | mastery:A3 | id: B3 | num:B3 |   |
+| modifyMastery-num-one         | cards:B3 | mastery:A3 | id: B3 | num:B4 |   |
+| modifyMastery-num-5           | cards:B3 | mastery:A3 | id: B3 | num:B5 |   |
+| modifyMastery-num-string      | cards:B3 | mastery:A3 | id: B3 | num:C2 | Y |
+
 ** searchbar
 
 (many combinations are impossible here, so it was tested loosely adhering to this)
