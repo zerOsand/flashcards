@@ -6,13 +6,13 @@ import { CardProvider, useCards } from '../../state/CardProvider.js';
 
 describe('CardProvider', () => {
 	const testCards = [
-		{ id: 1, front: 'beren', back: 'the empty-handed', tags: ['human', 'outlaw', 'mortal'] },
-		{ id: 2, front: 'thingol', back: 'king of doriath', tags: ['elf', 'mortal'] },
-		{ id: 3, front: 'luthien', back: 'princess of doriath', tags: ['elf', 'immortal', 'maia', 'magician'] },
-		{ id: 4, front: 'huan', back: 'hound of valinor', tags: ['wolf', 'immortal'] },
-		{ id: 5, front: 'mablung', back: 'captian of doriath', tags: ['elf', 'mortal'] },
-		{ id: 6, front: 'beleg', back: 'the archer', tags: ['elf', 'mortal'] },
-		{ id: 7, front: 'carcharoth', back: 'guard of angband', tags: ['wolf', 'werewolf'] },
+		{ id: 1, front: 'beren', back: 'the empty-handed', tags: ['human', 'outlaw', 'mortal'], master: 0 },
+		{ id: 2, front: 'thingol', back: 'king of doriath', tags: ['elf', 'mortal'], master: 0 },
+		{ id: 3, front: 'luthien', back: 'princess of doriath', tags: ['elf', 'immortal', 'maia', 'magician'] , master: 0 },
+		{ id: 4, front: 'huan', back: 'hound of valinor', tags: ['wolf', 'immortal'], master: 0 },
+		{ id: 5, front: 'mablung', back: 'captian of doriath', tags: ['elf', 'mortal'], master: 0 },
+		{ id: 6, front: 'beleg', back: 'the archer', tags: ['elf', 'mortal'], master: 0 },
+		{ id: 7, front: 'carcharoth', back: 'guard of angband', tags: ['wolf', 'werewolf'], master: 0 },
 	]
 
 	let result;
@@ -32,8 +32,8 @@ describe('CardProvider', () => {
 		expect(result.current.cards).toHaveLength(7)
 	})
 
-	const newCard = { front: 'sauron', back: 'lord of the rings', tags: ['ainur', 'immortal', 'immoral'] }
-	const singleCard = { id: 1, front: 'manwe', back: 'lord of the valar', tags: ['ainur', 'immortal', 'moral'] }
+	const newCard = { front: 'sauron', back: 'lord of the rings', tags: ['ainur', 'immortal', 'immoral'], master: 0 }
+	const singleCard = { id: 1, front: 'manwe', back: 'lord of the valar', tags: ['ainur', 'immortal', 'moral'], master: 0 }
 	/* BEGIN ADDCARD */
 
 	test('addCard-base', () => {
@@ -44,6 +44,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toBe(newCard.tags)
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	test('addCard-cards-undefined', () => {
@@ -64,6 +65,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toBe(newCard.tags)
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	test('addCard-cards-single', () => {
@@ -77,6 +79,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toBe(newCard.tags)
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	test('addCard-front-undefined', () => {
@@ -111,6 +114,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toStrictEqual([])
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	test('addCard-tags-empty', () => {
@@ -121,6 +125,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toStrictEqual(['ainur'])
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	/* END ADDCARD */
@@ -202,6 +207,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toBe(newCard.tags)
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	test('editCard-cards-undefined', () => {
@@ -229,6 +235,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toBe(newCard.tags)
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	test('editCard-id-undefined', () => {
@@ -252,6 +259,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[testCards.length-1].front).toBe(newCard.front)
 		expect(result.current.cards[testCards.length-1].back).toBe(newCard.back)
 		expect(result.current.cards[testCards.length-1].tags).toBe(newCard.tags)
+		expect(result.current.cards[testCards.length-1].master).toBe(0)
 	})
 
 	test('editCard-id-too-high', () => {
@@ -295,6 +303,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toStrictEqual([])
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	test('editCard-tags-single', () => {
@@ -306,6 +315,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].front).toBe(newCard.front)
 		expect(result.current.cards[0].back).toBe(newCard.back)
 		expect(result.current.cards[0].tags).toStrictEqual(['ainur'])
+		expect(result.current.cards[0].master).toBe(0)
 	})
 
 	/* END EDITCARD */
@@ -338,6 +348,203 @@ describe('CardProvider', () => {
 	})
 
 	/* END GETTAGS */
+	/* BEGIN MODIFYMASTERY */
+
+	test('modifyMastery-base', () => {
+		act(() => {
+			result.current.modifyMastery(1, -1)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual([ '!learning', ...testCards[0].tags])
+		expect(result.current.cards[0].master).toBe(testCards[0].master - 1)
+	})
+
+	test('modifyMastery-cards-undefined', () => {
+		act(() => {
+			result.current.forceCards(undefined)
+		})
+		expect(() => result.current.modifyMastery(1, -1)).toThrow()
+	})
+
+	test('modifyMastery-cards-empty', () => {
+		act(() => {
+			result.current.forceCards([])
+		})
+		expect(() => result.current.modifyMastery(1, -1)).toThrow()
+	})
+
+	test('modifyMastery-cards-single', () => {
+		act(() => {
+			result.current.forceCards([singleCard])
+		})
+		act(() => {
+			result.current.modifyMastery(1, -1)
+		})
+		expect(result.current.cards).toHaveLength(1)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(singleCard.front)
+		expect(result.current.cards[0].back).toBe(singleCard.back)
+		expect(result.current.cards[0].tags).toStrictEqual([ '!learning', ...singleCard.tags])
+		expect(result.current.cards[0].master).toBe(singleCard.master - 1)
+	})
+
+	test('modifyMastery-mastery-neg-5', () => {
+		act(() => {
+			result.current.modifyMastery(1, -5)
+		})
+		expect(result.current.cards[0].master).toBe(-5)
+		act(() => {
+			result.current.modifyMastery(1, 1)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual([ '!learning', ...testCards[0].tags])
+		expect(result.current.cards[0].master).toBe(-4)
+	})
+
+	test('modifyMastery-mastery-neg-1', () => {
+		act(() => {
+			result.current.modifyMastery(1, -1)
+		})
+		expect(result.current.cards[0].master).toBe(-1)
+		act(() => {
+			result.current.modifyMastery(1, 1)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual(testCards[0].tags)
+		expect(result.current.cards[0].master).toBe(0)
+	})
+
+	test('modifyMastery-mastery-1', () => {
+		act(() => {
+			result.current.modifyMastery(1, 1)
+		})
+		expect(result.current.cards[0].master).toBe(1)
+		act(() => {
+			result.current.modifyMastery(1, 1)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual(testCards[0].tags)
+		expect(result.current.cards[0].master).toBe(2)
+	})
+
+	test('modifyMastery-mastery-5', () => {
+		act(() => {
+			result.current.modifyMastery(1, 5)
+		})
+		expect(result.current.cards[0].master).toBe(5)
+		act(() => {
+			result.current.modifyMastery(1, 1)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual(testCards[0].tags)
+		expect(result.current.cards[0].master).toBe(6)
+	})
+
+	test('modifyMastery-id-undefined', () => {
+		expect(() => result.current.modifyMastery(undefined, -1)).toThrow()
+	})
+
+	test('modifyMastery-id-negative', () => {
+		expect(() => result.current.modifyMastery(-1, -1)).toThrow()
+	})
+
+	test('modifyMastery-id-zero', () => {
+		expect(() => result.current.modifyMastery(0, -1)).toThrow()
+	})
+
+	test('modifyMastery-id-maximum', () => {
+		act(() => {
+			result.current.modifyMastery(testCards.length, -1)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[testCards.length-1].id).toBe(testCards.length)
+		expect(result.current.cards[testCards.length-1].front).toBe(testCards[testCards.length-1].front)
+		expect(result.current.cards[testCards.length-1].back).toBe(testCards[testCards.length-1].back)
+		expect(result.current.cards[testCards.length-1].tags).toStrictEqual([ '!learning', ...testCards[testCards.length-1].tags])
+		expect(result.current.cards[testCards.length-1].master).toBe(testCards[testCards.length-1].master - 1)
+		expect(result.current.cards[0].master).toBe(0)
+	})
+
+	test('modifyMastery-id-too-high', () => {
+		expect(() => result.current.modifyMastery(testCards.length + 1, -1)).toThrow()
+	})
+
+	test('modifyMastery-id-string', () => {
+		expect(() => result.current.modifyMastery('beren', -1)).toThrow()
+	})
+
+	test('modifyMastery-id-num-undefined', () => {
+		expect(() => result.current.modifyMastery(1, undefined)).toThrow()
+	})
+
+	test('modifyMastery-num-neg-5', () => {
+		act(() => {
+			result.current.modifyMastery(1, -5)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual([ '!learning', ...testCards[0].tags])
+		expect(result.current.cards[0].master).toBe(testCards[0].master - 5)
+	})
+
+	test('modifyMastery-num-zero', () => {
+		act(() => {
+			result.current.modifyMastery(1, 0)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual(testCards[0].tags)
+		expect(result.current.cards[0].master).toBe(testCards[0].master)
+	})
+
+	test('modifyMastery-num-one', () => {
+		act(() => {
+			result.current.modifyMastery(1, 1)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual(testCards[0].tags)
+		expect(result.current.cards[0].master).toBe(testCards[0].master + 1)
+	})
+
+	test('modifyMastery-num-5', () => {
+		act(() => {
+			result.current.modifyMastery(1, 5)
+		})
+		expect(result.current.cards).toHaveLength(testCards.length)
+		expect(result.current.cards[0].id).toBe(1)
+		expect(result.current.cards[0].front).toBe(testCards[0].front)
+		expect(result.current.cards[0].back).toBe(testCards[0].back)
+		expect(result.current.cards[0].tags).toStrictEqual(testCards[0].tags)
+		expect(result.current.cards[0].master).toBe(testCards[0].master + 5)
+	})
+
+	test('modifyMastery-id-num-string', () => {
+		expect(() => result.current.modifyMastery(1, 'beren')).toThrow()
+	})
+
+	/* END MODIFYMASTERY */
 })
 
 // Local Variables:

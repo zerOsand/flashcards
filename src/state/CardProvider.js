@@ -5,7 +5,8 @@ import cookie from '../utils/cookie.js'
 const CardContext = createContext();
 
 const initialCard = [
-	{ id: 1, front: 'SELECT and press flip',
+	{ id: 1,
+	  front: 'SELECT and press flip',
 	  back: `This is a tag-based flashcard app.
 
 There are no 'sets' or 'decks'. By using the search bar on the top left, you can filter which cards you want to review, and then press 'Practice'. Try searching for 'foo', and see that no cards are matched, as this card does not have the 'foo' tag (listed below this text).
@@ -21,6 +22,7 @@ You can edit a selected card by pressing the pencil icon below. When ready, dele
 This application was created as part of the CS520 Software Testing class at the University of Massachusetts Amherst.
 `,
 	  tags: ['tutorial', 'cs520', 'group 13'],
+	  master: 0,
 	}
 ]
 
@@ -48,7 +50,7 @@ export const CardProvider = ({children}) => {
 
 	const addCard = (front, back, tags) => {
 		assertValidCard(front, back, tags)
-		const newCard = { id: id + 1, front, back, tags: tags.sort() };
+		const newCard = { id: id + 1, front, back, tags: tags.sort(), master: 0 };
 		setCards(prevCards => [newCard, ...prevCards]); 
 	};
 
@@ -78,6 +80,26 @@ export const CardProvider = ({children}) => {
 			});
 		});
 		return Array.from(tags).sort()
+	}
+
+	const modifyMastery = (id, num) => {
+		if (typeof num !== 'number')
+			throw new Error('num must be an number')
+		const index = cards.findIndex(card => card.id === id);
+		if (index === -1)
+			throw new Error('id was not present')
+
+		const master = (cards[index].master || 0) + num
+		let tags
+		if (master < 0)
+			tags = [...new Set(['!learning', ...(cards[index].tags || [])])]
+		else
+			tags = (cards[index].tags || []).filter(tag => tag !== '!learning')
+
+		setCards([...cards.slice(0, index), { ...cards[index],
+											  master: master,
+											  tags: tags
+											}, ...cards.slice(index + 1)])
 	}
 
 	const handleExportFlashcards = ( filteredCards ) => {
@@ -150,7 +172,7 @@ export const CardProvider = ({children}) => {
 	
 		return data.every((item) => {
 			// check extraneous fields
-			const allowedKeys = ["id", "front", "back", "tags"];
+			const allowedKeys = ["id", "front", "back", "tags", "master"];
 			const itemKeys = Object.keys(item);
 	
 			if (!itemKeys.every((key) => allowedKeys.includes(key))) {
@@ -162,6 +184,7 @@ export const CardProvider = ({children}) => {
 				typeof item.id === "number" &&
 				typeof item.front === "string" &&
 				typeof item.back === "string" &&
+				typeof item.master === "number" &&
 				Array.isArray(item.tags) &&
 				item.tags.every((tag) => typeof tag === "string")
 			);
@@ -177,7 +200,7 @@ export const CardProvider = ({children}) => {
 		);
 	};
 
-	function assertValidCard(front, back, tags) {
+	const assertValidCard = (front, back, tags) => {
 		if (typeof front !== 'string') {
 			throw new Error('front must be a string');
 		}
@@ -192,6 +215,7 @@ export const CardProvider = ({children}) => {
 		}
 	}
 
+
 	/**
 	 * The following methods only exist for testing purposes.
 	 * They are not used during normal execution.
@@ -202,7 +226,7 @@ export const CardProvider = ({children}) => {
 	}
 
 	return (
-			<CardContext.Provider value={{ cards, addCard, editCard, getTags, removeTag, removeCard, handleExportFlashcards, handleImportFlashcards, forceCards }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags, modifyMastery, removeTag, removeCard, handleExportFlashcards, handleImportFlashcards, forceCards }}>
 				{children}
 
 				<Snackbar
