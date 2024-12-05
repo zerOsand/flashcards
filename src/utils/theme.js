@@ -20,7 +20,7 @@ const theme = createTheme({
 			secondary: "#fff", // Gray for secondary text
 		},
 		accent: {
-			main: "#ffe5e5", // Light pink for tag chips
+			main: "#eec2c2", // Light pink for tag chips
 			border: "#800000", // Border color for tags
 			light: "#fff0f0",
 		},

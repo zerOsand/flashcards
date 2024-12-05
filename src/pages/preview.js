@@ -43,7 +43,7 @@ const PreviewPane = ({ index })  => {
 						   	 padding: '2px 10px',
 						   	 flexShrink: 0,
 							 backgroundColor: special
-							 ? theme.palette.primary.main
+							 ? theme.palette.accent.main
 							 : theme.palette.accent.light,
 							 }}>
 					<Typography
@@ -52,9 +52,7 @@ const PreviewPane = ({ index })  => {
 						fontSize: theme.typography.body1.fontSize,
 						fontWeight: 400,
 						whiteSpace: 'nowrap',
-						color: special
-							? theme.palette.text.secondary
-								: theme.palette.text.primary,
+						color: theme.palette.text.primary,
 					}}
 				>
 					{text}
