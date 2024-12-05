@@ -1,7 +1,7 @@
 import { Modal, Box } from '@mui/material/';
 import React from 'react';
 
-const style = {
+const defaultStyle = {
 	overlay: {
 		position: 'fixed',
 		top: 0,
@@ -23,7 +23,8 @@ const style = {
 	},
 }
 
-function DefaultPopup({ open, onClose, children }) {
+function DefaultPopup({ open, onClose, style, children }) {
+	style = style || defaultStyle
 	return (
 		<Modal
 			open={open}

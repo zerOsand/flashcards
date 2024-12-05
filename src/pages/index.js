@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Tooltip } from "@mui/material";
 import ClickList from "../components/ClickList";
 import DownloadIcon from '@mui/icons-material/Download';
 import UploadIcon from '@mui/icons-material/Upload';
@@ -10,7 +10,6 @@ import React, { useState } from "react";
 import Searchbar from '../components/Searchbar'
 import { useCards } from "../state/CardProvider";
 import { useTheme } from "@mui/material/styles";
-import { Tooltip } from '@mui/material';
 
 
 const Home = () => {
