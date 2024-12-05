@@ -9,6 +9,7 @@ import { useTheme } from "@mui/material/styles";
 const Selector = ({onAdd, onRemove, tags}) => {
 	const theme = useTheme();
 
+	tags = tags.filter(tag => tag !== '!learning')
 	const { getTags } = useCards();
  	const [inputValue, setInputValue] = useState('')
 	const [matchedTags, setMatchedTags] = useState([])

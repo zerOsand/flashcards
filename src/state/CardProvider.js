@@ -76,7 +76,7 @@ export const CardProvider = ({children}) => {
 		const tags = new Set()
 		cards.forEach((card) => {
 			card.tags.forEach((tag) => {
-				tags.add(tag)
+				tag !== '!learning' && tags.add(tag)
 			});
 		});
 		return Array.from(tags).sort()

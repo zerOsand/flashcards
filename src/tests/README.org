@@ -168,16 +168,18 @@
 
 **** ISP
 
-| Input Space Partitioning |                |                    |                                  |
-|--------------------------+----------------+--------------------+----------------------------------|
-| Variable                 | Characteristic | Partition          | Value                            |
-|--------------------------+----------------+--------------------+----------------------------------|
-|--------------------------+----------------+--------------------+----------------------------------|
-| cards                    | A) undefined?  | A1) T              | undefined                        |
-|                          |                | A2*) F             | array obj                        |
-|                          | B) size        | B1) 0              | []                               |
-|                          |                | B2) 1              | ['manwe'...]                     |
-|                          |                | B3*) >1            | [{size 7}]                       |
+| Input Space Partitioning |                         |           |              |
+|--------------------------+-------------------------+-----------+--------------|
+| Variable                 | Characteristic          | Partition | Value        |
+|--------------------------+-------------------------+-----------+--------------|
+|--------------------------+-------------------------+-----------+--------------|
+| cards                    | A) undefined?           | A1) T     | undefined    |
+|                          |                         | A2*) F    | array obj    |
+|                          | B) size                 | B1) 0     | []           |
+|                          |                         | B2) 1     | ['manwe'...] |
+|                          |                         | B3*) >1   | [{size 7}]   |
+|                          | C) contains '!learning' | C1*) F    | ...          |
+|                          |                         | C2) T     | !learning    |
 
 **** BCC
 
@@ -188,6 +190,7 @@
 | getTags-cards-undefined       | cards:A1 | Y      |
 | getTags-cards-empty           | cards:B1 |        |
 | getTags-cards-single          | cards:B2 |        |
+| getTags-cards-learning        | cards:C2 |        |
 
 *** modifyMastery
 
