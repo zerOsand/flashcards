@@ -35,8 +35,17 @@ const PreviewPane = ({ index })  => {
 	}
 
 	const TagBox = (text) => {
+		const special = text === '!learning'
 		return (
-				<Box sx = {{ display: 'flex', alignItems: 'center' }}>
+				<Box sx = {{ display: 'flex',
+							 borderRadius: '4px',
+							 alignItems: 'center',
+						   	 padding: '2px 10px',
+						   	 flexShrink: 0,
+							 backgroundColor: special
+							 ? theme.palette.accent.main
+							 : theme.palette.accent.light,
+							 }}>
 					<Typography
 						sx={{
 						fontFamily: theme.typography.fontFamily,
