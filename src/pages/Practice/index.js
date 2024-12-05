@@ -3,7 +3,12 @@ import { Box, Typography, Button } from "@mui/material";
 import { useState, useEffect, } from 'react'
 import Navbar from "../../components/Navbar";
 import { useTheme } from "@mui/material/styles";
-import { RotateLeft, ThumbUp, ThumbDown, Home } from "@mui/icons-material";
+
+import RotateLeft from "@mui/icons-material/RotateLeft"
+import ThumbUp from "@mui/icons-material/ThumbUp"
+import ThumbDown from "@mui/icons-material/ThumbDown"
+import Home from "@mui/icons-material/Home"
+
 import { useCards } from '../../state/CardProvider.js'
 
 const Practice = () => {
