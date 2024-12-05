@@ -4,14 +4,17 @@ import { useState, useEffect, } from 'react'
 import Navbar from "../../components/Navbar";
 import { useTheme } from "@mui/material/styles";
 import { RotateLeft, ThumbUp, ThumbDown, Home } from "@mui/icons-material";
+import { useCards } from '../../state/CardProvider.js'
 
 const Practice = () => {
-	const navigate = useNavigate();
-	const location = useLocation();
-	const theme = useTheme();
-	const [cards, setCards] = useState([]);
-	const [index, setIndex] = useState(0);
+	const navigate = useNavigate()
+	const location = useLocation()
+	const theme = useTheme()
+	const [cards, setCards] = useState([])
+	const [index, setIndex] = useState(0)
 	const [flipped, setFlipped] = useState(false);
+	const [finished, setFinished] = useState(false);
+	const { modifyMastery } = useCards();
 
 	const shuffle = (array) => {
 		for (let i = array.length - 1; i > 0; i--) {
@@ -29,15 +32,45 @@ const Practice = () => {
 	 * Given integer NUM to advance by,
 	 * updates the INDEX.
 	 */
-	const advance = () => {
-		if (flipped) {
-			setIndex((prev) => Math.min(prev + 1, cards.length - 1)); 
-		  }
-		  setFlipped((prev) => !prev); 
+	const advance = (num) => {
+		let i = index + num;
+
+		// first check if we are finished
+		if (i === cards.length * 2)
+			setFinished(true)
+		// set i as min = 0
+		if (i < 0)
+			i = 0
+		// set i as max = cards.length * 2 - 1
+		if (i > cards.length * 2 - 1)
+			i = cards.length * 2 - 1
+		
+		console.log(i)
+		console.log(cards)
+
+		setIndex(i)
+		setFlipped((prev) => !prev);
 	}
 
 	const handleHome = () => {
 		navigate('/')
+	}
+
+	const handleFeedback = (points) => {
+		modifyMastery(cards[Math.floor(index/2)].id, points);
+		if (points === -2) {
+			const cardIndex = Math.floor(index / 2);  
+			const currentCard = cards[cardIndex];
+			setCards((prevCards) => {
+				const newCards = [...prevCards];
+				newCards.splice(cardIndex, 1);
+				newCards.push(currentCard);
+				return newCards;
+			});
+			advance(-1);
+		} else {
+			advance(1);
+		}
 	}
 
 	return (
@@ -89,7 +122,7 @@ const Practice = () => {
 								Front Side
 							</Typography>
 							<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
-								{cards[index]?.front || ""}
+								{cards[Math.floor(index/2)].front || ""}
 							</Typography>
 						</Box>
 					</Box>
@@ -125,7 +158,7 @@ const Practice = () => {
 								Back Side
 							</Typography>
 							<Typography variant="h1" sx={{ whiteSpace: "pre-wrap" }}>
-								{cards[index]?.back || ""}
+								{cards[Math.floor(index/2)].back || ""}
 							</Typography>
 						</Box>
 					</Box>
@@ -139,22 +172,16 @@ const Practice = () => {
 					</Box>
 
 					<Box sx={{ width: "70%", flex: 2, display: "flex", justifyContent: "center" }}>
-						<Button 
-							variant="contained" 
-							onClick={ advance } 
-							sx={{ width: "60%" }} 
-							startIcon={ <RotateLeft/> }
-							disabled={index === cards.length - 1 && flipped}
-						>
-							{flipped ? "Next Card" : "Flip"}
+						<Button variant="contained" onClick={() => advance(1)} disabled={(flipped || finished) ? true : false} sx={{ width: "60%" }} startIcon={ <RotateLeft/> }>
+							Flip
 						</Button>
 					</Box>
 
 					<Box sx={{ width: "10%", flex: 1, display: "flex", justifyContent: "flex-end", gap: 2 }}>
-						<Button variant="outlined" onClick={() => console.log('Again')} disabled={true} startIcon={<ThumbDown/>} sx={{ width: "40%" }}>
+						<Button variant="outlined" onClick={() => handleFeedback(-2) } disabled={flipped ? false : true} startIcon={<ThumbDown/>} sx={{ width: "40%" }}>
 							Again
 						</Button>
-						<Button variant="outlined" onClick={() => console.log('Good')} disabled={true} startIcon={<ThumbUp/>} sx={{ width: "40%"}}>
+						<Button variant="outlined" onClick={() => handleFeedback(1)} disabled={flipped ? false : true} startIcon={<ThumbUp/>} sx={{ width: "40%"}}>
 							Good 
 						</Button>
 					</Box>
