@@ -3,9 +3,26 @@ import { useState, useEffect, useMemo } from 'react'
 import { useCards } from '../../state/CardProvider.js'
 import SearchIcon from '@mui/icons-material/Search';
 
-const Searchbar = ({ onFilteredCardsChange }) => {
+const Searchbar = ({ onFilteredCardsChange, externalTag }) => {
 	const { cards } = useCards();
 	const [searchTerm, setSearchTerm] = useState('')
+
+	useEffect(() => {
+		if (externalTag) {
+			setSearchTerm((prevTerm) => {
+				const conditions = prevTerm.split(' || ').map(condition => condition.trim());
+				const tagExists = conditions.some(condition => condition.includes(externalTag.toLowerCase()));
+				if (!tagExists) {
+					if (conditions.length === 0 || prevTerm === '') {
+						return externalTag.toLowerCase();
+					}
+					return `${prevTerm} || ${externalTag.toLowerCase()}`;
+				}
+
+				return prevTerm; 
+			});
+		}
+	}, [externalTag]);
 
 	const handleSearchChange = (e) => {
 		setSearchTerm(e.target.value.toLowerCase())
