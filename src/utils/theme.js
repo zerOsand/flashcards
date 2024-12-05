@@ -23,7 +23,6 @@ const theme = createTheme({
 			main: "#ffe5e5", // Light pink for tag chips
 			border: "#800000", // Border color for tags
 			light: "#fff0f0",
-			gold: "#F8FFD6"
 		},
 	},
 	typography: {
