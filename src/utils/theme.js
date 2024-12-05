@@ -17,12 +17,13 @@ const theme = createTheme({
 		},
 		text: {
 			primary: "#000", // Black for primary text
-			secondary: "#666", // Gray for secondary text
+			secondary: "#fff", // Gray for secondary text
 		},
 		accent: {
 			main: "#ffe5e5", // Light pink for tag chips
 			border: "#800000", // Border color for tags
-			light: "#fff0f0"
+			light: "#fff0f0",
+			gold: "#F8FFD6"
 		},
 	},
 	typography: {
@@ -117,10 +118,7 @@ theme.tagList = {
 		margin: '4px',
 	},
 	item: (index, active) => ({
-		backgroundColor: theme.palette.accent.light,
-		padding: '2px 10px',
-		borderRadius: '4px',
-		flexShrink: 0,
+		padding: '0px 0px',
 		width: 'fit-content',
 		"&:hover": {
 			backgroundColor: theme.palette.background.default,
