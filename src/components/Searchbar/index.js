@@ -2,7 +2,7 @@ import { TextField, InputAdornment, Button, Tooltip, Box } from "@mui/material";
 import { useState, useEffect, useMemo } from 'react'
 import { useCards } from '../../state/CardProvider.js'
 import SearchIcon from '@mui/icons-material/Search';
-import OpenInFull from '@mui/icons-material/Search';
+import OpenInFull from '@mui/icons-material/OpenInFull';
 import DefaultPopup from '../Popup'
 
 const Searchbar = ({ onFilteredCardsChange }) => {
