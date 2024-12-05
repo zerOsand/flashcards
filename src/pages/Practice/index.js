@@ -109,6 +109,8 @@ const Practice = () => {
 						width: '100%',
 						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 						marginBottom: '20px',
+						paddingTop: '20px',  
+						paddingBottom: '20px',
 					}}> 
 						<Box sx={{
 							display: 'flex',
@@ -126,45 +128,20 @@ const Practice = () => {
 							<Typography variant="body4" sx={{ marginBottom: '15px', }}>
 								Front Side
 							</Typography>
-							<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap', }}>
+							<Typography variant="h1" sx={{ whiteSpace: 'pre-wrap',color: flipped ? theme.palette.primary.main : 'inherit', }}>
 								{cards[Math.floor(index/2)].front || ""}
 							</Typography>
-						</Box>
-					</Box>
-				)}
-				{cards.length > 0 && flipped && (
-					<Box sx={{
-						display: 'flex',
-						justifyContent: 'center',
-						backgroundColor: theme.palette.background.default,
-						borderRadius: '4px',
-						overflowY: 'auto',
-						overflowX: 'hidden',
-						alignItems: 'flex-start',
-						height: '100%',
-						width: '100%',
-						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-						marginBottom: '20px',
-					}}> 
-						<Box sx={{
-							display: 'flex',
-							flexGrow: 1,
-							flexDirection: 'column',
-							justifyContent: 'center',
-							textAlign: 'center',
-							alignItems: 'center',
-							wordWrap: 'anywhere',
-							overflowWrap: 'anywhere',
-							hyphens: 'auto',
-							userSelect: 'none',
-							margin: 'auto',
-						}}> 
-							<Typography variant="body4" sx={{ marginBottom: "15px" }}>
-								Back Side
-							</Typography>
-							<Typography variant="h1" sx={{ whiteSpace: "pre-wrap" }}>
-								{cards[Math.floor(index/2)].back || ""}
-							</Typography>
+							{cards.length > 0 && flipped && (
+								<>
+								<Box sx={{ height: '10px' }} />
+								<Typography variant="body4" sx={{ marginBottom: "15px" }}>
+									Back Side
+							    </Typography>
+							    <Typography variant="h1" sx={{ whiteSpace: "pre-wrap" }}>
+								    {cards[Math.floor(index/2)].back || ""}
+							    </Typography>
+								</>
+				            )}
 						</Box>
 					</Box>
 				)}
