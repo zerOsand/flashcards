@@ -9,6 +9,7 @@ import { useTheme } from "@mui/material/styles";
 const Selector = ({onAdd, onRemove, tags}) => {
 	const theme = useTheme();
 
+	tags = tags.filter(tag => tag !== '!learning')
 	const { getTags } = useCards();
  	const [inputValue, setInputValue] = useState('')
 	const [matchedTags, setMatchedTags] = useState([])
@@ -97,11 +98,11 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	}
 
 	const AddNew = () => {
-		const inputInTags = tags.includes(inputValue)
+		const valid = !tags.includes(inputValue) && inputValue !== '!learning'
 		return (
 			<ListItem
 				onClick={(e) => {
-					if (!inputInTags) {
+					if (valid) {
 						e.stopPropagation()
 						onAdd(inputValue)
 						setInputValue('')
@@ -109,9 +110,9 @@ const Selector = ({onAdd, onRemove, tags}) => {
 				}}
 				sx={{
 					...selectorList.item(undefined, true),
-					cursor: inputInTags ? 'not-allowed' : 'pointer',
-					opacity: inputInTags ? 0.5 : 1,
-					...(inputInTags && {
+					...((!valid) && {
+						cursor: 'not-allowed',
+						opacity: 0.5,
 						"&:hover": {
 							pointerEvents: 'none',
 						},

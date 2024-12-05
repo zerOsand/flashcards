@@ -347,6 +347,14 @@ describe('CardProvider', () => {
 		expect(result.current.getTags()).toStrictEqual(['ainur', 'immortal', 'moral'])
 	})
 
+	test('getTags-cards-learning', () => {
+		act(() => {
+			result.current.editCard(1, testCards[0].front, testCards[0].back, [...testCards[0].tags, "!learning"])
+		})
+		expect(result.current.getTags()).toStrictEqual(['elf', 'human', 'immortal', 'magician', 'maia',
+														'mortal', 'outlaw', 'werewolf', 'wolf'])
+	})
+
 	/* END GETTAGS */
 	/* BEGIN MODIFYMASTERY */
 

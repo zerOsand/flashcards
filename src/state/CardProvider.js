@@ -76,7 +76,7 @@ export const CardProvider = ({children}) => {
 		const tags = new Set()
 		cards.forEach((card) => {
 			card.tags.forEach((tag) => {
-				tags.add(tag)
+				tag !== '!learning' && tags.add(tag)
 			});
 		});
 		return Array.from(tags).sort()
@@ -172,7 +172,7 @@ export const CardProvider = ({children}) => {
 	
 		return data.every((item) => {
 			// check extraneous fields
-			const allowedKeys = ["id", "front", "back", "tags"];
+			const allowedKeys = ["id", "front", "back", "tags", "master"];
 			const itemKeys = Object.keys(item);
 	
 			if (!itemKeys.every((key) => allowedKeys.includes(key))) {
@@ -184,6 +184,7 @@ export const CardProvider = ({children}) => {
 				typeof item.id === "number" &&
 				typeof item.front === "string" &&
 				typeof item.back === "string" &&
+				typeof item.master === "number" &&
 				Array.isArray(item.tags) &&
 				item.tags.every((tag) => typeof tag === "string")
 			);
