@@ -25,7 +25,7 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 
 	return (
 		<TextField
-			placeholder="tag1 && tag2 || tag3"
+			placeholder="tag1 ^ (tag2 | !tag3) & tag4"
 			value={searchTerm}
 			onChange={handleSearchChange}
 			variant="standard"

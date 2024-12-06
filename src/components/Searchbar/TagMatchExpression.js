@@ -7,7 +7,7 @@ function evaluateExpression(tokens, tags) {
     const stack = []
 
     for (const token of tokens) {
-        if (['&&', '||', '!'].includes(token)) {
+        if (['&', '|', '!', '^'].includes(token)) {
             stack.push(token)
         } else if (token === '(') {
             stack.push(token)
@@ -28,8 +28,9 @@ function evaluateExpression(tokens, tags) {
 }
 
 /**
- * Expression ::= Term '||' Term
- * Term       ::= Factor '&&' Factor
+ * Expression ::= Term '|' Term
+ *            ::= Term '^' Term
+ * Term       ::= Factor '&' Factor
  * Factor     ::= id
  *            ::= ! Factor
  */
@@ -37,17 +38,21 @@ function Descend(stack) {
 
 	function Expression() {
 		let left = Term()
-		while (stack[0] === '||') {
-			stack.shift()
+		while (['|', '^'].includes(stack[0])) {
+			const operator = stack.shift()
 			const right = Term()
-			left = left || right
+			if (operator === '|')
+				left = left || right
+			else {
+				left = left != right
+			}
 		}
 		return left
 	}
 
 	function Term() {
 		let left = Factor()
-		while (stack[0] === '&&') {
+		while (stack[0] === '&') {
 			stack.shift()
 			const right = Factor()
 			left = left && right
@@ -74,7 +79,7 @@ function Descend(stack) {
 }
 
 function tokenize(input) {
-    const regex = /\s*(&&|\|\||!|[()])\s*|(\w+)/g;
+    const regex = /\s*(&|\||\^|!|[()])\s*|(\w+)/g;
     return input.match(regex).map(token => token.trim()).filter(token => token.length > 0);
 }
 
