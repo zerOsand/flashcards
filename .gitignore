@@ -7,3 +7,4 @@
 /.dir-locals.el
 /manifest.scm
 *.DS_Store
+/src/tests/Exporter.org
