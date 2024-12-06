@@ -316,7 +316,6 @@ Below lists each use case and diagram detailing possible system/user interaction
   #+end_src
 
   #+ATTR_HTML: :width 1100px
-  #+RESULTS:
   [[file:images/1.png]]
 
 ** Use Case 2: Create Flashcard
@@ -348,7 +347,6 @@ Below lists each use case and diagram detailing possible system/user interaction
   #+end_src
 
   #+ATTR_HTML: :width 1100px
-  #+RESULTS:
   [[file:images/2.png]]
 
 ** Use Case 3: View Flashcard
