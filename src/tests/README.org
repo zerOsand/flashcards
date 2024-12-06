@@ -1,7 +1,10 @@
 #+TITLE:  CS520 Testing README
 #+AUTHOR: gr13
 #+DATE:   2024-12-05 December
-#+PROPERTY:    header-args   :results none   :eval no-export   :comments no
+#+PROPERTY: header-args :results none :eval no-export :comments no
+#+OPTIONS: toc:nil html-postamble:nil html-preamble:nil d:nil
+#+OPTIONS: num:nil todo:nil tasks:nil tags:nil date:nil
+#+OPTIONS: skip:nil author:nil email:nil creator:nil timestamp:nil
 
 
 * Files tested using Input Space Partitioning (ISP):
