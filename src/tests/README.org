@@ -259,35 +259,61 @@
 | modifyMastery-num-5           | cards:B3 | mastery:A3 | id: B3 | num:B5 |   |
 | modifyMastery-num-string      | cards:B3 | mastery:A3 | id: B3 | num:C2 | Y |
 
-** searchbar
-
-(many combinations are impossible here, so it was tested loosely adhering to this)
-
-**** ISP
-
-| Input Space Partitioning |                |             |
-|--------------------------+----------------+-------------|
-| Variable                 | Characteristic | Partition   |
-|--------------------------+----------------+-------------|
-|--------------------------+----------------+-------------|
-| words                    | A) number      | AaaA1) 0      |
-|                          |                | A2*) 1      |
-|                          |                | A3) 2       |
-|                          |                | A4) > 2     |
-|                          | B) validity    | VBVBBB1*) valid |
-|                          |                | B2) invalid |
-|                          |                | B3) mixed   |
-| operators                | C) and         | C1*) none   |
-|                          |                | C2) 1       |
-|                          |                | C3) >1      |
-|                          | D) or          | D1*) none   |
-|                          |                | D2) 1       |
-|                          |                | D3) >1      |
-|                          | E) and+or      | E1) Y       |
-|                          |                | E2*) N      |
 
 * Files tested using Workflows:
 
-* Simple Tests
+* No Specific Strategy
 
-- cookie.js
+** TagMatchExpression
+
+This file implements a parser---the input domain was too big to perform ISP.
+
+Tests were designed by using a varying number of &&s and ||s. Each test expression was evaluated against a list of strings that were expected to match, and one that was not.
+
+In the cases both &&s and ||s were used, there exists a test that follows the natural order of operations, and one that adds parenthesis to reverse the order.
+
+Many of these tests also include a variation that introduces a NOT (!) which is placed to reverse the final result.
+
+The lexer tests include:
+
+- 'single tag'
+- 'two tags'
+- 'two tags AND'
+- 'two tags OR'
+- 'paren tag'
+- 'NOT tag'
+- 'complex expression'
+- 'complex expression whitespace'
+
+The &&, ||, !, and parenthesis tests include:
+- 'zero tags'
+
+- 'one tag matched'
+- 'one tag unmatched'
+- 'one tag one ! matched'
+- 'one tag one ! umatched'
+- 'one && matched'
+- 'one && umatched'
+- 'two && matched'
+- 'two && umatched'
+- 'one || matched'
+- 'one || umatched'
+- 'two || matched'
+- 'two || umatched'
+- 'one && one || matched 1.1'
+- 'one && one || matched 1.2'
+- 'one && one || umatched 1.3'
+- 'one && one || one ! matched 1.4'
+- 'one && one || matched 2.1'
+- 'one && one || matched 2.2'
+- 'one && one || umatched 2.3'
+- 'one && one || one ! matched 2.4'
+
+As well as tests against invalid input:
+- '() all invalid'
+- '&& tag1 all invalid'
+- '&& tag1 all invalid'
+- '!&& && tag2 first invalid'
+- '!&& || tag2 first invalid'
+- 'tag2 && !! second invalid'
+- 'tag2 || !! second invalid'
