@@ -1,7 +1,7 @@
 #+TITLE:  CS520 Testing README
 #+AUTHOR: gr13
 #+DATE:   2024-12-05 December
-#+PROPERTY: header-args :exports results :session a
+#+PROPERTY:    header-args   :results none   :eval no-export   :comments no
 
 
 * Files tested using Input Space Partitioning (ISP):
