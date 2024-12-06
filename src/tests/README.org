@@ -1,3 +1,9 @@
+#+TITLE:  CS520 Testing README
+#+AUTHOR: gr13
+#+DATE:   2024-12-05 December
+#+PROPERTY: header-args :exports results :session a
+
+
 * Files tested using Input Space Partitioning (ISP):
 
 '*' signifies base choice in ISP tables.
@@ -287,6 +293,83 @@
 |                          |                | E2*) N      |
 
 * Files tested using Workflows:
+
+Below lists each use case and diagram detailing possible system/user interactions.
+
+** Use Case 1: View Flashcards
+#+begin_src dot :file images/1.png
+  digraph g {
+  rankdir=TB;
+  node [shape = point ]; qi
+  node [shape = box];
+  A [label = "1.1 (User). Arrives at homepage"]
+  B [label = "1.2 (System). Displays unfiltered list of flashcards"]
+  C [label = "2.1 (User). Clicks on add button (⋔ Create Flashcard)"]
+  D [label = "3.1 (User). Clicks on a flashcard (⋔ View Flashcard)"]
+  E [label = "9.1 (User). Clicks on searchbar (⋔ Filter Flashcards)"]
+  qi -> A
+  A -> B
+  B -> C
+  B -> D
+  B -> E
+  }
+  #+end_src
+
+  #+ATTR_HTML: :width 1100px
+  #+RESULTS:
+  [[file:images/1.png]]
+
+** Use Case 2: Create Flashcard
+#+begin_src dot :file images/2.png
+  digraph g {
+  rankdir=TB;
+  node [shape = point ]; qi
+  node [shape = box];
+  A [label = "2.1 (User). Clicks on add button"]
+  B [label = "2.2 (System). Prompts user for front, back, and tags"]
+  C [label = "2.3 (User). Enters front and back"]
+  D [label = "2.4 (User). Cancels card creation"]
+  E [label = "2.5 (User). Submits card creation form"]
+  F [label = "2.6 (System). Adds flashcard to list of flashcards"]
+  G [label = "1.2 (System). Displays unfiltered list of flashcards (⋔ View Flashcards)"]
+  H [label = "4.1 (User). Types in tag menu (⋔ Add Tag)"]
+  qi -> A
+  A -> B
+  B -> C
+  B -> D
+  C -> D
+  C -> E
+  C -> H
+  H -> E
+  D -> G
+  E -> F
+  F -> G
+  }
+  #+end_src
+
+  #+ATTR_HTML: :width 1100px
+  #+RESULTS:
+  [[file:images/2.png]]
+
+** Use Case 3: View Flashcard
+** Use Case 4: Add Tag
+#+begin_src dot :file images/1.png
+  digraph g {
+  rankdir=TB;
+  node [shape = doublecircle]; A;
+  node [shape = point ]; qi
+  node [shape = circle];
+  A [label = "1 (User). "]
+  }
+  #+end_src
+** Use Case 5: Create Tag
+** Use Case 6: Remove Tag
+** Use Case 7: Edit Flashcard
+** Use Case 8: Delete Flashcard
+** Use Case 9: Filter Flashcards
+** Use Case 10: Practice Flashcards
+** Use Case 11: Export Flashcards
+** Use Case 12: Import Flashcards
 
 * Simple Tests
 
