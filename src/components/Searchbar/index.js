@@ -2,6 +2,7 @@ import { TextField, InputAdornment } from "@mui/material";
 import { useState, useEffect, useMemo } from 'react'
 import { useCards } from '../../state/CardProvider.js'
 import SearchIcon from '@mui/icons-material/Search';
+import { tagsMatchExpression } from './TagMatchExpression'
 
 const Searchbar = ({ onFilteredCardsChange }) => {
 	const { cards } = useCards();
@@ -15,13 +16,7 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 		if (searchTerm.length === 0)
 			return cards
 
-		const or = searchTerm.split('||').map(t => t.trim())
-
-		return cards.filter(card => or.some(g => {
-			const and = g.split('&&').map(t => t.trim())
-			return and.every(t => card.tags.some(tag =>
-				tag.toLowerCase() === t))
-		}))
+		return cards.filter(card => tagsMatchExpression(searchTerm, card.tags))
 	}, [cards, searchTerm]);
 
 	useEffect(() => {
@@ -30,7 +25,7 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 
 	return (
 		<TextField
-			placeholder="tag1 && tag2 || tag3"
+			placeholder="tag1 ^ (tag2 | !tag3) & tag4"
 			value={searchTerm}
 			onChange={handleSearchChange}
 			variant="standard"
