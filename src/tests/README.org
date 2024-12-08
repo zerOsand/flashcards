@@ -187,8 +187,8 @@
 |                          | B) size                 | B1) 0     | []           |
 |                          |                         | B2) 1     | ['manwe'...] |
 |                          |                         | B3*) >1   | [{size 7}]   |
-|                          | C) contains '!learning' | C1*) F    | ...          |
-|                          |                         | C2) T     | !learning    |
+|                          | C) contains 'learning'  | C1*) F    | ...          |
+|                          |                         | C2) T     | learning     |
 
 **** BCC
 

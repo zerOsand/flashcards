@@ -349,7 +349,7 @@ describe('CardProvider', () => {
 
 	test('getTags-cards-learning', () => {
 		act(() => {
-			result.current.editCard(1, testCards[0].front, testCards[0].back, [...testCards[0].tags, "!learning"])
+			result.current.editCard(1, testCards[0].front, testCards[0].back, [...testCards[0].tags, "learning"])
 		})
 		expect(result.current.getTags()).toStrictEqual(['elf', 'human', 'immortal', 'magician', 'maia',
 														'mortal', 'outlaw', 'werewolf', 'wolf'])
@@ -366,7 +366,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].id).toBe(1)
 		expect(result.current.cards[0].front).toBe(testCards[0].front)
 		expect(result.current.cards[0].back).toBe(testCards[0].back)
-		expect(result.current.cards[0].tags).toStrictEqual([ '!learning', ...testCards[0].tags])
+		expect(result.current.cards[0].tags).toStrictEqual([ 'learning', ...testCards[0].tags])
 		expect(result.current.cards[0].master).toBe(testCards[0].master - 1)
 	})
 
@@ -395,7 +395,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].id).toBe(1)
 		expect(result.current.cards[0].front).toBe(singleCard.front)
 		expect(result.current.cards[0].back).toBe(singleCard.back)
-		expect(result.current.cards[0].tags).toStrictEqual([ '!learning', ...singleCard.tags])
+		expect(result.current.cards[0].tags).toStrictEqual([ 'learning', ...singleCard.tags])
 		expect(result.current.cards[0].master).toBe(singleCard.master - 1)
 	})
 
@@ -411,7 +411,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].id).toBe(1)
 		expect(result.current.cards[0].front).toBe(testCards[0].front)
 		expect(result.current.cards[0].back).toBe(testCards[0].back)
-		expect(result.current.cards[0].tags).toStrictEqual([ '!learning', ...testCards[0].tags])
+		expect(result.current.cards[0].tags).toStrictEqual([ 'learning', ...testCards[0].tags])
 		expect(result.current.cards[0].master).toBe(-4)
 	})
 
@@ -483,7 +483,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[testCards.length-1].id).toBe(testCards.length)
 		expect(result.current.cards[testCards.length-1].front).toBe(testCards[testCards.length-1].front)
 		expect(result.current.cards[testCards.length-1].back).toBe(testCards[testCards.length-1].back)
-		expect(result.current.cards[testCards.length-1].tags).toStrictEqual([ '!learning', ...testCards[testCards.length-1].tags])
+		expect(result.current.cards[testCards.length-1].tags).toStrictEqual([ 'learning', ...testCards[testCards.length-1].tags])
 		expect(result.current.cards[testCards.length-1].master).toBe(testCards[testCards.length-1].master - 1)
 		expect(result.current.cards[0].master).toBe(0)
 	})
@@ -508,7 +508,7 @@ describe('CardProvider', () => {
 		expect(result.current.cards[0].id).toBe(1)
 		expect(result.current.cards[0].front).toBe(testCards[0].front)
 		expect(result.current.cards[0].back).toBe(testCards[0].back)
-		expect(result.current.cards[0].tags).toStrictEqual([ '!learning', ...testCards[0].tags])
+		expect(result.current.cards[0].tags).toStrictEqual([ 'learning', ...testCards[0].tags])
 		expect(result.current.cards[0].master).toBe(testCards[0].master - 5)
 	})
 

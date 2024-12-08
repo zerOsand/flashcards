@@ -76,7 +76,7 @@ export const CardProvider = ({children}) => {
 		const tags = new Set()
 		cards.forEach((card) => {
 			card.tags.forEach((tag) => {
-				tag !== '!learning' && tags.add(tag)
+				tag !== 'learning' && tags.add(tag)
 			});
 		});
 		return Array.from(tags).sort()
@@ -92,9 +92,9 @@ export const CardProvider = ({children}) => {
 		const master = (cards[index].master || 0) + num
 		let tags
 		if (master < 0)
-			tags = [...new Set(['!learning', ...(cards[index].tags || [])])]
+			tags = [...new Set(['learning', ...(cards[index].tags || [])])]
 		else
-			tags = (cards[index].tags || []).filter(tag => tag !== '!learning')
+			tags = (cards[index].tags || []).filter(tag => tag !== 'learning')
 
 		setCards([...cards.slice(0, index), { ...cards[index],
 											  master: master,
