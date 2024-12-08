@@ -1,3 +1,12 @@
+#+TITLE:  CS520 Testing README
+#+AUTHOR: gr13
+#+DATE:   2024-12-05 December
+#+PROPERTY: header-args :results none :eval no-export :comments no
+#+OPTIONS: toc:nil html-postamble:nil html-preamble:nil d:nil
+#+OPTIONS: num:nil todo:nil tasks:nil tags:nil date:nil
+#+OPTIONS: skip:nil author:nil email:nil creator:nil timestamp:nil
+
+
 * Files tested using Input Space Partitioning (ISP):
 
 '*' signifies base choice in ISP tables.
@@ -262,6 +271,34 @@
 
 * Files tested using Workflows:
 
+Below lists each use case and diagram detailing possible system/user interactions.
+
+** Use Case 1: View Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/1.png]]
+** Use Case 2: Create Flashcard
+  #+ATTR_HTML: :width 1100px
+  [[file:images/2.png]]
+** Use Case 3: View Flashcard
+  #+ATTR_HTML: :width 1100px
+  [[file:images/3.png]]
+** Use Case 4: Add & Create Tag
+  #+ATTR_HTML: :width 1100px
+  [[file:images/4.png]]
+** Use Case 5: Remove Tag
+  #+ATTR_HTML: :width 1100px
+  [[file:images/5.png]]
+** Use Case 6: Edit Flashcard
+  #+ATTR_HTML: :width 1100px
+  [[file:images/6.png]]
+** Use Case 7: Delete Flashcard
+  #+ATTR_HTML: :width 1100px
+  [[file:images/6.png]]
+** Use Case 8: Filter Flashcards
+** Use Case 9: Practice Flashcards
+** Use Case 10: Export Flashcards
+** Use Case 11: Import Flashcards
+
 * No Specific Strategy
 
 ** TagMatchExpression
@@ -287,7 +324,7 @@ The lexer tests include:
 - 'complex expression'
 - 'complex expression whitespace'
 
-The &, |, !, and parenthesis tests include:
+The &, |, ^, !, and parenthesis tests include:
 - 'zero tags'
 - 'one tag matched'
 - 'one tag unmatched'
