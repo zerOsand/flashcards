@@ -9,7 +9,7 @@ import { useTheme } from "@mui/material/styles";
 const Selector = ({onAdd, onRemove, tags}) => {
 	const theme = useTheme();
 
-	tags = tags.filter(tag => tag !== '!learning')
+	tags = tags.filter(tag => tag !== 'learning')
 	const { getTags } = useCards();
  	const [inputValue, setInputValue] = useState('')
 	const [matchedTags, setMatchedTags] = useState([])
@@ -29,7 +29,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	}, [inputValue, tags]);
 
 	const handleInputChange = (event) => {
-		setInputValue(event.target.value)
+		setInputValue(event.target.value.replace(/[^a-zA-Z0-9-]/g, ''))
 	}
 
 	const handleAdd = (index) => {
@@ -98,7 +98,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 	}
 
 	const AddNew = () => {
-		const valid = !tags.includes(inputValue) && inputValue !== '!learning'
+		const valid = !tags.includes(inputValue) && inputValue !== 'learning'
 		return (
 			<ListItem
 				onClick={(e) => {
@@ -131,7 +131,7 @@ const Selector = ({onAdd, onRemove, tags}) => {
 						height: '100%' }}>
 					<Box sx={{ display: 'flex'}}>
 					<TextField
-						placeholder='Filter...'
+						placeholder='new-tag'
 						value={inputValue}
 						onChange={handleInputChange}
 						variant='standard'

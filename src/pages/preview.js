@@ -35,7 +35,7 @@ const PreviewPane = ({ index })  => {
 	}
 
 	const TagBox = (text) => {
-		const special = text === '!learning'
+		const special = text === 'learning'
 		return (
 				<Box sx = {{ display: 'flex',
 							 borderRadius: '4px',
