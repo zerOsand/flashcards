@@ -1,16 +1,18 @@
 import { TextField, InputAdornment } from "@mui/material";
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, createContext, } from 'react'
 import { useCards } from '../../state/CardProvider.js'
+import { useSearch } from './SearchContext.js'
 import SearchIcon from '@mui/icons-material/Search';
+
 
 const Searchbar = ({ onFilteredCardsChange }) => {
 	const { cards } = useCards();
-	const [searchTerm, setSearchTerm] = useState('')
+	const { searchTerm, setSearchTerm } = useSearch()
 
 	const handleSearchChange = (e) => {
 		setSearchTerm(e.target.value.toLowerCase())
 	}
-	
+
 	const sortedAndFilteredCards = useMemo(() => {
 		if (searchTerm.length === 0)
 			return cards
