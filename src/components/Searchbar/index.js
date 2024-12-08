@@ -28,7 +28,7 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 	}, [sortedAndFilteredCards, onFilteredCardsChange]);
 
 	const textFieldProps = {
-		placeholder: "tag1 && tag2 || tag3",
+		placeholder: "tag1 ^ (tag2 | !tag3) & tag4",
 		value: searchTerm,
 		onChange: handleSearchChange,
 		variant: "standard",
@@ -94,20 +94,7 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 			</DefaultPopup>
 		</>
 
-		<TextField
-			placeholder="tag1 ^ (tag2 | !tag3) & tag4"
-			value={searchTerm}
-			onChange={handleSearchChange}
-			variant="standard"
-            InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start">
-                        <SearchIcon />
-                    </InputAdornment>
-                ),
-            }}
-			fullWidth
-		/>
+
 	);
 }
 
