@@ -6,11 +6,28 @@ import OpenInFull from '@mui/icons-material/OpenInFull';
 import DefaultPopup from '../Popup'
 import { tagsMatchExpression } from './TagMatchExpression'
 
-const Searchbar = ({ onFilteredCardsChange }) => {
+const Searchbar = ({ onFilteredCardsChange, externalTag }) => {
 	const { cards } = useCards();
 	const [searchTerm, setSearchTerm] = useState('')
 	const [expandOpen, setExpandOpen] = useState(false)
 
+
+	useEffect(() => {
+		if (externalTag) {
+			setSearchTerm((prevTerm) => {
+				const conditions = prevTerm.split(' || ').map(condition => condition.trim());
+				const tagExists = conditions.some(condition => condition.includes(externalTag.toLowerCase()));
+				if (!tagExists) {
+					if (conditions.length === 0 || prevTerm === '') {
+						return externalTag.toLowerCase();
+					}
+					return `${prevTerm} || ${externalTag.toLowerCase()}`;
+				}
+
+				return prevTerm; 
+			});
+		}
+	}, [externalTag]);
 
 	const handleSearchChange = (e) => {
 		setSearchTerm(e.target.value.toLowerCase())

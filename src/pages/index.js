@@ -20,6 +20,11 @@ const Home = () => {
 	const [activeIndex, setActiveIndex] = useState(undefined);
 	const [filteredCards, setFilteredCards] = useState(cards);
 	const [open, setOpen] = useState(false)
+	const [selectedTag, setSelectedTag] = useState(null);
+
+    const handleTagSelect = (tag) => {
+        setSelectedTag(tag); 
+    };
 
 	const convertIndex = (array, target) => {
 		return array.findIndex((item) => {
@@ -147,7 +152,7 @@ const Home = () => {
 							</Tooltip>
 							
 					    </Box>
-						<Searchbar onFilteredCardsChange={handleFilteredCardsChange} />
+						<Searchbar externalTag={selectedTag} onFilteredCardsChange={handleFilteredCardsChange} />
 						<Button disableRipple variant="outlined"
 								onClick={() => handlePractice()}
 								disabled={filteredCards.length === 0} >
@@ -185,7 +190,7 @@ const Home = () => {
 						width: "55%",
 					}}
 				>
-					<PreviewPane index={{activeIndex, setActiveIndex}} />
+					<PreviewPane index={{activeIndex, setActiveIndex}} onTagSelect={handleTagSelect} />
 				</Box>
 			</Box>
 		</Box>
