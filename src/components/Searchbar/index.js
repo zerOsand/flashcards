@@ -1,14 +1,16 @@
 import { TextField, InputAdornment, Button, Tooltip, Box } from "@mui/material";
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, createContext, } from 'react'
 import { useCards } from '../../state/CardProvider.js'
+import { useSearch } from './SearchContext.js'
 import SearchIcon from '@mui/icons-material/Search';
 import OpenInFull from '@mui/icons-material/OpenInFull';
 import DefaultPopup from '../Popup'
 import { tagsMatchExpression } from './TagMatchExpression'
 
+
 const Searchbar = ({ onFilteredCardsChange }) => {
 	const { cards } = useCards();
-	const [searchTerm, setSearchTerm] = useState('')
+	const { searchTerm, setSearchTerm } = useSearch()
 	const [expandOpen, setExpandOpen] = useState(false)
 
 
