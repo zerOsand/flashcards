@@ -32,7 +32,7 @@ const PreviewPane = ({ index })  => {
 			}
 			
 			// Else append the new tag
-			return `${prev} ${/[\^&|]$/.test(trimmedPrev) ? '' : '| '}${newTag}`; 
+			return `${trimmedPrev} ${/[\^&|]$/.test(trimmedPrev) ? '' : '| '}${newTag}`; 
 		});
 	};
 
