@@ -22,9 +22,23 @@ const PreviewPane = ({ index })  => {
 	const { searchTerm, setSearchTerm } = useSearch()
 
 	const handleTagClick = (tagIndex) => {
-		setSearchTerm((prev) => 
-			`${prev}${/[\^&|]/.test(prev) || searchTerm.length === 0 ? '' : ' | '}${cards[activeIndex].tags[tagIndex].toLowerCase()}`
-		);
+		setSearchTerm((prev) => {
+			const trimmedPrev = prev.trimEnd();
+			const newTag = cards[activeIndex].tags[tagIndex].toLowerCase();
+	
+			// Check if search is empty
+			if (trimmedPrev.length === 0) {
+				return newTag;
+			}
+	
+			// Check if last char is a special char
+			if (/[\^&|]$/.test(trimmedPrev)) {
+				return `${prev}${newTag}`; 
+			}
+	
+			// Else append '| tag'
+			return `${prev} | ${newTag}`; 
+		});
 	};
 
 	useEffect(() => {
