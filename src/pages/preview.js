@@ -24,7 +24,7 @@ const PreviewPane = ({ index })  => {
 	const handleTagClick = (tagIndex) => {
 		setSearchTerm((prev) => {
 			const trimmedPrev = prev.trimEnd();
-			const newTag = cards[activeIndex].tags[tagIndex].toLowerCase();
+			const newTag = cards[activeIndex].tags[tagIndex]
 	
 			// Check if search is empty
 			if (trimmedPrev.length === 0) {
@@ -33,7 +33,7 @@ const PreviewPane = ({ index })  => {
 	
 			// Check if last char is a special char
 			if (/[\^&|]$/.test(trimmedPrev)) {
-				return `${prev}${newTag}`; 
+				return `${prev} ${newTag}`; 
 			}
 	
 			// Else append '| tag'
