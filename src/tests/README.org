@@ -293,11 +293,19 @@ Below lists each use case and diagram detailing possible system/user interaction
   [[file:images/6.png]]
 ** Use Case 7: Delete Flashcard
   #+ATTR_HTML: :width 1100px
-  [[file:images/6.png]]
+  [[file:images/7.png]]
 ** Use Case 8: Filter Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/8.png]]
 ** Use Case 9: Practice Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/9.png]]
 ** Use Case 10: Export Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/10.png]]
 ** Use Case 11: Import Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/11.png]]
 
 * No Specific Strategy
 
