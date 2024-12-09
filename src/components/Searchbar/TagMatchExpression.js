@@ -1,8 +1,27 @@
+/**
+ * `tagsMatchExpression` evaluates a search expression against a list of tags.
+ * It tokenizes the expression and uses logical operators (`&`, `|`, `^`, `!`) 
+ * to check if the tags match the expression.
+ * 
+ * @param {string} expression - The search expression with logical operators and tag names.
+ * @param {string[]} tags - The list of tags to compare against the expression.
+ * 
+ * @returns {boolean} `true` if the tags match the expression, otherwise `false`.
+ */
 function tagsMatchExpression(expression, tags) {
 	const tokens = tokenize(expression)
 	return evaluateExpression(tokens, tags)
 }
 
+/**
+ * `evaluateExpression` processes tokens and evaluates a logical expression 
+ * using operators like AND (`&`), OR (`|`), XOR (`^`), and NOT (`!`).
+ * 
+ * @param {string[]} tokens - The list of tokens representing the logical expression.
+ * @param {string[]} tags - The tags to match against the tokens.
+ * 
+ * @returns {boolean} The result of the logical expression.
+ */
 function evaluateExpression(tokens, tags) {
     const stack = []
 
@@ -28,14 +47,20 @@ function evaluateExpression(tokens, tags) {
 }
 
 /**
- * Expression ::= Term '|' Term
- *            ::= Term '^' Term
- * Term       ::= Factor '&' Factor
- * Factor     ::= id
- *            ::= ! Factor
+ * `Descend` processes the logical expression, 
+ * applying logical operations based on precedence and parentheses.
+ * 
+ * @param {Array} stack - The tokens to evaluate.
+ * 
+ * @returns {boolean} The result of the evaluated expression.
  */
 function Descend(stack) {
 
+	/**
+     * `Expression` parses and evaluates a logical OR (`|`) or XOR (`^`) expression.
+     * 
+     * @returns {boolean} The result of the evaluated expression.
+     */
 	function Expression() {
 		let left = Term()
 		while (['|', '^'].includes(stack[0])) {
@@ -50,6 +75,11 @@ function Descend(stack) {
 		return left
 	}
 
+	/**
+     * `Term` parses and evaluates AND (`&`) expressions.
+     * 
+     * @returns {boolean} The result of the evaluated term.
+     */
 	function Term() {
 		let left = Factor()
 		while (stack[0] === '&') {
@@ -60,10 +90,12 @@ function Descend(stack) {
 		return left
 	}
 
-	/**
-	 * Evaluates to TRUE if
-	 * input is invalid.
-	 */
+    /**
+     * `Factor` processes individual tokens and applies the NOT (`!`) operator.
+     * Returns `true` if the token is invalid.
+     * 
+     * @returns {boolean} The result of the evaluated factor.
+     */
 	function Factor() {
 		let token = stack.shift()
 		if (token === undefined) return true
@@ -78,6 +110,13 @@ function Descend(stack) {
 	return Expression()
 }
 
+/**
+ * `tokenize` splits a string expression into individual tokens (operators, tags, parentheses).
+ * 
+ * @param {string} input - The expression to tokenize.
+ * 
+ * @returns {string[]} An array of tokens from the input string.
+ */
 function tokenize(input) {
     const regex = /\s*(&|\||\^|!|[()])\s*|(\w+)/g;
     return input.match(regex).map(token => token.trim()).filter(token => token.length > 0);

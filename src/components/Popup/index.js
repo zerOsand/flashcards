@@ -1,6 +1,10 @@
 import { Modal, Box } from '@mui/material/';
 import React from 'react';
 
+/**
+ * Default styles.
+ * These styles can be overridden by the `style` prop.
+ */
 const defaultStyle = {
 	overlay: {
 		position: 'fixed',
@@ -23,6 +27,17 @@ const defaultStyle = {
 	},
 }
 
+/**
+ * `DefaultPopup` is a modal component that displays content in a customizable popup window. 
+ * 
+ * @param {Object} props - The props for the `DefaultPopup` component.
+ * @param {boolean} open - Controls whether the modal is open or closed.
+ * @param {function} onClose - Function to call when the modal is closed (usually by clicking the overlay).
+ * @param {Object} [style] - Optional custom styles for the overlay and modal box.
+ * @param {ReactNode} children - The content to display inside the modal (text, forms, etc.).
+ * 
+ * @returns {JSX.Element} A modal popup with a dark overlay and a centered modal box containing the passed content.
+ */
 function DefaultPopup({ open, onClose, style, children }) {
 	style = style || defaultStyle
 	return (

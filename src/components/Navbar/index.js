@@ -1,11 +1,25 @@
 import UmassLogo from "../../umassLogo";
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
-
 import { styled } from "@mui/system";
+
+/**
+ * Styled `AppBar` for the custom navbar.
+ * Uses the theme's primary contrast color for the background and primary text color for the text.
+ * 
+ * @returns {JSX.Element} A styled AppBar component.
+ */
 const Navbars = styled(AppBar)(({ theme }) => ({
 	backgroundColor: theme.palette.primary.contrastText, // Maroon from your theme
 	color: theme.palette.text.primary, // Dark text color
 }));
+
+/**
+ * Using MUI, displays:
+ * - A disabled logo button (`IconButton`), which can be enabled or customized.
+ * - A title displayed in the center of the navbar.
+ * 
+ * @returns {JSX.Element} The navigation bar with the logo and title.
+ */
 const Navbar = () => {
 	return (
 		<>

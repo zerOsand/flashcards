@@ -1,5 +1,7 @@
-import { Box, List, ListItem, ListItemText } from '@mui/material';
-
+/**
+ * Default styles.
+ * These styles can be overridden by the `style` prop.
+ */
 const defaultStyle = {
 	container: {
 	},
@@ -9,6 +11,19 @@ const defaultStyle = {
 	}),
 }
 
+/**
+ * `ClickList` is a React component that renders a clickable list with optional custom styles and an optional prepended item.
+ * 
+ * @param {Object} props - The input properties for the `ClickList` component.
+ * @param {number} active - The index of the active item, used to highlight it.
+ * @param {Array} list - An array of items to display in the list.
+ * @param {Function} [item] - Optional: A custom function to render list items.
+ * @param {Function} event - A function to call when an item is clicked, receives the index of the clicked item.
+ * @param {Object} [styles] - Optional: Custom styles to override the default styles.
+ * @param {Function} [prependItem] - Optional: A function to prepend an object to the list.
+ * 
+ * @returns {JSX.Element} A `Box` component containing the list of clickable `ListItem` components.
+ */
 const ClickList = ({ active, list, item, event, styles, prependItem }) => {
 	styles = styles || defaultStyle
 	return (

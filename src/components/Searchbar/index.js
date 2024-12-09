@@ -7,17 +7,28 @@ import OpenInFull from '@mui/icons-material/OpenInFull';
 import DefaultPopup from '../Popup'
 import { tagsMatchExpression } from './TagMatchExpression'
 
-
+/**
+ * `Searchbar` is a component that provides a search input for filtering a list of cards based on tag expressions. 
+ * It includes a collapsible feature to expand the input for more complex queries.
+ * 
+ * @param {Object} props - The props for the `Searchbar` component.
+ * @param {function} onFilteredCardsChange - A callback to call when the filtered list of cards changes.
+ * 
+ * @returns {JSX.Element} A search bar with a standard input field and an expandable input modal.
+ */
 const Searchbar = ({ onFilteredCardsChange }) => {
+
+	// Retrieve cards and search term from context
 	const { cards } = useCards();
 	const { searchTerm, setSearchTerm } = useSearch()
 	const [expandOpen, setExpandOpen] = useState(false)
 
-
+	// Handle the change in search input
 	const handleSearchChange = (e) => {
 		setSearchTerm(e.target.value)
 	}
 
+	// Memoize the filtered and sorted cards based on the search term
 	const sortedAndFilteredCards = useMemo(() => {
 		if (searchTerm.length === 0)
 			return cards;
@@ -25,10 +36,12 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 		return cards.filter(card => tagsMatchExpression(searchTerm.toLowerCase(), card.tags.map(tag => tag.toLowerCase())));
 	}, [cards, searchTerm]);
 
+	// Update the filtered cards when the filtered list changes
 	useEffect(() => {
 		onFilteredCardsChange(sortedAndFilteredCards);
 	}, [sortedAndFilteredCards, onFilteredCardsChange]);
 
+	// TextField properties for the search input
 	const textFieldProps = {
 		placeholder: "tag1 ^ (tag2 | !tag3) & tag4",
 		value: searchTerm,
@@ -44,6 +57,14 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 		fullWidth: true,
 	}
 
+	/**
+	 * Returns the JSX structure for the Searchbar component.
+	 * 
+	 * Renders:
+	 * 1. A standard `TextField` for entering search queries.
+	 * 2. A small `Button` inside a `Tooltip` that expands the input into a modal.
+	 * 3. A `DefaultPopup` modal with a larger `TextField` for more complex search queries.
+	 */
 	return (
 		<>
 			<TextField {...textFieldProps} />
