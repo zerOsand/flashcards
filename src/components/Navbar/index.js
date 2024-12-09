@@ -16,7 +16,7 @@ const Navbars = styled(AppBar)(({ theme }) => ({
 /**
  * Using MUI, displays:
  * - A disabled logo button (`IconButton`), which can be enabled or customized.
- * - A title displayed in the center of the navbar.
+ * - A title displayed in the left of the navbar.
  * 
  * @returns {JSX.Element} The navigation bar with the logo and title.
  */

@@ -11,7 +11,6 @@ import { tagsMatchExpression } from './TagMatchExpression'
  * `Searchbar` is a component that provides a search input for filtering a list of cards based on tag expressions. 
  * It includes a collapsible feature to expand the input for more complex queries.
  * 
- * @param {Object} props - The props for the `Searchbar` component.
  * @param {function} onFilteredCardsChange - A callback to call when the filtered list of cards changes.
  * 
  * @returns {JSX.Element} A search bar with a standard input field and an expandable input modal.

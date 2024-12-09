@@ -48,7 +48,14 @@ function evaluateExpression(tokens, tags) {
 
 /**
  * `Descend` processes the logical expression, 
- * applying logical operations based on precedence and parentheses.
+ * applying logical operations based on the following
+ * grammar:
+ *
+ * Expression ::= Term '|' Term
+ *            ::= Term '^' Term
+ * Term       ::= Factor '&' Factor
+ * Factor     ::= id
+ *            ::= ! Factor
  * 
  * @param {Array} stack - The tokens to evaluate.
  * 

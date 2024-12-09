@@ -38,7 +38,7 @@ const defaultStyle = {
  * 
  * @returns {JSX.Element} A modal popup with a dark overlay and a centered modal box containing the passed content.
  */
-function DefaultPopup({ open, onClose, style, children }) {
+const DefaultPopup = ({ open, onClose, style, children }) => {
 	style = style || defaultStyle
 	return (
 		<Modal
