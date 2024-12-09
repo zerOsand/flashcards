@@ -18,12 +18,12 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 		setSearchTerm(e.target.value)
 	}
 
-	const sortedAndFilteredCards = useMemo(() => {
-		if (searchTerm.length === 0)
-			return cards
+const sortedAndFilteredCards = useMemo(() => {
+    if (searchTerm.length === 0)
+        return cards;
 
-		return cards.filter(card => tagsMatchExpression(searchTerm.toLowerCase(), card.tags))
-	}, [cards, searchTerm]);
+    return cards.filter(card => tagsMatchExpression(searchTerm.toLowerCase(), card.tags.map(tag => tag.toLowerCase())));
+}, [cards, searchTerm]);
 
 	useEffect(() => {
 		onFilteredCardsChange(sortedAndFilteredCards);
