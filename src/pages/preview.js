@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
+import { useSearch } from '../components/Searchbar/SearchContext.js'
 
 
 const PreviewPane = ({ index })  => {
@@ -18,9 +19,21 @@ const PreviewPane = ({ index })  => {
 	const [flipped, setFlipped] = useState(false)
 	const [open, setOpen] = useState(false)
 	const [removeOpen, setRemoveOpen] = useState(false)
+	const { searchTerm, setSearchTerm } = useSearch()
 
 	const handleTagClick = (tagIndex) => {
-		removeTag(activeIndex, tagIndex)
+		setSearchTerm((prev) => {
+			const trimmedPrev = prev.trimEnd();
+			const newTag = cards[activeIndex].tags[tagIndex]
+	
+			// Check if search is empty
+			if (trimmedPrev.length === 0) {
+				return newTag;
+			}
+			
+			// Else append the new tag
+			return `${trimmedPrev} ${/[\^&|]$/.test(trimmedPrev) ? '' : '| '}${newTag}`; 
+		});
 	};
 
 	useEffect(() => {
@@ -57,10 +70,6 @@ const PreviewPane = ({ index })  => {
 				>
 					{text}
 				</Typography>
-				<CloseIcon sx={{ marginLeft: 1,
-								cursor: 'pointer',
-								fontSize: 'small',
-								color: theme.palette.primary.light, }} />
 			</Box>
 		)
 	};
