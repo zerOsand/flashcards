@@ -191,15 +191,6 @@ export const CardProvider = ({children}) => {
 		});
 	};
 
-	const removeTag = (cardIndex, tagIndex) => {
-		setCards(prevCards =>
-			prevCards.map((card, i) => i === cardIndex
-						  ? { ...card, tags: card.tags.filter((_, tIndex) => tIndex !== tagIndex) }
-						  : card
-						 )
-		);
-	};
-
 	const assertValidCard = (front, back, tags) => {
 		if (typeof front !== 'string') {
 			throw new Error('front must be a string');
@@ -226,7 +217,7 @@ export const CardProvider = ({children}) => {
 	}
 
 	return (
-			<CardContext.Provider value={{ cards, addCard, editCard, getTags, modifyMastery, removeTag, removeCard, handleExportFlashcards, handleImportFlashcards, forceCards }}>
+			<CardContext.Provider value={{ cards, addCard, editCard, getTags, modifyMastery, removeCard, handleExportFlashcards, handleImportFlashcards, forceCards }}>
 				{children}
 
 				<Snackbar

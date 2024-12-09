@@ -15,7 +15,7 @@ import { useSearch } from '../components/Searchbar/SearchContext.js'
 const PreviewPane = ({ index })  => {
 	const theme = useTheme();
 	const {activeIndex, setActiveIndex} = index
-	const { cards, removeTag, removeCard } = useCards();
+	const { cards, removeCard } = useCards();
 	const [flipped, setFlipped] = useState(false)
 	const [open, setOpen] = useState(false)
 	const [removeOpen, setRemoveOpen] = useState(false)
