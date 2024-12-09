@@ -33,11 +33,11 @@ const PreviewPane = ({ index })  => {
 	
 			// Check if last char is a special char
 			if (/[\^&|]$/.test(trimmedPrev)) {
-				return `${trimmedPrev} ${newTag}`; 
+				return `${prev} ${/[\^&|]$/.test(trimmedPrev) ? '' : '| '}${newTag}`; 
 			}
 	
 			// Else append '| tag'
-			return `${trimmedPrev} | ${newTag}`; 
+			return `${prev} ${/[\^&|]$/.test(trimmedPrev) ? '' : '| '}${newTag}`; 
 		});
 	};
 
