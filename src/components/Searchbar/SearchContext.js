@@ -22,7 +22,7 @@ export const SearchProvider = ({ children }) => {
 };
 
 /**
- * `useSearch` is a custom hook that provides access to the `searchTerm` and `setSearchTerm` 
+ * Custom hook that provides access to the `searchTerm` and `setSearchTerm` 
  * from the `SearchContext`.
  * 
  * @returns {Object} An object containing `searchTerm` and `setSearchTerm`.

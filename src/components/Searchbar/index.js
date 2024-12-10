@@ -22,12 +22,20 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 	const { searchTerm, setSearchTerm } = useSearch()
 	const [expandOpen, setExpandOpen] = useState(false)
 
-	// Handle the change in search input
+	/**
+	 * Handles changes to the search input field and updates the search term in context.
+	 * 
+	 * @param {Object} e - The event object from the search input field.
+	 */
 	const handleSearchChange = (e) => {
 		setSearchTerm(e.target.value)
 	}
 
-	// Memoize the filtered and sorted cards based on the search term
+	/**
+	 * Filters and sorts the cards based on the current search term, memoized for performance.
+	 * 
+	 * @returns {Array} The filtered and sorted list of cards.
+	 */
 	const sortedAndFilteredCards = useMemo(() => {
 		if (searchTerm.length === 0)
 			return cards;
@@ -35,7 +43,11 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 		return cards.filter(card => tagsMatchExpression(searchTerm.toLowerCase(), card.tags.map(tag => tag.toLowerCase())));
 	}, [cards, searchTerm]);
 
-	// Update the filtered cards when the filtered list changes
+	/**
+	 * Updates the parent component or context when the filtered card list changes.
+	 * 
+	 * @param {Array} sortedAndFilteredCards - The updated filtered list of cards.
+	 */
 	useEffect(() => {
 		onFilteredCardsChange(sortedAndFilteredCards);
 	}, [sortedAndFilteredCards, onFilteredCardsChange]);

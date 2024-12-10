@@ -10,6 +10,11 @@ import ThumbUp from "@mui/icons-material/ThumbUp";
 import ThumbDown from "@mui/icons-material/ThumbDown";
 import Home from "@mui/icons-material/Home";
 
+/**
+ * `Practice` is a React component for practicing flashcards with feedback options.
+ * 
+ * @returns {JSX.Element} The practice interface for reviewing and updating card mastery.
+ */
 const Practice = () => {
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -20,6 +25,13 @@ const Practice = () => {
 	const [finished, setFinished] = useState(false);
 	const { modifyMastery } = useCards();
 
+	/**
+	 * Shuffles the array of flashcards.
+	 * 
+	 * @param {Array} array - The array to shuffle.
+	 * 
+	 * @returns {Array} The shuffled array.
+	 */
 	const shuffle = (array) => {
 		for (let i = array.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
@@ -28,13 +40,18 @@ const Practice = () => {
 		return array;
 	}
 
+	/**
+	 * Initializes the `cards` state by shuffling the cards from the location state.
+	 * Runs only on the initial render.
+	 */
 	useEffect(() => {
 		setCards(shuffle([...location.state?.cards || []]))
 	}, [])
 
 	/**
-	 * Given integer NUM to advance by,
-	 * updates the INDEX.
+	 * Advances the current index by a specified number and updates the flipped state.
+	 * 
+	 * @param {number} num - The number to advance the index by; positive or negative.
 	 */
 	const advance = (num) => {
 		let i = index + num;
@@ -56,10 +73,18 @@ const Practice = () => {
 		setFlipped((prev) => !prev);
 	}
 
+	/**
+	 * Navigates the user to the home page.
+	 */
 	const handleHome = () => {
 		navigate('/')
 	}
 
+	/**
+	 * Handles feedback for a card and updates its mastery level.
+	 * 
+	 * @param {number} points - The points to adjust mastery by; can be -2 or 1.
+	 */
 	const handleFeedback = (points) => {
 		modifyMastery(cards[Math.floor(index/2)].id, points);
 		if (points === -2) {
