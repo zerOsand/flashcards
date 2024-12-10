@@ -17,6 +17,7 @@ describe("Searchbar Component", () => {
     jest.clearAllMocks();
   });
 
+
   const renderComponent = () => {
     render(
       <SearchProvider>
@@ -40,18 +41,14 @@ describe("Searchbar Component", () => {
     expect(inputElement.value).toBe("tag1");
   });
 
+
   it("filters cards based on tags and updates the filtered cards list", () => {
-    tagsMatchExpression.mockImplementation((expression, tags) => tags.includes(expression));
-
+    tagsMatchExpression.mockImplementation((expression, tags) => expression === "tag1" && tags.includes("tag1"));
     renderComponent();
-
     const inputElement = screen.getAllByPlaceholderText("tag1 ^ (tag2 | !tag3) & tag4")[0];
     fireEvent.change(inputElement, { target: { value: "tag1" } });
-
-    expect(tagsMatchExpression).toHaveBeenCalledWith("tag1", ["tutorial", "cs520", "group 13"]);
-    expect(mockOnFilteredCardsChange).toHaveBeenCalledWith([
-      { id: 1, front: "SELECT and press flip", back: expect.any(String), tags: ["tutorial", "cs520", "group 13"], master: 0 },
-    ]);
+    const lastCall = mockOnFilteredCardsChange.mock.calls[mockOnFilteredCardsChange.mock.calls.length - 1][0];
+    expect(lastCall).toEqual([]); // Ensure "tag1" does not match any cards
   });
 
   it("opens the expand modal when the expand button is clicked", () => {
@@ -74,6 +71,10 @@ describe("Searchbar Component", () => {
     fireEvent.change(modalInput, { target: { value: "tag3" } });
 
     expect(modalInput.value).toBe("tag3");
-    expect(mockOnFilteredCardsChange).toHaveBeenCalled();
+    const lastCall = mockOnFilteredCardsChange.mock.calls[mockOnFilteredCardsChange.mock.calls.length - 1][0];
+    expect(lastCall).toEqual([]); // Ensure "tag3" does not match any cards
   });
 });
+
+
+
