@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, test, mock } from '@jest/globals';
 import jsCookie from 'js-cookie';
 import cookie from '../../utils/cookie';
 
-
 describe('cookies', () => {
 
 	beforeEach(() => {

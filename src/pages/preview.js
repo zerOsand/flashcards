@@ -10,7 +10,6 @@ import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import EditIcon from '@mui/icons-material/Edit';
 import { useSearch } from '../components/Searchbar/SearchContext.js';
 
-
 const PreviewPane = ({ index })  => {
 	const theme = useTheme();
 	const {activeIndex, setActiveIndex} = index

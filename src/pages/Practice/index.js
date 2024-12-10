@@ -10,7 +10,6 @@ import ThumbUp from "@mui/icons-material/ThumbUp";
 import ThumbDown from "@mui/icons-material/ThumbDown";
 import Home from "@mui/icons-material/Home";
 
-
 const Practice = () => {
 	const navigate = useNavigate()
 	const location = useLocation()

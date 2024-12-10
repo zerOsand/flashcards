@@ -17,7 +17,6 @@ describe("Searchbar Component", () => {
     jest.clearAllMocks();
   });
 
-
   const renderComponent = () => {
     render(
       <SearchProvider>

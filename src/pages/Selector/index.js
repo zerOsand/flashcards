@@ -5,7 +5,6 @@ import { useCards } from '../../state/CardProvider.js';
 import { useState, useEffect } from 'react';
 import { useTheme } from "@mui/material/styles";
 
-
 const Selector = ({onAdd, onRemove, tags}) => {
 	const theme = useTheme();
 

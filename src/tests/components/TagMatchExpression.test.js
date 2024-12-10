@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, test, mock } from '@jest/globals';
 import { tokenize, tagsMatchExpression } from '../../components/Searchbar/TagMatchExpression';
 
-
 describe('tokenize', () => {
 	test('single tag', () => {
 		const input = 'tag1'

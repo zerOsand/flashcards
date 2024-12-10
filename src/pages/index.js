@@ -11,7 +11,6 @@ import Searchbar from '../components/Searchbar';
 import { useCards } from "../state/CardProvider";
 import { useTheme } from "@mui/material/styles";
 
-
 const Home = () => {
 	const navigate = useNavigate()
 	const theme = useTheme();
