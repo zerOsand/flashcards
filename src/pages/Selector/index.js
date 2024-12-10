@@ -5,6 +5,15 @@ import { useCards } from '../../state/CardProvider.js';
 import { useState, useEffect } from 'react';
 import { useTheme } from "@mui/material/styles";
 
+/**
+ * `Selector` is a React component for managing and filtering tags with add/remove functionality.
+ * 
+ * @param {Function} onAdd - Callback for adding a new tag.
+ * @param {Function} onRemove - Callback for removing a tag or tags.
+ * @param {Array} tags - List of current tags to display.
+ * 
+ * @returns {JSX.Element} A tag management UI with input, filtering, and clickable lists.
+ */
 const Selector = ({onAdd, onRemove, tags}) => {
 	const theme = useTheme();
 
@@ -13,6 +22,16 @@ const Selector = ({onAdd, onRemove, tags}) => {
  	const [inputValue, setInputValue] = useState('')
 	const [matchedTags, setMatchedTags] = useState([])
 
+	/**
+	 * Filters tags based on user input and updates the matched tags list.
+	 * 
+	 * - Retrieves missing tags not already in the `tags` list.
+	 * - Matches missing tags against the `inputValue` (case-insensitive).
+	 * - Updates the `matchedTags` state with the matched tags.
+	 * 
+	 * @param {string} inputValue - The current input value used for filtering tags.
+	 * @param {Array} tags - The current list of selected tags.
+	 */
 	useEffect(() => {
 		const getMissingTags = () => {
 			return getTags().filter((tag) =>
@@ -27,22 +46,46 @@ const Selector = ({onAdd, onRemove, tags}) => {
 		matchTags()
 	}, [inputValue, tags]);
 
+	/**
+	 * Handles user input changes; updates input state after sanitizing.
+	 * 
+	 * @param {Object} event - The input change event.
+	 */
 	const handleInputChange = (event) => {
 		setInputValue(event.target.value.replace(/[^a-zA-Z0-9-]/g, ''))
 	}
 
+	/**
+	 * Adds a matched tag to the current tags list.
+	 * 
+	 * @param {number} index - Index of the matched tag to add.
+	 */
 	const handleAdd = (index) => {
 		onAdd(matchedTags[index])
 	}
 
+	/**
+	 * Removes a tag from the current tags list.
+	 * 
+	 * @param {number} index - Index of the tag to remove.
+	 */
 	const handleRemove = (index) => {
 		onRemove([tags[index]])
 	}
 
+	/**
+	 * Clears all current tags.
+	 */
 	const handleClear = () => {
 		onRemove(tags)
 	}
 
+	/**
+	 * Generates styles for tag items in the list.
+	 * 
+	 * @param {string} color - Text color for the tag item.
+	 * @returns {Object} Style object for the tag item.
+	 */
 	const ListTagSx = (color) => ({
 		fontFamily: theme.typography.fontFamily,
 		fontSize: '0.750rem',
@@ -55,6 +98,12 @@ const Selector = ({onAdd, onRemove, tags}) => {
 		color: color,
 	})
 
+	/**
+	 * Renders a filtered tag with primary text color.
+	 * 
+	 * @param {string} text - The text of the tag.
+	 * @returns {JSX.Element} Styled Typography component.
+	 */
 	const FilteredTags = (text) => {
 		return (
 				<Typography sx={ListTagSx(theme.palette.text.primary)} >
@@ -63,6 +112,12 @@ const Selector = ({onAdd, onRemove, tags}) => {
 		);
 	}
 
+	/**
+	 * Renders a current tag with primary main color.
+	 * 
+	 * @param {string} text - The text of the tag.
+	 * @returns {JSX.Element} Styled Typography component.
+	 */
 	const CurrentTags = (text) => {
 		return (
 				<Typography sx={ListTagSx(theme.palette.primary.main)} >
@@ -71,31 +126,11 @@ const Selector = ({onAdd, onRemove, tags}) => {
 		);
 	}
 
-	const selectorList = {
-		container: {
-			overflowY: 'auto',
-		},
-		grid: {
-			display: 'grid',
-			gridTemplateColumns: 'repeat(1, 1fr)',
-			margin: '4px',
-		},
-		item: (index, active) => ({
-			marginBottom: '4px',
-			borderRadius: '4px',
-			textAlign: 'center',
-			backgroundColor: theme.palette.background.paper,
-			height: '25px',
-			overflow: 'hidden',
-			boxSizing: 'border-box',
-			boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-			transition: "all 0.3s ease",
-			"&:hover": {
-				backgroundColor: theme.palette.background.default,
-			},
-		}),
-	}
-
+	/**
+	 * Adds a new tag if it is valid and not already in the current tags.
+	 * 
+	 * @returns {JSX.Element} A `ListItem` component for adding a new tag.
+	 */
 	const AddNew = () => {
 		const valid = !tags.includes(inputValue) && inputValue !== 'learning'
 		return (
@@ -121,6 +156,36 @@ const Selector = ({onAdd, onRemove, tags}) => {
 				{FilteredTags('+ '.concat(inputValue))}
 			</ListItem>
 		)
+	}
+
+	/**
+	 * Contains styles for the selector list and items.
+	 * 
+	 * @returns {Object} Style definitions for list and grid elements.
+	 */
+	const selectorList = {
+		container: {
+			overflowY: 'auto',
+		},
+		grid: {
+			display: 'grid',
+			gridTemplateColumns: 'repeat(1, 1fr)',
+			margin: '4px',
+		},
+		item: (index, active) => ({
+			marginBottom: '4px',
+			borderRadius: '4px',
+			textAlign: 'center',
+			backgroundColor: theme.palette.background.paper,
+			height: '25px',
+			overflow: 'hidden',
+			boxSizing: 'border-box',
+			boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+			transition: "all 0.3s ease",
+			"&:hover": {
+				backgroundColor: theme.palette.background.default,
+			},
+		}),
 	}
 
 	return (

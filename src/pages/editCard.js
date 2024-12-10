@@ -5,6 +5,14 @@ import { useCards } from '../state/CardProvider.js';
 import { Button, TextField, Typography, Box } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
 
+/**
+ * `EditCard` is a React component that renders a popup for editing or creating a flashcard with front, back, and tags.
+ * 
+ * @param {Object} popupState - The state of the popup (open/close).
+ * @param {Object} card - The card to edit or null for creating a new one.
+ * 
+ * @returns {JSX.Element} A `DefaultPopup` component with a form for editing/creating a flashcard.
+ */
 const EditCard = ({popupState, card}) => {
 	const {open, setOpen} = popupState
 	const theme = useTheme(); 
@@ -17,6 +25,11 @@ const EditCard = ({popupState, card}) => {
 		tags: card?.tags ?? [],
 	});
 
+	/**
+	 * Updates the card state when the `card` prop changes.
+	 * 
+	 * @param {Object} card - The new card data.
+	 */
     useEffect(() => {
         if (card) {
             setCardState({
@@ -28,8 +41,12 @@ const EditCard = ({popupState, card}) => {
         }
     }, [card]);
 
+	// Check if both front and back fields are filled to enable the save button
 	const isSaveEnabled = cardState.front.trim() !== "" && cardState.back.trim() !== "";
 
+    /**
+     * Handles saving the card, either adding a new card or editing an existing one.
+     */
 	const handleSave = () => {
 		const id = cardState.id;
 		const front = cardState.front.trim();

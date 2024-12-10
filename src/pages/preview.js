@@ -10,6 +10,11 @@ import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import EditIcon from '@mui/icons-material/Edit';
 import { useSearch } from '../components/Searchbar/SearchContext.js';
 
+/**
+ * `PreviewPane` is a React component that handles the rendering of the flashcards.
+ *
+ * @param {number} tagIndex - The index of the tag clicked.
+ */
 const PreviewPane = ({ index })  => {
 	const theme = useTheme();
 	const {activeIndex, setActiveIndex} = index
@@ -34,10 +39,17 @@ const PreviewPane = ({ index })  => {
 		});
 	};
 
+	/**
+	 * Runs every time the `activeIndex` changes. Resets the flipped state to false.
+	 */
 	useEffect(() => {
         setFlipped(false);
     }, [activeIndex]);
 
+	/**
+	 * Confirms the removal of a card. If the active card is the last one, it clears the active index.
+	 * Closes the remove confirmation dialog.
+	 */
 	const handleRemoveConfirm = () => {
 		removeCard(activeIndex);
 		if (activeIndex >= cards.length - 1)
@@ -45,6 +57,12 @@ const PreviewPane = ({ index })  => {
 		setRemoveOpen(false)
 	}
 
+	/**
+	 * Renders a tag box component with special styling for specific tags.
+	 * 
+	 * @param {string} text - The tag text to display.
+	 * @returns {JSX.Element} A box containing the tag text.
+	 */
 	const TagBox = (text) => {
 		const special = text === 'learning'
 		return (

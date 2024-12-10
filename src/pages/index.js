@@ -11,6 +11,12 @@ import Searchbar from '../components/Searchbar';
 import { useCards } from "../state/CardProvider";
 import { useTheme } from "@mui/material/styles";
 
+/**
+ * `Home` is the main landing page component that displays a list of flashcards, provides options for importing/exporting
+ * flashcards, and includes a preview pane and search functionality.
+ * 
+ * @returns {JSX.Element} The homepage layout with sidebar, flashcard list, and preview area.
+ */
 const Home = () => {
 	const navigate = useNavigate()
 	const theme = useTheme();
@@ -20,12 +26,26 @@ const Home = () => {
 	const [filteredCards, setFilteredCards] = useState(cards);
 	const [open, setOpen] = useState(false)
 
+	/**
+	 * Finds the index of a card in the full card array by comparing its ID.
+	 * 
+	 * @param {Array} array - The array of all cards.
+	 * @param {Object} target - The card object whose index is to be found.
+	 * @returns {number} The index of the card in the array.
+	 */
 	const convertIndex = (array, target) => {
 		return array.findIndex((item) => {
 			return item.id === target.id;
 		});
 	};
 
+	/**
+	 * Renders a list item for a flashcard with dynamic styling based on its active status.
+	 * 
+	 * @param {Object} card - The card data.
+	 * @param {boolean} active - Whether the card is active.
+	 * @returns {JSX.Element} A Typography component displaying the card front with appropriate styling.
+	 */
 	const ListCard = (card, active) => {
 		return (
 			<Typography
@@ -49,15 +69,32 @@ const Home = () => {
 		)
 	};
 
+	/**
+	 * Updates the list of filtered cards based on the search query.
+	 * 
+	 * @param {Array} newFilteredCards - The new list of filtered cards to display.
+	 * @returns {void}
+	 */
 	const handleFilteredCardsChange = (newFilteredCards) => {
 		setFilteredCards(newFilteredCards);
 	};
 
+	/**
+	 * Handles the click event on a card in the list, setting the active card index.
+	 * 
+	 * @param {number} index - The index of the clicked card in the filtered list.
+	 * @returns {void}
+	 */
 	const handleCardClick = (index) => {
 		// use the 'true' index
 		setActiveIndex(convertIndex(cards, filteredCards[index]));
 	};
 
+	/**
+	 * Navigates to the practice page, passing the filtered cards as state.
+	 * 
+	 * @returns {void}
+	 */
 	const handlePractice = () => {
 		navigate('/practice', { state: {cards: filteredCards} })
 	}

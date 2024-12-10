@@ -6,7 +6,6 @@ const SearchContext = createContext();
  * `SearchProvider` is a context provider that manages the global `searchTerm` state.
  * It allows child components to access and update the `searchTerm`.
  * 
- * @param {Object} props - The props for the `SearchProvider`.
  * @param {ReactNode} children - The components that will have access to the context value.
  * 
  * @returns {JSX.Element} A `SearchContext.Provider` that provides the `searchTerm` and `setSearchTerm`.
