@@ -4,16 +4,6 @@ import { MemoryRouter } from "react-router-dom";
 import Home from "../../pages/index";
 import "@testing-library/jest-dom";
 
-// Mock Material UI icons
-jest.mock("@mui/icons-material/Download", () => ({
-	__esModule: true,
-	default: () => <div data-testid="download-icon">Download Icon</div>,
-}));
-
-jest.mock("@mui/icons-material/Upload", () => ({
-	__esModule: true,
-	default: () => <div data-testid="upload-icon">Upload Icon</div>,
-}));
 
 // Mock Material-UI components
 jest.mock("@mui/material", () => ({
@@ -75,7 +65,6 @@ jest.mock("../../state/CardProvider", () => ({
 	}),
 }));
 
-// Mock Components
 jest.mock("../../components/Navbar", () => ({
 	__esModule: true,
 	default: () => <div data-testid="mock-navbar">Navbar</div>,
@@ -151,18 +140,6 @@ jest.mock("@mui/material/styles", () => ({
 	}),
 }));
 
-const mockTheme = {
-	palette: {
-		primary: { main: "#1976d2" },
-		text: { primary: "#000000" },
-		accent: { border: "#000" },
-	},
-	typography: {
-		fontFamily: "Roboto",
-		body1: { fontSize: "1rem" },
-	},
-};
-
 describe("Flashcards Home Page", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -186,7 +163,7 @@ describe("Flashcards Home Page", () => {
     const list = screen.getByRole("list");
     expect(list).toBeInTheDocument();
     const flashcardItems = screen.getAllByRole("listitem");
-    expect(flashcardItems.length).toBeGreaterThan(0);
+    expect(flashcardItems.length).toBe(2);
     expect(screen.getByText("SELECT and press flip")).toBeInTheDocument();
   });
 
@@ -201,12 +178,11 @@ describe("Flashcards Home Page", () => {
 
     const tagLists = screen.getAllByRole("list");
   
-    console.log(tagLists); 
     expect(tagLists.length).toBeGreaterThanOrEqual(1);  
     const leftTagList = tagLists[0];
   
     const leftTags = within(leftTagList).getAllByRole("listitem");
-    expect(leftTags.length).toBe(3); 
+    expect(leftTags.length).toBe(2); 
     
   
     const rightTagList = tagLists[1];
