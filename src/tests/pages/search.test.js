@@ -28,53 +28,56 @@ describe("Searchbar Component", () => {
     );
   };
 
-  it("renders the search bar with placeholder text", () => {
+  test("renders the search bar with placeholder text", () => {
     renderComponent();
-    const inputElement = screen.getAllByPlaceholderText("tag1 ^ (tag2 | !tag3) & tag4")[0];
+    const inputElement = screen.getByTestId("default-search-input");
     expect(inputElement).toBeInTheDocument();
   });
 
-  it("updates the search term state when the user types", () => {
+  test("updates the search term state when the user types", () => {
     renderComponent();
-    const inputElement = screen.getAllByPlaceholderText("tag1 ^ (tag2 | !tag3) & tag4")[0];
+    const inputElement = screen.getByTestId("default-search-input").querySelector("input");
     fireEvent.change(inputElement, { target: { value: "tag1" } });
     expect(inputElement.value).toBe("tag1");
   });
 
 
-  it("filters cards based on tags and updates the filtered cards list", () => {
+  test("filters cards based on tags and updates the filtered cards list", () => {
     tagsMatchExpression.mockImplementation((expression, tags) => expression === "tag1" && tags.includes("tag1"));
     renderComponent();
-    const inputElement = screen.getAllByPlaceholderText("tag1 ^ (tag2 | !tag3) & tag4")[0];
+    const inputElement = screen.getByTestId("default-search-input").querySelector("input");
     fireEvent.change(inputElement, { target: { value: "tag1" } });
     const lastCall = mockOnFilteredCardsChange.mock.calls[mockOnFilteredCardsChange.mock.calls.length - 1][0];
     expect(lastCall).toEqual([]); // Ensure "tag1" does not match any cards
   });
 
-  it("opens the expand modal when the expand button is clicked", () => {
+  test("opens the expand modal when the expand button is clicked", () => {
     renderComponent();
 
     const expandButton = screen.getByRole("button", { name: /expand input/i });
     fireEvent.click(expandButton);
 
-    const modalInput = screen.getAllByPlaceholderText("tag1 ^ (tag2 | !tag3) & tag4")[1];
+    const modalInput = screen.getByTestId("modal-search-input").querySelector("textarea");
     expect(modalInput).toBeInTheDocument();
   });
 
-  it("maintains consistent search functionality inside the expanded modal", () => {
+  test("maintains consistent search functionality inside the expanded modal", () => {
     renderComponent();
 
     const expandButton = screen.getByRole("button", { name: /expand input/i });
     fireEvent.click(expandButton);
 
-    const modalInput = screen.getAllByPlaceholderText("tag1 ^ (tag2 | !tag3) & tag4")[1];
+    const modalInput = screen.getByTestId("modal-search-input").querySelector("textarea");
     fireEvent.change(modalInput, { target: { value: "tag3" } });
 
     expect(modalInput.value).toBe("tag3");
+
     const lastCall = mockOnFilteredCardsChange.mock.calls[mockOnFilteredCardsChange.mock.calls.length - 1][0];
     expect(lastCall).toEqual([]); // Ensure "tag3" does not match any cards
   });
 });
 
 
+
+  
 
