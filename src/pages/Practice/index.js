@@ -1,15 +1,15 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
-import { useState, useEffect, } from 'react'
+import { useState, useEffect, } from 'react';
 import Navbar from "../../components/Navbar";
 import { useTheme } from "@mui/material/styles";
+import { useCards } from '../../state/CardProvider.js';
 
-import RotateLeft from "@mui/icons-material/RotateLeft"
-import ThumbUp from "@mui/icons-material/ThumbUp"
-import ThumbDown from "@mui/icons-material/ThumbDown"
-import Home from "@mui/icons-material/Home"
+import RotateLeft from "@mui/icons-material/RotateLeft";
+import ThumbUp from "@mui/icons-material/ThumbUp";
+import ThumbDown from "@mui/icons-material/ThumbDown";
+import Home from "@mui/icons-material/Home";
 
-import { useCards } from '../../state/CardProvider.js'
 
 const Practice = () => {
 	const navigate = useNavigate()

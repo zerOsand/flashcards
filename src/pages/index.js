@@ -3,11 +3,11 @@ import { Box, Typography, Button, Tooltip } from "@mui/material";
 import ClickList from "../components/ClickList";
 import DownloadIcon from '@mui/icons-material/Download';
 import UploadIcon from '@mui/icons-material/Upload';
-import EditCard from './editCard.js'
+import EditCard from './editCard.js';
 import Navbar from "../components/Navbar";
-import PreviewPane from './preview'
+import PreviewPane from './preview';
 import React, { useState } from "react";
-import Searchbar from '../components/Searchbar'
+import Searchbar from '../components/Searchbar';
 import { useCards } from "../state/CardProvider";
 import { useTheme } from "@mui/material/styles";
 

@@ -1,11 +1,11 @@
 import { TextField, InputAdornment, Button, Tooltip, Box } from "@mui/material";
-import { useState, useEffect, useMemo, createContext, } from 'react'
-import { useCards } from '../../state/CardProvider.js'
-import { useSearch } from './SearchContext.js'
+import { useState, useEffect, useMemo, createContext, } from 'react';
+import { useCards } from '../../state/CardProvider.js';
+import { useSearch } from './SearchContext.js';
 import SearchIcon from '@mui/icons-material/Search';
 import OpenInFull from '@mui/icons-material/OpenInFull';
-import DefaultPopup from '../Popup'
-import { tagsMatchExpression } from './TagMatchExpression'
+import DefaultPopup from '../Popup';
+import { tagsMatchExpression } from './TagMatchExpression';
 
 /**
  * `Searchbar` is a component that provides a search input for filtering a list of cards based on tag expressions. 

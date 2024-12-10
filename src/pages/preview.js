@@ -1,15 +1,14 @@
 import { Box, Typography, Button } from "@mui/material";
-import ClickList from '../components/ClickList'
-import ConfirmationPopup from './confirmPopup.js'
-import EditCard from './editCard.js'
-import { useCards } from '../state/CardProvider.js'
-import { useState, useEffect } from 'react'
+import ClickList from '../components/ClickList';
+import ConfirmationPopup from './confirmPopup.js';
+import EditCard from './editCard.js';
+import { useCards } from '../state/CardProvider.js';
+import { useState, useEffect } from 'react';
 import { useTheme } from "@mui/material/styles";
 import DeleteIcon from '@mui/icons-material/Delete';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import EditIcon from '@mui/icons-material/Edit';
-import CloseIcon from '@mui/icons-material/Close';
-import { useSearch } from '../components/Searchbar/SearchContext.js'
+import { useSearch } from '../components/Searchbar/SearchContext.js';
 
 
 const PreviewPane = ({ index })  => {

@@ -1,7 +1,7 @@
-import { useState, useEffect, } from 'react'
-import DefaultPopup from '../components/Popup'
-import Selector from './Selector'
-import { useCards } from '../state/CardProvider.js'
+import { useState, useEffect, } from 'react';
+import DefaultPopup from '../components/Popup';
+import Selector from './Selector';
+import { useCards } from '../state/CardProvider.js';
 import { Button, TextField, Typography, Box } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
 

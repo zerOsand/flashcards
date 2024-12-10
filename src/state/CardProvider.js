@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { Alert, Snackbar } from '@mui/material';
-import cookie from '../utils/cookie.js'
+import cookie from '../utils/cookie.js';
 
 const CardContext = createContext();
 

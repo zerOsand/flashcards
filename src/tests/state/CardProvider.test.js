@@ -1,4 +1,4 @@
-import { act } from 'react'
+import { act } from 'react';
 import { beforeEach, describe, expect, test, mock } from '@jest/globals';
 import { renderHook, waitFor } from '@testing-library/react';
 import { CardProvider, useCards } from '../../state/CardProvider.js';
