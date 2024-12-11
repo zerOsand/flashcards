@@ -1,5 +1,23 @@
 import { createTheme } from "@mui/material/styles";
 
+/**
+ * A custom Material-UI theme for the application.
+ *
+ * Palette:
+ * - Defines the primary, secondary, accent, and background colors for the application.
+ *
+ * Typography:
+ * - Custom font family and font sizes for headings, body text, and buttons.
+ *
+ * Shape:
+ * - Custom border radius for UI components (e.g., buttons, text fields, cards).
+ *
+ * Components:
+ * - Overrides default Material-UI component styles (MuiButton, MuiTextField, MuiCard).
+ *
+ * Custom UI Styles:
+ * - Cards list and tag list styles with responsive grid layouts and hover effects.
+ */
 const theme = createTheme({
 	palette: {
 		primary: {
@@ -87,7 +105,6 @@ theme.tagList = {
 			backgroundColor: theme.palette.background.default,
 		},
 	}),
-}
-
+};
 
 export default theme;

@@ -1,5 +1,5 @@
 /**
- * `tagsMatchExpression` evaluates a search expression against a list of tags.
+ * Evaluates a search expression against a list of tags.
  * It tokenizes the expression and uses logical operators (`&`, `|`, `^`, `!`) 
  * to check if the tags match the expression.
  * 
@@ -14,7 +14,7 @@ function tagsMatchExpression(expression, tags) {
 }
 
 /**
- * `evaluateExpression` processes tokens and evaluates a logical expression 
+ * Processes tokens and evaluates a logical expression 
  * using operators like AND (`&`), OR (`|`), XOR (`^`), and NOT (`!`).
  * 
  * @param {string[]} tokens - The list of tokens representing the logical expression.
@@ -47,7 +47,7 @@ function evaluateExpression(tokens, tags) {
 }
 
 /**
- * `Descend` processes the logical expression, 
+ * Processes the logical expression, 
  * applying logical operations based on the following
  * grammar:
  *
@@ -64,7 +64,7 @@ function evaluateExpression(tokens, tags) {
 function Descend(stack) {
 
 	/**
-     * `Expression` parses and evaluates a logical OR (`|`) or XOR (`^`) expression.
+     * Parses and evaluates a logical OR (`|`) or XOR (`^`) expression.
      * 
      * @returns {boolean} The result of the evaluated expression.
      */
@@ -83,7 +83,7 @@ function Descend(stack) {
 	}
 
 	/**
-     * `Term` parses and evaluates AND (`&`) expressions.
+     * Parses and evaluates AND (`&`) expressions.
      * 
      * @returns {boolean} The result of the evaluated term.
      */
@@ -98,7 +98,7 @@ function Descend(stack) {
 	}
 
     /**
-     * `Factor` processes individual tokens and applies the NOT (`!`) operator.
+     * Processes individual tokens and applies the NOT (`!`) operator.
      * Returns `true` if the token is invalid.
      * 
      * @returns {boolean} The result of the evaluated factor.
@@ -118,7 +118,7 @@ function Descend(stack) {
 }
 
 /**
- * `tokenize` splits a string expression into individual tokens (operators, tags, parentheses).
+ * Splits a string expression into individual tokens (operators, tags, parentheses).
  * 
  * @param {string} input - The expression to tokenize.
  * 

@@ -1,7 +1,16 @@
 import { Box, Button, Typography } from '@mui/material/';
 import DefaultPopup from "../components/Popup";
 
-
+/**
+ * `ConfirmationPopup` is a React component that renders a confirmation dialog with a message and options to cancel or confirm.
+ * 
+ * @param {boolean} open - A boolean that controls whether the popup is visible or not.
+ * @param {Function} onCancel - A function that is called when the cancel button is clicked.
+ * @param {Function} onConfirm - A function that is called when the confirm button is clicked.
+ * @param {string} message - The message displayed inside the popup.
+ * 
+ * @returns {JSX.Element} A `DefaultPopup` component with confirmation options.
+ */
 const ConfirmationPopup = ({ open, onCancel, onConfirm, message }) => {
     return (
         <DefaultPopup
