@@ -27,6 +27,42 @@ const Home = () => {
 		});
 	};
 
+	const cardsStyles = {
+		container: {
+			padding: '8px',
+			height: '100%',
+			overflowY: 'auto',
+		},
+		grid: {
+			display: 'grid',
+			gridTemplateColumns: 'repeat(2, 1fr)',
+			gap: '8px',
+		},
+		item: (index, active) => ({
+			borderRadius: '4px',
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+			backgroundColor:
+			index === active
+				? theme.palette.accent.main
+				: theme.palette.background.paper,
+			border: `2px solid ${
+					index === active
+						&& theme.palette.accent.border
+					}`,
+			height: '75px',
+			overflow: 'hidden',
+			boxSizing: 'border-box',
+			boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+			textAlign: "center",
+			transition: "all 0.3s ease",
+			"&:hover": {
+				backgroundColor: theme.palette.background.default,
+			},
+		}),
+	};
+
 	const ListCard = (card, active) => {
 		return (
 			<Typography
@@ -116,7 +152,7 @@ const Home = () => {
 											color: 'black',
 											transition: 'color 0.3s ease, color 0.3s ease',
 											'&:hover': {
-												color: theme.palette.accent.border
+												color: theme.palette.accent.border,
 											},
 										}} />
 									<input
@@ -154,7 +190,8 @@ const Home = () => {
 							Practice
 						</Button>
 						<Button disableRipple variant="contained"
-								onClick={(e) => setOpen(true)} >
+								onClick={(e) => setOpen(true)}
+								data-testid="add-card">
 							+
 						</Button>
 					</Box>
@@ -165,7 +202,7 @@ const Home = () => {
 						list={filteredCards}
 						item={ListCard}
 						event={handleCardClick}
-						styles={theme.cardsList}
+						styles={cardsStyles}
 					/>
 
 					 <EditCard popupState={{open, setOpen}} />
