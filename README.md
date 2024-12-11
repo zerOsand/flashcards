@@ -27,3 +27,78 @@ The purpose of using a tag-based system versus the traditional deck-based system
 To test the client, simply run the following command in your terminal after navigating to **Flashcards/**: `npm run test`.
 
 See /src/tests/README.org for information on tests.
+
+## Demo Flashcard Set
+
+Here is a sample flashcard set that you can save as a JSON file.
+
+```
+[
+  {
+    "id": 5,
+    "front": "Thor",
+    "back": "The Norse God of Thunder and son of Odin, Thor wields the enchanted hammer Mjolnir, which grants him the ability to control lightning and fly. He is a powerful warrior and member of the Avengers, defending Earth from cosmic threats.",
+    "tags": [
+      "Asgard",
+      "Avenger",
+      "Hammer",
+      "Marvel",
+      "Warrior"
+    ],
+    "master": 0
+  },
+  {
+    "id": 4,
+    "front": "Black Panther",
+    "back": "T'Challa is the king of Wakanda and the Black Panther, a warrior who possesses enhanced strength, agility, and senses from a heart-shaped herb. He also uses advanced technology, including the Vibranium suit, to protect his nation and the world.",
+    "tags": [
+      "Avenger",
+      "Claws",
+      "Marvel",
+      "Masked",
+      "Wakanda",
+      "Warrior"
+    ],
+    "master": 0
+  },
+  {
+    "id": 3,
+    "front": "Captain America",
+    "back": "Steve Rogers is a super-soldier enhanced by the \"Super Soldier Serum\" during World War II. He wields a vibranium shield and fights for justice, liberty, and the American way. He is a leader and key member of the Avengers.",
+    "tags": [
+      "Avenger",
+      "Marvel",
+      "NewYork",
+      "Shield",
+      "Warrior"
+    ],
+    "master": 0
+  },
+  {
+    "id": 2,
+    "front": "Iron Man",
+    "back": "Tony Stark, a genius billionaire inventor, creates a suit of armor to escape captivity and uses it to fight against threats. His suit grants him enhanced strength, flight, and advanced weaponry. He is one of the founding members of the Avengers.",
+    "tags": [
+      "Avenger",
+      "Lasers",
+      "Marvel",
+      "Masked",
+      "NewYork"
+    ],
+    "master": 0
+  },
+  {
+    "id": 1,
+    "front": "Spider-Man",
+    "back": "A teenager named Peter Parker gains superpowers after being bitten by a radioactive spider. His powers include wall-crawling, super agility, and a \"spider-sense\" for danger. He uses his intelligence to create web-shooters to swing through New York City.",
+    "tags": [
+      "Avenger",
+      "Marvel",
+      "Masked",
+      "NewYork",
+      "Webs"
+    ],
+    "master": 0
+  }
+]
+```
