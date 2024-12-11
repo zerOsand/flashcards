@@ -2,6 +2,8 @@
 
 ## Introduction
 
+[Video](https://youtu.be/3lISPV7zsWs)
+
 Tag-Based Flashcards is a project designed for CS520: Theory of Software Engineering class at the University of Massachusetts Amherst. In this project, we create a flashcard system that utilizes tags instead of decks.
 In this program, users can add, delete, or update any flashcards they create. For each flashcard, the user can add any tags they wish to identify each flashcard. To make the process easier for the user, after adding tags to a flashcard and saving the flashcard, our system stores the previously used tags for the users to seamlessly create new cards without the need to update their tags each time.
 
