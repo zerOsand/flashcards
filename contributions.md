@@ -9,7 +9,7 @@
 - [X] Import/Export Flashcards
 ```
 
-This document lists the contributions made by each member of the Tag-Based Flashcards Project.
+This document lists the contributions made by each member of the Tag-Based Flashcards Project. Due to time constraints, the list is not exhaustive of each member's contributions. Please consult the Pull Requests for the full list of contributions.
 
 ## [Reshma Ashok](https://github.com/ReshmaAshok)
 - Edit Card CSS Revision
