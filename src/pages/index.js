@@ -145,7 +145,6 @@ const Home = () => {
 									variant="standard"
 									sx={{ padding: '1px 2px', fontSize: '0.50rem', minWidth: '20px' }}
 									disableRipple
-									onClick={() => console.log("import!")}
 									component = "label"	// Opens file upload prompt for input
 								>
 									<UploadIcon fontSize="small" sx={{
@@ -160,6 +159,7 @@ const Home = () => {
 										accept="application/json"
 										hidden
 										onChange={handleImportFlashcards} 
+										data-testid = "import-input"
 									/>
 								</Button>
 							</Tooltip>
