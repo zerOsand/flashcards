@@ -30,7 +30,7 @@ const ClickList = ({ active, list, item, event, styles, prependItem }) => {
 	styles = styles || defaultStyle
 	return (
 		<Box sx={styles.container}>
-			<List sx = {styles.grid}>
+			<List sx={styles.grid} data-testid="cl-container" >
 				{prependItem && prependItem()}
 				{list.map((value, index) => {
 					return (

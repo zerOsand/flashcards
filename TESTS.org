@@ -272,6 +272,7 @@
 * Files tested using Workflows:
 
 Below lists each use case and diagram detailing possible system/user interactions.
+Used to design UI tests. Further visual of the CRUD UI test (a complicated one) is described below.
 
 *** Use Case 1: View Flashcards
   #+ATTR_HTML: :width 1100px
@@ -308,9 +309,7 @@ Below lists each use case and diagram detailing possible system/user interaction
   [[file:images/11.png]]
 
 
-** Workflows/Test cases
-
-*** create-addtag-view-edit-delete
+** CRUD UI Workflow
 
 | User Action                                          | System Reponse                                                                                                                                 | Use Case |
 |------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+----------|
