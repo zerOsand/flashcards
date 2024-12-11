@@ -36,6 +36,7 @@ const ClickList = ({ active, list, item, event, styles, prependItem }) => {
 						<ListItem key={index}
 								sx={{ ...styles.item(index,active), cursor: 'pointer', }}
 								onClick={(e) => {e.stopPropagation(); event(index);}}
+								data-testid="cl-item"
 						>
 							{item ? item(value, active === index) : <ListItemText primary={value} />}
 						</ListItem>

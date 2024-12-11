@@ -66,9 +66,6 @@ const Practice = () => {
 		if (i > cards.length * 2 - 1)
 			i = cards.length * 2 - 1
 		
-		console.log(i)
-		console.log(cards)
-
 		setIndex(i)
 		setFlipped((prev) => !prev);
 	}
