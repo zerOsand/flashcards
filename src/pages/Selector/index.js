@@ -2,14 +2,14 @@ import ClickList from '../../components/ClickList'
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, TextField, InputAdornment, Typography, ListItem, Button } from "@mui/material";
 import { useCards } from '../../state/CardProvider.js'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useTheme } from "@mui/material/styles";
 
 
-const Selector = ({onAdd, onRemove, tags}) => {
+const Selector = ({onAdd, onRemove, utags}) => {
 	const theme = useTheme();
 
-	tags = tags.filter(tag => tag !== 'learning')
+	const tags = useMemo(() => utags.filter(tag => tag !== 'learning'), [utags])
 	const { getTags } = useCards();
  	const [inputValue, setInputValue] = useState('')
 	const [matchedTags, setMatchedTags] = useState([])
