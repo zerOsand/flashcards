@@ -10,7 +10,7 @@ import { useTheme } from "@mui/material/styles";
  * 
  * @param {Function} onAdd - Callback for adding a new tag.
  * @param {Function} onRemove - Callback for removing a tag or tags.
- * @param {Array} utags - List of user tags to display.
+ * @param {Array} utags - List of unfiltered tags.
  * 
  * @returns {JSX.Element} A tag management UI with input, filtering, and clickable lists.
  */
