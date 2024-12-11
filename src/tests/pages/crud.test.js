@@ -75,7 +75,12 @@ describe("Flashcards Home Page", () => {
 
 	const renderHome = () => {
 		return render(
-			<MemoryRouter>
+			<MemoryRouter
+				future={{
+					v7_startTransition: true,
+					v7_relativeSplatPath: true,
+				}}
+			>
 				<ThemeProvider theme={createTheme(theme)}>
 					<div data-testid="card-provider">
 						<div data-testid="search-provider">
