@@ -26,7 +26,7 @@ The purpose of using a tag-based system versus the traditional deck-based system
 
 To test the client, simply run the following command in your terminal after navigating to **Flashcards/**: `npm run test`.
 
-See /src/tests/README.org for information on tests.
+See `/TESTS.ORG` for information on tests.
 
 ## Demo Flashcard Set
 
