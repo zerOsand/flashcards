@@ -10,35 +10,38 @@ import "@testing-library/jest-dom";
 
 jest.mock('@mui/icons-material')
 
-jest.mock("../../state/CardProvider", () => ({
-	__esModule: true,
-	CardProvider: ({ children }) => (
-		<div data-testid="card-provider">{children}</div>
-	),
-	useCards: () => ({
-		cards: [
-			{
-				id: 1,
-				front: "SELECT and press flip",
-				back: "Tutorial card",
-				tags: ["tutorial"],
-			},
-			{
-				id: 2,
-				front: "React Basics",
-				back: "Learn React",
-				tags: ["react"],
-			},
-		],
-		handleExportFlashcards: jest.fn(),
-		handleImportFlashcards: jest.fn(),
-		getTags: () => ["tutorial", "react"],
-		addCard: jest.fn(),
-		editCard: jest.fn(),
-		removeCard: jest.fn(),
-		modifyMastery: jest.fn(),
-	}),
-}));
+jest.mock("../../state/CardProvider", () => {
+    const addCard = jest.fn();
+    return {
+        __esModule: true,
+        CardProvider: ({ children }) => (
+            <div data-testid="card-provider">{children}</div>
+        ),
+        useCards: () => ({
+            cards: [
+                {
+                    id: 1,
+                    front: "SELECT and press flip",
+                    back: "Tutorial card",
+                    tags: ["tutorial"],
+                },
+                {
+                    id: 2,
+                    front: "React Basics",
+                    back: "Learn React",
+                    tags: ["react"],
+                },
+            ],
+            addCard,
+            editCard: jest.fn(),
+            removeCard: jest.fn(),
+            handleExportFlashcards: jest.fn(),
+            handleImportFlashcards: jest.fn(),
+            getTags: jest.fn(() => ["tutorial", "react"]),
+        }),
+    };
+});
+
 
 jest.mock('../../components/Searchbar/SearchContext.js', () => ({
 	__esModule: true,
@@ -169,5 +172,76 @@ describe("Flashcards Home Page", () => {
 		tagList = screen.queryAllByRole("listitem");
 		expect(tagList.length).toBe(1);
 	});
+
+	test("4.4-4.5 Clicking '+parenthesis' adds tag and clears search input", async () => {
+		renderHome();
+
+		fireEvent.click(screen.getByTestId("add-card"));
+		expect(screen.getByTestId("front-text")).toBeInTheDocument();
+		expect(screen.getByTestId("back-text")).toBeInTheDocument();
+
+		
+		const searchInput = screen.getByPlaceholderText("new-tag");
+		expect(searchInput).toBeInTheDocument();
+
+		
+	    userEvent.type(searchInput, "parenthesis");
+		
+
+		const createTagButton = await screen.findByTestId("create-tag");
+		expect(createTagButton).toBeInTheDocument();
+		expect(createTagButton.textContent).toBe("+ parenthesis");
+
+	
+		fireEvent.click(createTagButton);
+
+		expect(searchInput.value).toBe("");
+		const addedTagsList = screen.getAllByRole("list")[1]; 
+		const addedTags = within(addedTagsList).getAllByRole("listitem");
+		expect(addedTags.length).toBe(1);
+		expect(addedTags[0].textContent).toBe("parenthesis");
+	});
+
+	
+	test("2.3-2.6 Add new card with 'Scheme' in front and 'I love parenthesis' in back", async () => {
+		const { addCard } = require("../../state/CardProvider").useCards(); 
+	
+		renderHome();
+
+		fireEvent.click(screen.getByTestId("add-card"));
+		expect(screen.getByTestId("front-text")).toBeInTheDocument();
+		expect(screen.getByTestId("back-text")).toBeInTheDocument();
+	
+		const frontInput = screen.getByTestId("front-text").querySelector("textarea");
+		const backInput = screen.getByTestId("back-text").querySelector("textarea");
+	
+		expect(frontInput).not.toBeNull();
+		expect(backInput).not.toBeNull();
+		expect(frontInput.value).toBe("");
+		expect(backInput.value).toBe("");
+	
+		act(() => {
+			userEvent.type(frontInput, "Scheme");
+			userEvent.type(backInput, "I love parenthesis");
+		});
+	
+		await waitFor(() => {
+			expect(frontInput.value).toBe("Scheme");
+			expect(backInput.value).toBe("I love parenthesis");
+		});
+	
+		fireEvent.click(screen.getByText("Save"));
+
+		console.log("addCard calls:", addCard.mock.calls);
+	
+		expect(screen.queryByTestId("front-text")).not.toBeInTheDocument();
+		expect(screen.queryByTestId("back-text")).not.toBeInTheDocument();
+	
+		expect(addCard).toHaveBeenCalled();
+		const lastCallArgs = addCard.mock.calls[addCard.mock.calls.length - 1];
+		expect(lastCallArgs).toEqual(["Scheme", "I love parenthesis", []]);
+	});
+	
+	
 
 });
