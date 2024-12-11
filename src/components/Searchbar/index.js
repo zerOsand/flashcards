@@ -66,7 +66,7 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 	 */
 	return (
 		<>
-			<TextField {...textFieldProps} />
+			<TextField  data-testid="default-search-input" {...textFieldProps} />
 
 			<Tooltip title="Expand Input" arrow placement="top">
 				<Button
@@ -108,7 +108,7 @@ const Searchbar = ({ onFilteredCardsChange }) => {
 					}
 				}}
 			>
-				<TextField
+				<TextField data-testid="modal-search-input"
 					{...textFieldProps}
 					multiline
 					rows={3}

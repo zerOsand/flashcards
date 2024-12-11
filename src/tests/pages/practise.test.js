@@ -39,7 +39,12 @@ describe("Practice Component", () => {
 
 	const renderPractice = () => {
 		return render(
-			<MemoryRouter>
+			<MemoryRouter
+				future={{
+					v7_startTransition: true,
+					v7_relativeSplatPath: true,
+				}}
+			>
 				<ThemeProvider theme={theme}>
 					<Practice />
 				</ThemeProvider>

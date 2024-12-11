@@ -190,7 +190,8 @@ const Home = () => {
 							Practice
 						</Button>
 						<Button disableRipple variant="contained"
-								onClick={(e) => setOpen(true)} >
+								onClick={(e) => setOpen(true)}
+								data-testid="add-card">
 							+
 						</Button>
 					</Box>

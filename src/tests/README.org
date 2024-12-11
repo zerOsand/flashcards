@@ -273,31 +273,71 @@
 
 Below lists each use case and diagram detailing possible system/user interactions.
 
-** Use Case 1: View Flashcards
+*** Use Case 1: View Flashcards
   #+ATTR_HTML: :width 1100px
   [[file:images/1.png]]
-** Use Case 2: Create Flashcard
+*** Use Case 2: Create Flashcard
   #+ATTR_HTML: :width 1100px
   [[file:images/2.png]]
-** Use Case 3: View Flashcard
+*** Use Case 3: View Flashcard
   #+ATTR_HTML: :width 1100px
   [[file:images/3.png]]
-** Use Case 4: Add & Create Tag
+*** Use Case 4: Add & Create Tag
   #+ATTR_HTML: :width 1100px
   [[file:images/4.png]]
-** Use Case 5: Remove Tag
+*** Use Case 5: Remove Tag
   #+ATTR_HTML: :width 1100px
   [[file:images/5.png]]
-** Use Case 6: Edit Flashcard
+*** Use Case 6: Edit Flashcard
   #+ATTR_HTML: :width 1100px
   [[file:images/6.png]]
-** Use Case 7: Delete Flashcard
+*** Use Case 7: Delete Flashcard
   #+ATTR_HTML: :width 1100px
-  [[file:images/6.png]]
-** Use Case 8: Filter Flashcards
-** Use Case 9: Practice Flashcards
-** Use Case 10: Export Flashcards
-** Use Case 11: Import Flashcards
+  [[file:images/7.png]]
+*** Use Case 8: Filter Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/8.png]]
+*** Use Case 9: Practice Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/9.png]]
+*** Use Case 10: Export Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/10.png]]
+*** Use Case 11: Import Flashcards
+  #+ATTR_HTML: :width 1100px
+  [[file:images/11.png]]
+
+
+** Workflows/Test cases
+
+*** create-addtag-view-edit-delete
+
+| User Action                                          | System Reponse                                                                                                                                 | Use Case |
+|------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+----------|
+|                                                      | 1.3 The system displays a home page with a list of flashcards and a preview pane that says "Select a tag to preview."                          | #1       |
+| 2.1 Click on add button                              | 2.2 A modal appears with text entries for the front, back and a tag selector with two lists of tags; the left with three items and right empty |          |
+| 2.3 Enter "Scheme" into the front                    |                                                                                                                                                |          |
+| 2.4 Presses cancel                                   | 1.2 The modal closes and the system displays unmodified list of flashcards                                                                     |          |
+| 2.5 Click on add button                              | 2.2 A modal appears with text entries for the front, back and a tag selector                                                                   |          |
+|                                                      | 2.2 "Scheme" appears in the front                                                                                                              |          |
+| 4.1 Types "parenthesis" in the tag menu              | 4.2-3 The list of tags is filtered and only "+parenthesis" appears                                                                             |          |
+| 4.4 Click "+parenthesis"                             | 4.5 The user's search string is deleted from the text entry and "parenthesis" appears as the only item in the list of added tags               | #4       |
+| 2.3 Enter "I love parenthesis" into the back         |                                                                                                                                                |          |
+| 2.5 Presses submit                                   | 2.6 The modal disappears and the card "Scheme" appears in the lefthand flashcard list.                                                         | #2       |
+| 3.1 Click on "Scheme" card                           | 3.2 The system renders the word "Scheme" in the card preview. The tag "parenthesis" is displayed under it.                                     |          |
+|                                                      | 3.2 The "flip", "edit", and "delete buttons" on the right side become active                                                                   |          |
+| 3.3 Click on the "Flip" button                       | 3.4 The system renders the phrase "I love parenthesis" in the card preview                                                                     | #3       |
+| 6.1 Click on the "Edit" button                       | 6.2 A modal appears with text entries for the front, back and a tag selector with a list of tags                                               |          |
+|                                                      | 6.2 "Scheme" appears in the front, "I love parenthesis" appears in the back, and "parenthesis" appears in the selected tag list                |          |
+| 6.3 Enters "I love nested parenthesis" into the back |                                                                                                                                                |          |
+| 4.1 Selects "tutorial" from the tag menu             | 4.2-3"tutorial" appears alongside "parenthesis" in the added tags                                                                              | #4       |
+| 6.5 Presses submit                                   | 2.6 The modal disappears and the phrase "I love nested parenthesis" appears in the card preview and "tutorial" in the tag list                 | #6       |
+| 3.3 Click on the "Flip" button                       | 3.2 The system renders the word "Scheme" in the card preview                                                                                   | #3       |
+| 7.1 Click "Delete" button                            | 7.2 A modal confirmation appears containing the buttons "confirm" and "cancel"                                                                 |          |
+| 7.3 Click "Cancel" button                            | 1.2 The modal closes and the sustem displays unmodified list of flashcards                                                                     |          |
+| 7.1 Click "Delete" button                            | 7.2 A modal confirmation appears containing the buttons "confirm" and "cancel"                                                                 |          |
+| 7.4 Click "Confirm" button                           | 1.2 The modal closes and the "Scheme" card is deleted from the list. The "SELECT and flip" card is displayed in the preview pane               | #7       |
+
 
 * No Specific Strategy
 

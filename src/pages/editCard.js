@@ -82,6 +82,7 @@ const EditCard = ({popupState, card}) => {
 								value={cardState.front}
 								onChange={(e) => setCardState((prev) => ({ ...prev, front: e.target.value }))}
 								placeholder="Front of Flashcard"
+								data-testid="front-text"
 							/>
 						</Box>
 
@@ -97,6 +98,7 @@ const EditCard = ({popupState, card}) => {
 								value={cardState.back}
 								onChange={(e) => setCardState((prev) => ({ ...prev, back: e.target.value }))}
 								placeholder="Back of Flashcard"
+								data-testid="back-text"
 							/>
 						</Box>
 					</Box>
@@ -114,7 +116,7 @@ const EditCard = ({popupState, card}) => {
 							<Selector
 								onAdd={(e) => { setCardState((p) => ({ ...p, tags: [...p.tags, e]}))}}
 								onRemove={(e) => { setCardState((p) => ({ ...p, tags: p.tags.filter(tag => !e.includes(tag))}))}}
-								tags={cardState.tags}
+								utags={cardState.tags}
 							/>
 						</Box>
 					</Box>
