@@ -49,3 +49,4 @@ This document lists the contributions made by each member of the Tag-Based Flash
 
 ## [Soumya Somalaraju](https://github.com/soumya1292)
 - ./src/tests/pages/search.test.js (100%)
+- Fixed Clicklist display issue [PR#84](https://github.com/zerOsand/flashcards/pull/84)
