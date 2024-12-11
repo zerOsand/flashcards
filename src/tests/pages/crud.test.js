@@ -1,5 +1,6 @@
-import React from "react";
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import React, { act } from "react";
+import { render, screen, fireEvent, within, waitFor } from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from "react-router-dom";
 import Home from "../../pages/index";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -96,20 +97,20 @@ describe("Flashcards Home Page", () => {
 
 	test("2.1-2.2 Clicking add button shows a modal with text entries and tag selector", () => {
 		renderHome()
-		
+
 		fireEvent.click(screen.getByTestId("add-card"))
 		expect(screen.getByTestId("front-text")).toBeInTheDocument()
 		expect(screen.getByTestId("back-text")).toBeInTheDocument()
 
 		const tagLists = screen.getAllByRole("list")
-		
+
 		expect(tagLists.length).toBeGreaterThanOrEqual(1)
 		const leftTagList = tagLists[0]
-		
+
 		const leftTags = within(leftTagList).getAllByRole("listitem")
 		expect(leftTags.length).toBe(2)
-		
-		
+
+
 		const rightTagList = tagLists[1];
 		if (rightTagList) {
 			const rightTags = within(rightTagList).queryAllByRole("listitem")
@@ -117,28 +118,29 @@ describe("Flashcards Home Page", () => {
 		}
 	});
 
-	test("2.3-2.4 Modal input and cancel functionality", () => {
+	test("2.3-2.4 Modal input and cancel functionality", async () => {
 		renderHome();
 
 		fireEvent.click(screen.getByTestId("add-card"));
 		expect(screen.getByTestId("front-text")).toBeInTheDocument();
 		expect(screen.getByTestId("back-text")).toBeInTheDocument();
-	  
-	
+
 		const frontInput = screen.getByTestId("front-text").querySelector("textarea");
 		expect(frontInput).not.toBeNull();
-		fireEvent.change(frontInput, { target: { value: "Scheme" } });
-		expect(frontInput.value).toBe("Scheme");
-	  
+		act(() => {
+			userEvent.type(frontInput, "Scheme");
+		})
+		waitFor (() => {
+			expect(frontInput.value).toBe("Scheme");
+		})
+
 		fireEvent.click(screen.getByText("Cancel"));
 		expect(screen.queryByText("Create Flashcard")).not.toBeInTheDocument();
 		expect(screen.queryByText("Scheme")).not.toBeInTheDocument();
 		expect(screen.getByText("SELECT and press flip")).toBeInTheDocument();
 	  });
-	  
 
-	  
-	test("2.5 Add button, modal with Scheme in front, and tag filtering", () => {
+	test("2.5 Add button, modal with Scheme in front, and tag filtering", async () => {
 		renderHome();
 
 		fireEvent.click(screen.getByTestId("add-card"));
@@ -147,17 +149,20 @@ describe("Flashcards Home Page", () => {
 
 		const frontInput = screen.getByTestId("front-text").querySelector("textarea");
 		expect(frontInput).not.toBeNull();
-		expect(frontInput.value).toBe(""); 
+		expect(frontInput.value).toBe("");
 		let tagList = screen.queryAllByRole("listitem");
-		expect(tagList.length).toBeGreaterThan(0);
-		
-		const searchInput = screen.getByPlaceholderText("Search tags");
-		fireEvent.change(searchInput, { target: { value: "parenthesis" } });
+		expect(tagList.length).toBe(2);
 
-		expect(screen.getByText("+ parenthesis")).toBeInTheDocument();
+		const searchInput = screen.getByPlaceholderText('new-tag');
+		expect(searchInput).not.toBeNull();
+		act(() => {
+			userEvent.type(searchInput, "parenthesis");
+		})
+
+		expect(await screen.findByTestId("create-tag")).toBeInTheDocument();
 
 		tagList = screen.queryAllByRole("listitem");
-		expect(tagList.length).toBe(0);
+		expect(tagList.length).toBe(1);
 	});
 
 });

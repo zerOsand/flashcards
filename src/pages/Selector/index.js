@@ -118,6 +118,7 @@ const Selector = ({onAdd, onRemove, utags}) => {
 						},
 					}),
 				}}
+				data-testid="create-tag"
 				>
 				{FilteredTags('+ '.concat(inputValue))}
 			</ListItem>
