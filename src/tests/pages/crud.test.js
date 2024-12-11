@@ -116,42 +116,48 @@ describe("Flashcards Home Page", () => {
 			expect(rightTags.length).toBe(0)
 		}
 	});
-	
+
 	test("2.3-2.4 Modal input and cancel functionality", () => {
+		renderHome();
+
+		fireEvent.click(screen.getByTestId("add-card"));
+		expect(screen.getByTestId("front-text")).toBeInTheDocument();
+		expect(screen.getByTestId("back-text")).toBeInTheDocument();
+	  
+	
+		const frontInput = screen.getByTestId("front-text").querySelector("textarea");
+		expect(frontInput).not.toBeNull();
+		fireEvent.change(frontInput, { target: { value: "Scheme" } });
+		expect(frontInput.value).toBe("Scheme");
+	  
+		fireEvent.click(screen.getByText("Cancel"));
+		expect(screen.queryByText("Create Flashcard")).not.toBeInTheDocument();
+		expect(screen.queryByText("Scheme")).not.toBeInTheDocument();
+		expect(screen.getByText("SELECT and press flip")).toBeInTheDocument();
+	  });
+	  
+
+	  
+	test("2.5 Add button, modal with Scheme in front, and tag filtering", () => {
 		renderHome();
 
 		fireEvent.click(screen.getByTestId("add-card"));
 		expect(screen.getByTestId("front-text")).toBeInTheDocument()
 		expect(screen.getByTestId("back-text")).toBeInTheDocument()
 
-		const frontInput = screen.getByTestId("front-text")
-		fireEvent.change(frontInput, { target: { value: "Scheme" } });
-		expect(frontInput.value).toBe("Scheme");
-
-		// fireEvent.click(screen.getByText("Cancel"));
-		// expect(screen.queryByText("Create Flashcard")).not.toBeInTheDocument();
-		// expect(screen.queryByText("Scheme")).not.toBeInTheDocument();
-		// expect(screen.getByText("SELECT and press flip")).toBeInTheDocument();
-	});
-
-	// test("2.5 Add button, modal with Scheme in front, and tag filtering", () => {
-	// 	renderHome();
-
-	// 	fireEvent.click(screen.getByTestId("add-card"));
-	// 	expect(screen.getByTestId("front-text")).toBeInTheDocument()
-	// 	expect(screen.getByTestId("back-text")).toBeInTheDocument()
-
-	// 	const frontInput = screen.getByTestId("front-text")
-	// 	expect(frontInput.value).toBe(""); 
-	// 	let tagList = screen.queryAllByRole("listitem");
-	// 	expect(tagList.length).toBeGreaterThan(0);
+		const frontInput = screen.getByTestId("front-text").querySelector("textarea");
+		expect(frontInput).not.toBeNull();
+		expect(frontInput.value).toBe(""); 
+		let tagList = screen.queryAllByRole("listitem");
+		expect(tagList.length).toBeGreaterThan(0);
 		
-	// 	const searchInput = screen.getByPlaceholderText("Search tags");
-	// 	fireEvent.change(searchInput, { target: { value: "parenthesis" } });
+		const searchInput = screen.getByPlaceholderText("Search tags");
+		fireEvent.change(searchInput, { target: { value: "parenthesis" } });
 
-	// 	expect(screen.getByText("+parenthesis")).toBeInTheDocument();
-	// 	tagList = screen.queryAllByRole("listitem");
-	// 	expect(tagList.length).toBe(0);
-	// });
+		expect(screen.getByText("+ parenthesis")).toBeInTheDocument();
+
+		tagList = screen.queryAllByRole("listitem");
+		expect(tagList.length).toBe(0);
+	});
 
 });
