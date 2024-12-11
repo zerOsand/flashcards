@@ -30,13 +30,14 @@ const ClickList = ({ active, list, item, event, styles, prependItem }) => {
 	styles = styles || defaultStyle
 	return (
 		<Box sx={styles.container}>
-			<List sx = {styles.grid}>
+			<List sx={styles.grid} data-testid="cl-container" >
 				{prependItem && prependItem()}
 				{list.map((value, index) => {
 					return (
 						<ListItem key={index}
 								sx={{ ...styles.item(index,active), cursor: 'pointer', }}
 								onClick={(e) => {e.stopPropagation(); event(index);}}
+								data-testid="cl-item"
 						>
 							{item ? item(value, active === index) : <ListItemText primary={value} />}
 						</ListItem>

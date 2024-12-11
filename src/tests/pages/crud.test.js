@@ -1,5 +1,6 @@
-import React from "react";
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import React, { act } from "react";
+import { render, screen, fireEvent, within, waitFor } from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from "react-router-dom";
 import Home from "../../pages/index";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -9,7 +10,6 @@ import "@testing-library/jest-dom";
 
 jest.mock('@mui/icons-material')
 
-// Mock CardProvider
 jest.mock("../../state/CardProvider", () => ({
 	__esModule: true,
 	CardProvider: ({ children }) => (
@@ -38,17 +38,6 @@ jest.mock("../../state/CardProvider", () => ({
 		removeCard: jest.fn(),
 		modifyMastery: jest.fn(),
 	}),
-}));
-
-jest.mock("react-router-dom", () => ({
-	...jest.requireActual("react-router-dom"),
-	useNavigate: jest.fn(() => jest.fn()),
-  }));
-
-
-jest.mock("@mui/icons-material/Download", () => ({
-  __esModule: true,
-  default: () => <div data-testid="mock-download-icon">Download</div>,
 }));
 
 jest.mock('../../components/Searchbar/SearchContext.js', () => ({
@@ -81,12 +70,17 @@ jest.mock("../../components/Searchbar", () => ({
 
 describe("Flashcards Home Page", () => {
 	beforeEach(() => {
-		jest.clearAllMocks();
+		jest.clearAllMocks()
 	});
 
 	const renderHome = () => {
 		return render(
-			<MemoryRouter>
+			<MemoryRouter
+				future={{
+					v7_startTransition: true,
+					v7_relativeSplatPath: true,
+				}}
+			>
 				<ThemeProvider theme={createTheme(theme)}>
 					<div data-testid="card-provider">
 						<div data-testid="search-provider">
@@ -98,71 +92,82 @@ describe("Flashcards Home Page", () => {
 		);
 	};
 
-  test("1.3 The system displays a home page with a list of flashcards and a preview pane", () => {
-    renderHome();
-    expect(screen.getByText("Select a card for preview.")).toBeInTheDocument();
-    const list = screen.getByRole("list");
-    expect(list).toBeInTheDocument();
-    const flashcardItems = screen.getAllByRole("listitem");
-    expect(flashcardItems.length).toBe(2);
-    expect(screen.getByText("SELECT and press flip")).toBeInTheDocument();
-  });
+	test("1.3 The system displays a home page with a list of flashcards and a preview pane", () => {
+		renderHome();
+		expect(screen.getByText("Select a card for preview.")).toBeInTheDocument();
+		const flashcardItems = screen.getAllByTestId("cl-item")
+		expect(flashcardItems.length).toBe(2);
+		expect(screen.getByText("SELECT and press flip")).toBeInTheDocument();
+	});
 
-  // test("2.1-2.2 Clicking add button shows a modal with text entries and tag selector", () => {
-  //   renderHome();
-  
-  //   fireEvent.click(screen.getByText("+"));
+	test("2.1-2.2 Clicking add button shows a modal with text entries and tag selector", () => {
+		renderHome()
 
-  //   expect(screen.getByText("Add Flashcard")).toBeInTheDocument();
-  //   expect(screen.getByLabelText("Front")).toBeInTheDocument();
-  //   expect(screen.getByLabelText("Back")).toBeInTheDocument();
+		fireEvent.click(screen.getByTestId("add-card"))
+		expect(screen.getByTestId("front-text")).toBeInTheDocument()
+		expect(screen.getByTestId("back-text")).toBeInTheDocument()
 
-  //   const tagLists = screen.getAllByRole("list");
-  
-  //   expect(tagLists.length).toBeGreaterThanOrEqual(1);  
-  //   const leftTagList = tagLists[0];
-  
-  //   const leftTags = within(leftTagList).getAllByRole("listitem");
-  //   expect(leftTags.length).toBe(2); 
-    
-  
-  //   const rightTagList = tagLists[1];
-  //   if (rightTagList) {
-  //     const rightTags = within(rightTagList).queryAllByRole("listitem");
-  //     expect(rightTags.length).toBe(0); 
-  //   }
-  // });
-  
+		const tagLists = screen.getAllByRole("list")
 
-  // test("2.3-2.4 Modal input and cancel functionality", () => {
-  //   renderHome();
-  //   fireEvent.click(screen.getByText("+"));
-  //   const frontInput = screen.getByLabelText("Front");
-  //   fireEvent.change(frontInput, { target: { value: "Scheme" } });
-  //   expect(frontInput.value).toBe("Scheme");
+		expect(tagLists.length).toBeGreaterThanOrEqual(1)
+		const leftTagList = tagLists[0]
 
-  //   fireEvent.click(screen.getByText("Cancel"));
-  //   expect(screen.queryByText("Add Flashcard")).not.toBeInTheDocument();
-  //   expect(screen.queryByText("Scheme")).not.toBeInTheDocument();
-  //   expect(screen.getByText("SELECT and press flip")).toBeInTheDocument();
-  // });
+		const leftTags = within(leftTagList).getAllByRole("listitem")
+		expect(leftTags.length).toBe(2)
 
-  // test("2.5 Add button, modal with Scheme in front, and tag filtering", () => {
-  //   renderHome();
 
-  //   fireEvent.click(screen.getByText("+"));
-  //   expect(screen.getByText("Add Flashcard")).toBeInTheDocument(); 
-  
-  //   const frontInput = screen.getByLabelText("Front");
-  //   expect(frontInput.value).toBe("Scheme"); 
-  //   let tagList = screen.queryAllByRole("listitem");
-  //   expect(tagList.length).toBeGreaterThan(0);
-    
-  //   const searchInput = screen.getByPlaceholderText("Search tags");
-  //   fireEvent.change(searchInput, { target: { value: "parenthesis" } });
+		const rightTagList = tagLists[1];
+		if (rightTagList) {
+			const rightTags = within(rightTagList).queryAllByRole("listitem")
+			expect(rightTags.length).toBe(0)
+		}
+	});
 
-  //   expect(screen.getByText("+parenthesis")).toBeInTheDocument();
-  //   tagList = screen.queryAllByRole("listitem");
-  //   expect(tagList.length).toBe(0);    
-  // });
+	test("2.3-2.4 Modal input and cancel functionality", async () => {
+		renderHome();
+
+		fireEvent.click(screen.getByTestId("add-card"));
+		expect(screen.getByTestId("front-text")).toBeInTheDocument();
+		expect(screen.getByTestId("back-text")).toBeInTheDocument();
+
+		const frontInput = screen.getByTestId("front-text").querySelector("textarea");
+		expect(frontInput).not.toBeNull();
+		act(() => {
+			userEvent.type(frontInput, "Scheme");
+		})
+		waitFor (() => {
+			expect(frontInput.value).toBe("Scheme");
+		})
+
+		fireEvent.click(screen.getByText("Cancel"));
+		expect(screen.queryByText("Create Flashcard")).not.toBeInTheDocument();
+		expect(screen.queryByText("Scheme")).not.toBeInTheDocument();
+		expect(screen.getByText("SELECT and press flip")).toBeInTheDocument();
+	  });
+
+	test("2.5 Add button, modal with Scheme in front, and tag filtering", async () => {
+		renderHome();
+
+		fireEvent.click(screen.getByTestId("add-card"));
+		expect(screen.getByTestId("front-text")).toBeInTheDocument()
+		expect(screen.getByTestId("back-text")).toBeInTheDocument()
+
+		const frontInput = screen.getByTestId("front-text").querySelector("textarea");
+		expect(frontInput).not.toBeNull();
+		expect(frontInput.value).toBe("");
+		let tagList = screen.queryAllByRole("listitem");
+		expect(tagList.length).toBe(2);
+
+		const searchInput = screen.getByPlaceholderText('new-tag');
+		expect(searchInput).not.toBeNull();
+		act(() => {
+			userEvent.type(searchInput, "parenthesis");
+		})
+
+		expect(await screen.findByTestId("create-tag")).toBeInTheDocument();
+
+		tagList = screen.queryAllByRole("listitem");
+		expect(tagList.length).toBe(1);
+	});
+
 });
