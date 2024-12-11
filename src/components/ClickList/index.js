@@ -16,7 +16,6 @@ const defaultStyle = {
 /**
  * `ClickList` is a React component that renders a clickable list with optional custom styles and an optional prepended item.
  * 
- * @param {Object} props - The input properties for the `ClickList` component.
  * @param {number} active - The index of the active item, used to highlight it.
  * @param {Array} list - An array of items to display in the list.
  * @param {Function} [item] - Optional: A custom function to render list items.

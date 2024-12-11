@@ -30,7 +30,6 @@ const defaultStyle = {
 /**
  * `DefaultPopup` is a modal component that displays content in a customizable popup window. 
  * 
- * @param {Object} props - The props for the `DefaultPopup` component.
  * @param {boolean} open - Controls whether the modal is open or closed.
  * @param {function} onClose - Function to call when the modal is closed (usually by clicking the overlay).
  * @param {Object} [style] - Optional custom styles for the overlay and modal box.

@@ -1,4 +1,4 @@
-import jsCookie from 'js-cookie'
+import jsCookie from 'js-cookie';
 
 const cookie = {
 	get: (key) => jsCookie.get(key),
