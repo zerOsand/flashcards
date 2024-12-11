@@ -22,6 +22,9 @@ The purpose of using a tag-based system versus the traditional deck-based system
 5. After running `serve -s build` to create a local server with the default port 3000, follow or paste the localhost link in your browser http://localhost:3000/ to access the homepage. 
 6. To close the server, press CTRL+C in your terminal.
 
+Note if the above does not work for you, consider running the development server:
+`npm run start`
+
 ## Test The Client
 
 To test the client, simply run the following command in your terminal after navigating to **Flashcards/**: `npm run test`.
