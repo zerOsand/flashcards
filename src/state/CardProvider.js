@@ -26,6 +26,13 @@ This application was created as part of the CS520 Software Testing class at the 
 	}
 ]
 
+/**
+ * `CardProvider` provides context for managing flashcards.
+ * 
+ * @param {Object} children - Child components that will have access to the CardContext.
+ * 
+ * @returns {JSX.Element} A `CardContext.Provider` wrapping the child components.
+ */
 export const CardProvider = ({children}) => {
 	const [cards, setCards] = useState(() => {
 		const cookieValue = cookie.get('cards');
@@ -38,6 +45,7 @@ export const CardProvider = ({children}) => {
 	const [snackbarMessage, setSnackbarMessage] = useState(""); 
 	const [snackbarSeverity, setSnackbarSeverity] = useState("success"); 
 
+	// Updates card ID and saves cards in cookies when cards change
 	useEffect(() => {
 		if (cards?.length > 0) {
 			sid(cards.reduce((max, card) => Math.max(max, card.id), 0));
@@ -48,12 +56,24 @@ export const CardProvider = ({children}) => {
 		}
 	}, [cards]);
 
+	/**
+	 * Adds a new card with the specified `front`, `back`, and `tags`.
+	 * 
+	 * @param {string} front - The front text of the flashcard.
+	 * @param {string} back - The back text of the flashcard.
+	 * @param {Array} tags - Tags associated with the flashcard.
+	 */
 	const addCard = (front, back, tags) => {
 		assertValidCard(front, back, tags)
 		const newCard = { id: id + 1, front, back, tags: tags.sort(), master: 0 };
 		setCards(prevCards => [newCard, ...prevCards]); 
 	};
 
+	/**
+	 * Removes a card at the specified index.
+	 * 
+	 * @param {number} index - The index of the card to remove.
+	 */
 	const removeCard = (index) => {
 		if (index < 0 || index > cards.length-1)
 			throw new Error('invalid index')
@@ -64,6 +84,14 @@ export const CardProvider = ({children}) => {
 		);
 	};
 
+	/**
+	 * Edits a card by its ID, updating the front, back, and tags.
+	 * 
+	 * @param {number} id - The ID of the card to edit.
+	 * @param {string} front - The new front text of the flashcard.
+	 * @param {string} back - The new back text of the flashcard.
+	 * @param {Array} tags - The new tags for the flashcard.
+	 */
 	const editCard = (id, front, back, tags) => {
 		assertValidCard(front, back, tags)
 		const index = cards.findIndex(card => card.id === id);
@@ -72,6 +100,11 @@ export const CardProvider = ({children}) => {
 		setCards([...cards.slice(0, index), { ...cards[index], front, back, tags: tags.sort() }, ...cards.slice(index + 1)])
 	};
 
+	/**
+	 * Returns a sorted list of unique tags from all cards.
+	 * 
+	 * @returns {Array} A sorted array of unique tags.
+	 */
 	const getTags = () => {
 		const tags = new Set()
 		cards.forEach((card) => {
@@ -82,6 +115,12 @@ export const CardProvider = ({children}) => {
 		return Array.from(tags).sort()
 	}
 
+	/**
+	 * Modifies the mastery level of a card identified by its ID.
+	 * 
+	 * @param {number} id - The ID of the card to modify.
+	 * @param {number} num - The amount to modify the mastery level by.
+	 */
 	const modifyMastery = (id, num) => {
 		if (typeof num !== 'number')
 			throw new Error('num must be an number')
@@ -102,6 +141,11 @@ export const CardProvider = ({children}) => {
 											}, ...cards.slice(index + 1)])
 	}
 
+	/**
+	 * Exports filtered flashcards as a JSON file.
+	 * 
+	 * @param {Array} filteredCards - The cards to export.
+	 */
 	const handleExportFlashcards = ( filteredCards ) => {
 		// first, save the filtered flashcards as a json
 		const jsonCards = JSON.stringify(filteredCards, null, 2);
@@ -124,6 +168,11 @@ export const CardProvider = ({children}) => {
 		URL.revokeObjectURL(link.href);
 	};
 
+	/**
+	 * Handles importing flashcards from a JSON file.
+	 * 
+	 * @param {Object} event - The file input event containing the uploaded file.
+	 */
 	const handleImportFlashcards = (event) => {
 		const file = event.target.files[0];
 	
@@ -167,6 +216,12 @@ export const CardProvider = ({children}) => {
 		}
 	};
 
+	/**
+	 * Validates the structure of imported flashcards.
+	 * 
+	 * @param {Array} data - The imported flashcard data to validate.
+	 * @returns {boolean} `true` if data is valid, otherwise `false`.
+	 */
 	const validateFlashcardData = (data) => {
 		if (!Array.isArray(data)) return false; // Ensure the data is an array
 	
@@ -191,6 +246,13 @@ export const CardProvider = ({children}) => {
 		});
 	};
 
+	/**
+	 * Checks if card details are valid (front, back, tags).
+	 * 
+	 * @param {string} front - The front text of the card.
+	 * @param {string} back - The back text of the card.
+	 * @param {Array} tags - The tags for the card.
+	 */
 	const assertValidCard = (front, back, tags) => {
 		if (typeof front !== 'string') {
 			throw new Error('front must be a string');
@@ -206,10 +268,11 @@ export const CardProvider = ({children}) => {
 		}
 	}
 
-
 	/**
-	 * The following methods only exist for testing purposes.
-	 * They are not used during normal execution.
+	 * Sets a specified list of cards for testing purposes.
+	 * This function is not called during normal execution.
+	 * 
+	 * @param {Array} c - The list of cards to set.
 	 */
 	const forceCards = (c) => {
 		setCards(c)
